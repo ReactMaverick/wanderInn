@@ -1,7 +1,7 @@
 import { Slot, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { SplashScreen } from "expo-router";
-import CustomSplashScreen from "./splash";
+import CustomSplashScreen from "@/components/splash/Splash";
 
 export default function RootLayout() {
 
