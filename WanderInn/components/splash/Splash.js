@@ -1,10 +1,29 @@
 import { styles } from "./Style";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Text, View, Animated, Image } from "react-native";
 
 export default function CustomSplashScreen() {
+    // Initial value for opacity: 0
+    const positionAnim = useRef(new Animated.Value(500)).current; // Initial value for translateY: 1
+
+    useEffect(() => {
+
+
+        Animated.timing(
+            positionAnim,
+            {
+                toValue: 0,
+                duration: 1000,
+                useNativeDriver: true,
+            }
+        ).start();
+    }, [])
     return (
         <View style={styles.container}>
-            <Text>Custom Splash Screen</Text>
+
+            <Animated.Image style={{ ...styles.LogoImg, transform: [{ translateY: positionAnim }] }}
+                source={require('@/assets/images/Wabderlnn.png')}
+            />
         </View>
     );
 }

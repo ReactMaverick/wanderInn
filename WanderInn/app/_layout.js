@@ -9,9 +9,9 @@ export default function RootLayout() {
 
   useEffect(() => {
 
-    setTimeout(() => {
-      setIsAppReady(true);
-    }, 5000);
+    // setTimeout(() => {
+    //   setIsAppReady(true);
+    // }, 5000);
 
     const hideSplashScreen = setTimeout(() => {
       SplashScreen.hideAsync();
