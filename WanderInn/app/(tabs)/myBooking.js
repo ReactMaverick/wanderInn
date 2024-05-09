@@ -1,18 +1,7 @@
-import { StyleSheet, View, Text } from 'react-native';
-
+import MyBookingPage from "@/pages/myBooking/MyBooking";
 
 export default function MyBookingScreen() {
     return (
-        <View style={styles.container}>
-            <Text>My Booking</Text>
-        </View>
+        <MyBookingPage />
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    }
-});
