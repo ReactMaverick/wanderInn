@@ -1,12 +1,42 @@
 import { Stack } from "expo-router";
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from "react";
 
-export default function RootLayout() {
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
+
+const LoginStack = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="index"
+        name="login"
         options={{
-          headerShown: false
+          title: "Login",
+        }}
+      />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+
+  // Splash Screen auto-hide delay
+  useEffect(() => {
+    const hideSplashScreen = setTimeout(() => {
+      SplashScreen.hideAsync();
+    }, 3000);
+
+    return () => {
+      clearTimeout(hideSplashScreen);
+    }
+  });
+
+  return (
+    <Stack>
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen
