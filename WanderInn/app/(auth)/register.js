@@ -1,10 +1,13 @@
+import { router } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
+
     return (
         <View style={styles.container}>
-            <Text>Login Screen</Text>
+            <Text>Register Screen</Text>
         </View>
     );
 }
