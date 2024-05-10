@@ -15,6 +15,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         backgroundColor: colors.inputColor
     },
+    requiredTextColor: {
+        color: 'red',
+    },
     errorText: {
         color: 'red',
         fontSize: 12,
