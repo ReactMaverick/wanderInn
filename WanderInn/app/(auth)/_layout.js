@@ -2,7 +2,6 @@ import { Redirect, Slot, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 
 const AuthStack = () => {
-
     return (
         <Stack>
             <Stack.Screen
