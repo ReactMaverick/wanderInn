@@ -160,7 +160,7 @@ export default function LoginPage() {
             </View>
 
             <View style={styles.loginLinkContainer}>
-                <Text style={styles.orLoginWithText}>Already have an account? <Link href='/login' style={styles.loginLink}>Login</Link></Text>
+                <Text style={styles.orLoginWithText}>Dont have an account? <Link href='/register' style={styles.loginLink}>Sign up</Link></Text>
             </View>
 
         </View>

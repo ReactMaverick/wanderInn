@@ -1,5 +1,5 @@
 import { colors } from "@/constants/colors";
-import { deviceHeight } from "@/constants/constants";
+import { deviceHeight, deviceWidth } from "@/constants/constants";
 import { H6, p, smallS } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
@@ -26,5 +26,8 @@ export const styles = StyleSheet.create({
     errorText: {
         color: 'red',
         fontSize: smallS,
+        position: 'absolute',
+        bottom: 0,
+        left: deviceWidth * 1 / 50,
     },
 });

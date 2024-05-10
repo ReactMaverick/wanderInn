@@ -22,4 +22,7 @@ export const commonStyles = StyleSheet.create({
     fontFamily: 'LatoRegular',
     lineHeight: 32,
   },
+  bg: {
+    backgroundColor: colors.screenBg,
+  },
 });

@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         fontSize: H1BIG,
         fontFamily: 'LatoBold',
         lineHeight: 51.2,
-        marginBottom: 10,
+        marginBottom: 5,
         color: colors.headlineColor,
     },
     headerSubText: {
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     },
     orLoginWithText: {
         color: colors.placeholderColor,
-        fontSize: 16,
+        fontSize: p,
         textAlign: 'center',
         marginHorizontal: 20,
     },

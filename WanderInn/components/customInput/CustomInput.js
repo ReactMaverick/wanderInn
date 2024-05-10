@@ -19,7 +19,7 @@ export default function CustomInput({
     onIconPress,
 }) {
     return (
-        <View>
+        <View >
             <Text style={styles.inputLabel}>{label}{required && <Text style={styles.requiredTextColor}> *</Text>}</Text>
             <View style={{ position: 'relative' }}>
                 <TextInput
@@ -43,11 +43,12 @@ export default function CustomInput({
                         <Ionicons name={rightIcon} size={20} color={iconColor ?? 'black'} />
                     </TouchableOpacity>
                 }
+                {error &&
+                    <Text style={styles.errorText}>{errorText}</Text>
+                }
             </View>
 
-            {error &&
-                <Text style={styles.errorText}>{errorText}</Text>
-            }
+
         </View>
     );
 }

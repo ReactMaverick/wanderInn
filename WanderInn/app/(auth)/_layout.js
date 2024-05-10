@@ -23,6 +23,12 @@ const AuthStack = () => {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="verifyOTP"
+                options={{
+                    headerShown: false,
+                }}
+            />
         </Stack>
     );
 }
