@@ -16,4 +16,5 @@ export const colors = {
   checkIconColor: '#2ED297',
   gray: '#66717E',
   placeholderColor: '#AEBBCC',
+  screenBg: '#F6F8FC',
 };

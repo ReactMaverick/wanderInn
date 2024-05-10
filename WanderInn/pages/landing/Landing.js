@@ -1,10 +1,12 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { styles } from './Style';
 import { BG, TEXTVECTOR } from '@/constants/images';
 import { colors } from '@/constants/colors';
 
 export default function LandingPage() {
+    const router = useRouter();
+
     return (
         <ImageBackground source={BG} resizeMode="cover" style={styles.container}>
             <View style={styles.MainBg}>
@@ -16,7 +18,9 @@ export default function LandingPage() {
                 </View>
                 <View style={styles.BottomBox}>
                     <Text style={styles.paraHighlight}>Your Gateway to Memorable Stays</Text>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity onPress={() => {
+                        router.push('login');
+                    }} style={styles.btn}>
                         <Text style={styles.btnText}>Lets Get Started</Text>
                     </TouchableOpacity>
                 </View>

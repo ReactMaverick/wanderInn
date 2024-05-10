@@ -1,27 +1,29 @@
 import { colors } from "@/constants/colors";
+import { deviceHeight, deviceWidth } from "@/constants/common";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: 50,
-        paddingHorizontal: 20,
+        paddingBottom: deviceHeight * 5 / 100,
+        paddingHorizontal: deviceWidth * 5 / 100,
     },
     MainBg: {
         flex: 1,
         justifyContent: "space-between",
     },
     TextTitle: {
-        marginTop: 100,
-        height: 396,
+        marginTop: deviceHeight * 5 / 50,
+        height: deviceHeight * 30 / 50,
         flexDirection: "column",
         justifyContent: "center",
         position: "relative",
+        // backgroundColor: 'red'
     },
     BgImg: {
         position: "absolute",
-        top: "41%",
-        left: -10,
+        top: deviceHeight * 20 / 80,
+        left: deviceWidth * -2 / 100,
         width: "70%",
         height: 70,
         objectFit: "cover",
@@ -43,10 +45,9 @@ export const styles = StyleSheet.create({
         fontFamily: 'LatoRegular',
         textTransform: "capitalize",
         lineHeight: 34.72,
+        paddingRight: deviceWidth * 10 / 100,
     },
-    BottomBox: {
 
-    },
     btn: {
         backgroundColor: colors.primary,
         paddingVertical: 15,

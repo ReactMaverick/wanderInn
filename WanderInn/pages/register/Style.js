@@ -1,12 +1,14 @@
 import { colors } from "@/constants/colors";
-import { deviceWidth } from "@/constants/common";
+import { deviceHeight, deviceWidth } from "@/constants/common";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: deviceWidth * 5 / 100,
+        backgroundColor: colors.screenBg,
     },
     titleContainer: {
         marginBottom: 40,
@@ -14,8 +16,9 @@ export const styles = StyleSheet.create({
         alignItems: "center",
     },
     headerText: {
-        fontSize: 30,
-        fontWeight: '600',
+        fontSize: 32,
+        fontFamily: 'LatoBold',
+        lineHeight: 51.2,
         marginBottom: 10,
         color: colors.headlineColor,
     },
@@ -23,9 +26,11 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: colors.gray,
         textAlign: 'center',
+        fontFamily: 'LatoRegular',
+        lineHeight: 20.32,
     },
     formContainer: {
-        width: deviceWidth * 0.9,
+        width: deviceWidth * 5 / 5.6,
     },
     registerButton: {
         backgroundColor: colors.primary,
