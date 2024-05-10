@@ -1,6 +1,7 @@
+import { LOGO } from "@/constants/images";
 import { styles } from "./Style";
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Animated, Image } from "react-native";
+import { StyleSheet, Text, View, Animated, } from "react-native";
 
 export default function CustomSplashScreen() {
     // Initial value for opacity: 0
@@ -22,7 +23,7 @@ export default function CustomSplashScreen() {
         <View style={styles.container}>
 
             <Animated.Image style={{ ...styles.LogoImg, transform: [{ translateY: positionAnim }] }}
-                source={require('@/assets/images/Wabderlnn.png')}
+                source={LOGO}
             />
         </View>
     );
