@@ -20,7 +20,7 @@ export default function CustomInput({
 }) {
     return (
         <View>
-            <Text style={styles.inputLabel}>{label}</Text>
+            <Text style={styles.inputLabel}>{label}{required && <Text style={styles.requiredTextColor}> *</Text>}</Text>
             <View style={{ position: 'relative' }}>
                 <TextInput
                     style={inputStyle ?? styles.input}

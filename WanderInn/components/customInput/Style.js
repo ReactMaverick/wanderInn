@@ -17,6 +17,9 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.inputColor,
         fontFamily: 'LatoRegular',
     },
+    requiredTextColor: {
+        color: 'red',
+    },
     errorText: {
         color: 'red',
         fontSize: 12,
