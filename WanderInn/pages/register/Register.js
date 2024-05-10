@@ -5,9 +5,13 @@ import { colors } from '@/constants/colors';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { isValidEmail, isValidPassword } from '@/constants/common';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '@/firebaseConfig';
+import { isValidEmail } from '@/constants/validation';
 
 export default function RegisterPage() {
+
+    // const auth = getAuth();
 
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -38,6 +42,53 @@ export default function RegisterPage() {
         setErrors(updatedErrors);
     }
 
+    const handleSignUp = () => {
+        const updatedErrors = {};
+
+        if (!formData.name) {
+            updatedErrors.name = 'Name is required';
+            setErrors(updatedErrors);
+        } else if (formData.name.length < 3) {
+            updatedErrors.name = 'Name must be at least 3 characters';
+            setErrors(updatedErrors);
+        } else if (!formData.email) {
+            updatedErrors.email = 'Email is required';
+            setErrors(updatedErrors);
+        } else if (!isEmailValid) {
+            updatedErrors.email = 'Email is invalid';
+            setErrors(updatedErrors);
+        } else if (!formData.password) {
+            updatedErrors.password = 'Password is required';
+            setErrors(updatedErrors);
+        } else if (!formData.confirmPassword) {
+            updatedErrors.confirmPassword = 'Confirm Password is required';
+            setErrors(updatedErrors);
+        } else if (formData.password.length < 8) {
+            updatedErrors.password = 'Password must be at least 8 characters';
+            setErrors(updatedErrors);
+        } else if (formData.password !== formData.confirmPassword) {
+            updatedErrors.confirmPassword = 'Passwords do not match';
+            setErrors(updatedErrors);
+        } else if (Object.keys(updatedErrors).length === 0) {
+            console.log('Form Data ==> ', formData);
+
+            createUserWithEmailAndPassword(auth, formData.email, formData.password)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+
+                    console.log('User ==> ', user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                });
+
+        }
+    }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -52,6 +103,9 @@ export default function RegisterPage() {
                     label="Name"
                     placeholder="Enter your name"
                     onChangeText={(text) => handleTextChange(text, 'name')}
+                    required={true}
+                    error={errors.name ? true : false}
+                    errorText={errors.name}
                 />
                 <CustomInput
                     label="Email"
@@ -59,6 +113,9 @@ export default function RegisterPage() {
                     rightIcon={isEmailValid ? "checkmark-circle" : false}
                     iconColor={colors.checkIconColor}
                     onChangeText={(text) => handleTextChange(text, 'email')}
+                    required={true}
+                    error={errors.email ? true : false}
+                    errorText={errors.email}
                 />
                 <CustomInput
                     label="Password"
@@ -69,6 +126,10 @@ export default function RegisterPage() {
                     onIconPress={() => {
                         setIsPasswordVisible(!isPasswordVisible);
                     }}
+                    onChangeText={(text) => handleTextChange(text, 'password')}
+                    required={true}
+                    error={errors.password ? true : false}
+                    errorText={errors.password}
                 />
                 <CustomInput
                     label="Confirm Password"
@@ -79,8 +140,15 @@ export default function RegisterPage() {
                     onIconPress={() => {
                         setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
                     }}
+                    onChangeText={(text) => handleTextChange(text, 'confirmPassword')}
+                    required={true}
+                    error={errors.confirmPassword ? true : false}
+                    errorText={errors.confirmPassword}
                 />
-                <TouchableOpacity style={styles.registerButton}>
+                <TouchableOpacity
+                    style={styles.registerButton}
+                    onPress={handleSignUp}
+                >
                     <Text style={styles.registerButtonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>

@@ -1,8 +1,3 @@
-import { Dimensions } from "react-native";
-
-export const deviceWidth = Dimensions.get('window').width;
-export const deviceHeight = Dimensions.get('window').height;
-
 export const isValidEmail = (email) => {
     const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(email);
