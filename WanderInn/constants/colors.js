@@ -13,4 +13,7 @@ export const colors = {
   inputShadow: 'rgba(30, 51, 80, 0.03)',
   boxShadowColor: 'rgba(31, 138, 252, 0.12)',
   borderDarkColor: '#9FADBE',
+  checkIconColor: '#2ED297',
+  gray: '#66717E',
+  placeholderColor: '#AEBBCC',
 };
