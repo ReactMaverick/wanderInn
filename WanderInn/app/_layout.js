@@ -20,18 +20,11 @@ export default function RootLayout() {
 
     setTimeout(() => {
       setIsAppReady(true);
-    }, 5000);
+    }, 2000);
 
-    const hideSplashScreen = setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 3000);
-
-    return () => {
-      clearTimeout(hideSplashScreen);
-    };
   });
 
-  if (!isAppReady && !loaded) {
+  if (!isAppReady || !loaded) {
     return (
       <CustomSplashScreen />
     );

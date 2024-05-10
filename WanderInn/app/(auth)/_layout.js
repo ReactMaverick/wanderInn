@@ -1,3 +1,5 @@
+import { showToast } from '@/constants/constants';
+import { auth } from '@/firebaseConfig';
 import { Redirect, Slot, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
@@ -37,6 +39,18 @@ export default function AuthLayout() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // console.log('User is logged in', user);
+            if (user.emailVerified) {
+                setIsLoggedIn(true);
+            } else {
+                console.log('User is not verified');
+            }
+        } else {
+            console.log('User is logged out');
+        }
+    });
     // useEffect(() => {
     //     setTimeout(() => {
     //         setIsLoggedIn(true);

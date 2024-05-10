@@ -1,13 +1,13 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { styles } from './Style';
 import CustomInput from '@/components/customInput/CustomInput';
 import { colors } from '@/constants/colors';
 import { useState } from 'react';
 import { Link } from 'expo-router';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '@/firebaseConfig';
+import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { auth, googleProvider, writeUserData } from '@/firebaseConfig';
 import { isValidEmail } from '@/constants/validation';
-import { showToast } from '@/constants/constants';
+import { platform, showToast } from '@/constants/constants';
 import Loader from '@/components/loader/Loader';
 import { commonStyles } from '@/constants/styles';
 import { FACEBOOK, GOOGLE, TWTTER } from '@/constants/images';
@@ -83,6 +83,8 @@ export default function RegisterPage() {
                     console.log('User ==> ', user);
 
                     showToast('success', 'User created successfully');
+
+                    writeUserData(user.uid, formData.name, formData.email);
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -104,11 +106,14 @@ export default function RegisterPage() {
                         confirmPassword: ''
                     });
 
+                    setIsEmailValid(false);
+
                     setErrors({});
                 });
 
         }
     }
+
 
     if (isLoading) {
         return <Loader />;
@@ -116,107 +121,120 @@ export default function RegisterPage() {
 
 
     return (
-        <ScrollView style={commonStyles.bg}>
-            <View style={styles.container}>
+        <KeyboardAvoidingView
+            behavior={platform === "ios" ? "padding" : "height"}
+            style={commonStyles.keyboardAvoidingView}
+        >
+            <SafeAreaView>
+                <ScrollView
+                    style={commonStyles.bg}
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <View style={styles.container}>
 
-                <View style={styles.titleContainer}>
-                    <Text style={styles.headerText}>Create Account</Text>
-                    <Text style={styles.headerSubText}>
-                        Fill Your Information below or register
-                        with your account
-                    </Text>
-                </View>
-                <View style={styles.InputContainer}>
-                    <View style={styles.formContainer}>
-                        <CustomInput
-                            label="Name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChangeText={(text) => handleTextChange(text, 'name')}
-                            required={true}
-                            error={errors.name ? true : false}
-                            errorText={errors.name}
-                        />
-                        <CustomInput
-                            label="Email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            rightIcon={isEmailValid ? "checkmark-circle" : false}
-                            iconColor={colors.checkIconColor}
-                            onChangeText={(text) => handleTextChange(text, 'email')}
-                            required={true}
-                            error={errors.email ? true : false}
-                            errorText={errors.email}
-                        />
-                        <CustomInput
-                            label="Password"
-                            placeholder="Enter your password"
-                            value={formData.password}
-                            secureTextEntry={!isPasswordVisible}
-                            rightIcon={isPasswordVisible ? "eye-outline" : "eye-off-outline"}
-                            iconColor={colors.gray}
-                            onIconPress={() => {
-                                setIsPasswordVisible(!isPasswordVisible);
-                            }}
-                            onChangeText={(text) => handleTextChange(text, 'password')}
-                            required={true}
-                            error={errors.password ? true : false}
-                            errorText={errors.password}
-                        />
-                        <CustomInput
-                            label="Confirm Password"
-                            placeholder="Confirm your password"
-                            value={formData.confirmPassword}
-                            secureTextEntry={!isConfirmPasswordVisible}
-                            rightIcon={isConfirmPasswordVisible ? "eye-outline" : "eye-off-outline"}
-                            iconColor={colors.gray}
-                            onIconPress={() => {
-                                setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
-                            }}
-                            onChangeText={(text) => handleTextChange(text, 'confirmPassword')}
-                            required={true}
-                            error={errors.confirmPassword ? true : false}
-                            errorText={errors.confirmPassword}
-                        />
-                        <TouchableOpacity
-                            style={[commonStyles.btn, { marginTop: 27 }]}
-                            onPress={handleSignUp}
-                        >
-                            <Text style={commonStyles.btnText}>Sign Up</Text>
-                        </TouchableOpacity>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.headerText}>Create Account</Text>
+                            <Text style={styles.headerSubText}>
+                                Fill Your Information below or register
+                                with your account
+                            </Text>
+                        </View>
+                        <View style={styles.InputContainer}>
+                            <View style={styles.formContainer}>
+                                <CustomInput
+                                    label="Name"
+                                    placeholder="Enter your name"
+                                    value={formData.name}
+                                    onChangeText={(text) => handleTextChange(text, 'name')}
+                                    required={true}
+                                    error={errors.name ? true : false}
+                                    errorText={errors.name}
+                                />
+                                <CustomInput
+                                    label="Email"
+                                    placeholder="Enter your email"
+                                    value={formData.email}
+                                    rightIcon={isEmailValid ? "checkmark-circle" : false}
+                                    iconColor={colors.checkIconColor}
+                                    onChangeText={(text) => handleTextChange(text, 'email')}
+                                    required={true}
+                                    error={errors.email ? true : false}
+                                    errorText={errors.email}
+                                />
+                                <CustomInput
+                                    label="Password"
+                                    placeholder="Enter your password"
+                                    value={formData.password}
+                                    secureTextEntry={!isPasswordVisible}
+                                    rightIcon={isPasswordVisible ? "eye-outline" : "eye-off-outline"}
+                                    iconColor={colors.gray}
+                                    onIconPress={() => {
+                                        setIsPasswordVisible(!isPasswordVisible);
+                                    }}
+                                    onChangeText={(text) => handleTextChange(text, 'password')}
+                                    required={true}
+                                    error={errors.password ? true : false}
+                                    errorText={errors.password}
+                                />
+                                <CustomInput
+                                    label="Confirm Password"
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    secureTextEntry={!isConfirmPasswordVisible}
+                                    rightIcon={isConfirmPasswordVisible ? "eye-outline" : "eye-off-outline"}
+                                    iconColor={colors.gray}
+                                    onIconPress={() => {
+                                        setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+                                    }}
+                                    onChangeText={(text) => handleTextChange(text, 'confirmPassword')}
+                                    required={true}
+                                    error={errors.confirmPassword ? true : false}
+                                    errorText={errors.confirmPassword}
+                                />
+                                <TouchableOpacity
+                                    style={[commonStyles.btn, { marginTop: 27 }]}
+                                    onPress={handleSignUp}
+                                >
+                                    <Text style={commonStyles.btnText}>Sign Up</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={styles.orLoginWith}>
+                                <View style={styles.orLoginWithLine} />
+                                <Text style={styles.orLoginWithText}>Or login with</Text>
+                                <View style={styles.orLoginWithLine} />
+                            </View>
+                            {/* Social Media Login Buttons */}
+                            <View style={styles.SocialMediaLogin} >
+                                <TouchableOpacity style={styles.SocoalButton}>
+                                    <Image source={FACEBOOK} style={styles.socialMediaIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.SocoalButton}>
+                                    <Image source={TWTTER} style={styles.socialMediaIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.SocoalButton}
+                                >
+                                    <Image source={GOOGLE} style={styles.socialMediaIcon} />
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Social Media Login Buttons */}
+                        </View>
+
+                        {/* Verify OTP */}
+                        <Link href='verifyOTP' style={styles.loginLink}>Verify OTP</Link>
+
+                        {/* Verify OTP */}
+
+                        <View style={styles.loginLinkContainer}>
+                            <Text style={styles.orLoginWithText}>Already have an account? <Link href='/login' style={styles.loginLink}>Login</Link></Text>
+                        </View>
+
                     </View>
-
-                    <View style={styles.orLoginWith}>
-                        <View style={styles.orLoginWithLine} />
-                        <Text style={styles.orLoginWithText}>Or login with</Text>
-                        <View style={styles.orLoginWithLine} />
-                    </View>
-                    {/* Social Media Login Buttons */}
-                    <View style={styles.SocialMediaLogin} >
-                        <TouchableOpacity style={styles.SocoalButton}>
-                            <Image source={FACEBOOK} style={styles.socialMediaIcon} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.SocoalButton}>
-                            <Image source={TWTTER} style={styles.socialMediaIcon} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.SocoalButton}>
-                            <Image source={GOOGLE} style={styles.socialMediaIcon} />
-                        </TouchableOpacity>
-                    </View>
-
-                    {/* Social Media Login Buttons */}
-                </View>
-
-                {/* Verify OTP */}
-                <Link href='verifyOTP' style={styles.loginLink}>Verify OTP</Link>
-
-                {/* Verify OTP */}
-
-                <View style={styles.loginLinkContainer}>
-                    <Text style={styles.orLoginWithText}>Already have an account? <Link href='/login' style={styles.loginLink}>Login</Link></Text>
-                </View>
-
-            </View>
-        </ScrollView>
+                </ScrollView>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }

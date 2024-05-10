@@ -8,7 +8,9 @@ import { initializeApp } from 'firebase/app';
 // import {...} from "firebase/storage";
 // Have to do ts-ignore as getReactNativePersistence is not detected by ts compiler with firebase 10.3.0
 // @ts-ignore 
-import { getAuth, initializeAuth } from "firebase/auth";
+import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getDatabase, ref, set } from "firebase/database";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -28,4 +30,18 @@ const app = initializeApp(firebaseConfig);
 
 
 // Initialize Firebase Authentication and get a reference to the service
-export const auth = getAuth(app);
+const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
+
+const db = getDatabase(app);
+
+const writeUserData = (userId, name, email, imageUrl) => {
+    set(ref(db, 'users/' + userId), {
+        username: name,
+        email: email,
+        profile_picture: imageUrl ?? ''
+    });
+}
+
+export { auth, db, writeUserData };

@@ -25,4 +25,7 @@ export const commonStyles = StyleSheet.create({
   bg: {
     backgroundColor: colors.screenBg,
   },
+  keyboardAvoidingView: {
+    flex: 1,
+  }
 });
