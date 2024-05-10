@@ -1,18 +1,17 @@
-import { View, Text, Touchable, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { styles } from './Style';
 import CustomInput from '@/components/customInput/CustomInput';
 import { colors } from '@/constants/colors';
 import { useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '@/firebaseConfig';
 import { isValidEmail } from '@/constants/validation';
+import { showToast } from '@/constants/constants';
+import Loader from '@/components/loader/Loader';
 
 export default function RegisterPage() {
-
-    // const auth = getAuth();
-
+    const [isLoading, setIsLoading] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
@@ -72,20 +71,45 @@ export default function RegisterPage() {
         } else if (Object.keys(updatedErrors).length === 0) {
             console.log('Form Data ==> ', formData);
 
+            setIsLoading(true);
+
             createUserWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
 
                     console.log('User ==> ', user);
+
+                    showToast('success', 'User created successfully');
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     // ..
+
+                    console.log('Error ==> ', errorCode, errorMessage);
+
+                    showToast('error', errorMessage);
+
+                })
+                .finally(() => {
+                    setIsLoading(false);
+
+                    setFormData({
+                        name: '',
+                        email: '',
+                        password: '',
+                        confirmPassword: ''
+                    });
+
+                    setErrors({});
                 });
 
         }
+    }
+
+    if (isLoading) {
+        return <Loader />;
     }
 
 
@@ -102,6 +126,7 @@ export default function RegisterPage() {
                 <CustomInput
                     label="Name"
                     placeholder="Enter your name"
+                    value={formData.name}
                     onChangeText={(text) => handleTextChange(text, 'name')}
                     required={true}
                     error={errors.name ? true : false}
@@ -110,6 +135,7 @@ export default function RegisterPage() {
                 <CustomInput
                     label="Email"
                     placeholder="Enter your email"
+                    value={formData.email}
                     rightIcon={isEmailValid ? "checkmark-circle" : false}
                     iconColor={colors.checkIconColor}
                     onChangeText={(text) => handleTextChange(text, 'email')}
@@ -120,6 +146,7 @@ export default function RegisterPage() {
                 <CustomInput
                     label="Password"
                     placeholder="Enter your password"
+                    value={formData.password}
                     secureTextEntry={!isPasswordVisible}
                     rightIcon={isPasswordVisible ? "eye-outline" : "eye-off-outline"}
                     iconColor={colors.gray}
@@ -134,6 +161,7 @@ export default function RegisterPage() {
                 <CustomInput
                     label="Confirm Password"
                     placeholder="Confirm your password"
+                    value={formData.confirmPassword}
                     secureTextEntry={!isConfirmPasswordVisible}
                     rightIcon={isConfirmPasswordVisible ? "eye-outline" : "eye-off-outline"}
                     iconColor={colors.gray}
