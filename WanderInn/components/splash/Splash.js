@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Animated, Image } from "react-native";
 
 export default function CustomSplashScreen() {
     // Initial value for opacity: 0
-    const positionAnim = useRef(new Animated.Value(500)).current; // Initial value for translateY: 1
+    const positionAnim = useRef(new Animated.Value(600)).current; // Initial value for translateY: 1
 
     useEffect(() => {
 

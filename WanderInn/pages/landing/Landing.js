@@ -5,7 +5,12 @@ import { styles } from './Style';
 export default function LandingPage() {
     return (
         <View style={styles.container}>
-            <Text>Landing Screen</Text>
+            <View style={styles.TextTitle}>
+                <Text style={styles.heading}>explore</Text>
+                <Text style={styles.heading}>to endlessly</Text>
+                <Text style={styles.heading}>with WanderInn</Text>
+            </View>
+
             <Link href='/login'>Get Started</Link>
         </View>
     )
