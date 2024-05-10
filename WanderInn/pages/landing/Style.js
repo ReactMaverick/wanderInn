@@ -1,5 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
+import { H3 } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -46,21 +47,21 @@ export const styles = StyleSheet.create({
         textTransform: "capitalize",
         lineHeight: 34.72,
         paddingRight: deviceWidth * 10 / 100,
+        marginBottom: deviceHeight * 5 / 100,
     },
 
-    btn: {
-        backgroundColor: colors.primary,
-        paddingVertical: 15,
-        borderRadius: 10,
-        marginTop: 32,
-        width: "100%",
-    },
-    btnText: {
-        textAlign: "center",
-        color: colors.white,
-        fontSize: 20,
-        fontFamily: 'LatoRegular',
-        lineHeight: 32,
-    },
+    // btn: {
+    //     backgroundColor: colors.primary,
+    //     paddingVertical: deviceHeight * 1 / 50,
+    //     borderRadius: 10,
+    //     width: "100%",
+    // },
+    // btnText: {
+    //     textAlign: "center",
+    //     color: colors.white,
+    //     fontSize: H3,
+    //     fontFamily: 'LatoRegular',
+    //     lineHeight: 32,
+    // },
 
 });

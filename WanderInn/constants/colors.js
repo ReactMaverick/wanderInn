@@ -17,4 +17,5 @@ export const colors = {
   gray: '#66717E',
   placeholderColor: '#AEBBCC',
   screenBg: '#F6F8FC',
+  borderLightColor: '#CDD8E7',
 };

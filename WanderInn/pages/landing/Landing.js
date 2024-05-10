@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-nati
 import { styles } from './Style';
 import { BG, TEXTVECTOR } from '@/constants/images';
 import { colors } from '@/constants/colors';
+import { commonStyles } from '@/constants/styles';
 
 export default function LandingPage() {
     const router = useRouter();
@@ -20,8 +21,8 @@ export default function LandingPage() {
                     <Text style={styles.paraHighlight}>Your Gateway to Memorable Stays</Text>
                     <TouchableOpacity onPress={() => {
                         router.push('login');
-                    }} style={styles.btn}>
-                        <Text style={styles.btnText}>Lets Get Started</Text>
+                    }} style={commonStyles.btn}>
+                        <Text style={commonStyles.btnText}>Lets Get Started</Text>
                     </TouchableOpacity>
                 </View>
 
