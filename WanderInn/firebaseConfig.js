@@ -40,8 +40,14 @@ const writeUserData = (userId, name, email, imageUrl) => {
     set(ref(db, 'users/' + userId), {
         username: name,
         email: email,
-        profile_picture: imageUrl ?? ''
-    });
+        profile_picture: imageUrl ?? '',
+    })
+        .then(() => {
+            console.log('User data saved');
+        })
+        .catch((error) => {
+            console.error('Error saving user data: ', error);
+        });
 }
 
 export { auth, db, writeUserData };

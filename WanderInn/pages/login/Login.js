@@ -4,7 +4,7 @@ import CustomInput from '@/components/customInput/CustomInput';
 import { colors } from '@/constants/colors';
 import { useState } from 'react';
 import { Link, useRouter } from 'expo-router';
-import { sendEmailVerification, sendSignInLinkToEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '@/firebaseConfig';
 import { isValidEmail } from '@/constants/validation';
 import { commonStyles } from '@/constants/styles';
