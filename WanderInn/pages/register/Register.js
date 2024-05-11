@@ -84,6 +84,7 @@ export default function RegisterPage() {
 
                     showToast('success', 'User created successfully');
 
+
                     writeUserData(user.uid, formData.name, formData.email);
                 })
                 .catch((error) => {
