@@ -17,6 +17,7 @@ export default function CustomInput({
     rightIcon,
     iconColor,
     onIconPress,
+    keyboardType
 }) {
     return (
         <View >
@@ -30,6 +31,7 @@ export default function CustomInput({
                     onChangeText={onChangeText}
                     secureTextEntry={secureTextEntry}
                     required={required}
+                    keyboardType={keyboardType ?? 'default'}
                 />
                 {rightIcon &&
                     <TouchableOpacity

@@ -156,6 +156,7 @@ export default function LoginPage() {
                                 <CustomInput
                                     label="Email"
                                     placeholder="Enter your email"
+                                    keyboardType={'email-address'}
                                     value={formData.email}
                                     rightIcon={isEmailValid ? "checkmark-circle" : false}
                                     iconColor={colors.checkIconColor}

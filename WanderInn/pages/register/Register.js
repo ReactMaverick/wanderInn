@@ -3,7 +3,7 @@ import { styles } from './Style';
 import CustomInput from '@/components/customInput/CustomInput';
 import { colors } from '@/constants/colors';
 import { useState } from 'react';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { auth, googleProvider, writeUserData } from '@/firebaseConfig';
 import { isValidEmail } from '@/constants/validation';
@@ -86,6 +86,8 @@ export default function RegisterPage() {
 
 
                     writeUserData(user.uid, formData.name, formData.email);
+
+                    router.push('login');
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -155,6 +157,7 @@ export default function RegisterPage() {
                                 <CustomInput
                                     label="Email"
                                     placeholder="Enter your email"
+                                    keyboardType={'email-address'}
                                     value={formData.email}
                                     rightIcon={isEmailValid ? "checkmark-circle" : false}
                                     iconColor={colors.checkIconColor}
