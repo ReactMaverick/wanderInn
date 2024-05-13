@@ -6,10 +6,14 @@ import { showToast } from '@/constants/constants';
 import { useState } from 'react';
 import Loader from '@/components/loader/Loader';
 import { useRouter } from 'expo-router';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/redux/reducer/authReducer';
 
 export default function ProfilePage() {
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +25,9 @@ export default function ProfilePage() {
 
                 showToast('success', 'Logged out successfully');
 
-                router.push('login');
+                dispatch(logout());
+
+                router.replace('login');
             })
             .catch((error) => {
                 console.error('Error logging out: ', error);

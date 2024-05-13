@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         paddingBottom: deviceWidth * 5 / 100,
         paddingHorizontal: deviceWidth * 5 / 100,
         backgroundColor: colors.screenBg,
-        minHeight: deviceHeight,
+        minHeight: deviceHeight + 30,
     },
     titleContainer: {
         marginBottom: 40,
