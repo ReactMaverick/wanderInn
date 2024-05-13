@@ -6,6 +6,7 @@ import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import { persistor, store } from "@/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { StatusBar } from "expo-status-bar";
 
 export default function RootLayout() {
 
@@ -36,6 +37,7 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <StatusBar style="inverted" />
         <Slot />
       </PersistGate>
     </Provider>

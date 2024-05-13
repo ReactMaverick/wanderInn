@@ -1,3 +1,4 @@
+import { deviceHeight, deviceWidth } from "@/constants/constants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -9,8 +10,8 @@ export const styles = StyleSheet.create({
 
     LogoImg: {
         position: 'absolute',
-        height: 200,
-        width: 200,
+        height: deviceHeight / 4,
+        width: deviceWidth / 3 * 2,
         resizeMode: 'contain',
         textAlign: 'center',
         bottom: "0",

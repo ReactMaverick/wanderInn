@@ -18,4 +18,9 @@ export const colors = {
   placeholderColor: '#AEBBCC',
   screenBg: '#F6F8FC',
   borderLightColor: '#CDD8E7',
+  BGColor: '#DFFFFF',
+  BGBlueColor: 'rgba(31, 138, 252, 0.16)',
+  gradientStart: 'rgba(137, 196, 249, 1)',
+  gradientEnd: 'rgba(180, 251, 255, 1)',
+
 };

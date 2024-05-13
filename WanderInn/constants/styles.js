@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
-import { H3 } from "@/constants/fontConstants";
+import { H3, p } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const commonStyles = StyleSheet.create({
@@ -11,15 +11,15 @@ export const commonStyles = StyleSheet.create({
   },
   btn: {
     backgroundColor: colors.primary,
-    paddingVertical: deviceHeight * 1 / 50,
+    paddingVertical: deviceHeight * 1 / 60,
     borderRadius: 10,
     width: deviceWidth * 90 / 100,
   },
   btnText: {
     textAlign: "center",
     color: colors.white,
-    fontSize: H3,
-    fontFamily: 'LatoRegular',
+    fontSize: p,
+    fontFamily: 'LatoBold',
     lineHeight: 32,
   },
   bg: {
@@ -27,5 +27,17 @@ export const commonStyles = StyleSheet.create({
   },
   keyboardAvoidingView: {
     flex: 1,
-  }
+  },
+  CustomBtn: {
+    backgroundColor: colors.primary,
+    paddingVertical: deviceHeight * 1 / 65,
+    borderRadius: 10,
+  },
+  CustomBtnText: {
+    textAlign: "center",
+    color: colors.white,
+    fontSize: p,
+    fontFamily: 'LatoBold',
+    lineHeight: deviceHeight * 1 / 25,
+  },
 });

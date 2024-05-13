@@ -16,13 +16,16 @@ export default function CustomSplashScreen() {
                 toValue: 0,
                 duration: 1000,
                 useNativeDriver: true,
-            }
+            },
+
         ).start();
+
+
     }, [])
     return (
         <View style={styles.container}>
 
-            <Animated.Image style={{ ...styles.LogoImg, transform: [{ translateY: positionAnim }] }}
+            <Animated.Image style={{ ...styles.LogoImg, transform: [{ translateY: positionAnim, }] }}
                 source={LOGO}
             />
         </View>
