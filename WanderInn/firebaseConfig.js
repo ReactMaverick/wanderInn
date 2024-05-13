@@ -10,7 +10,8 @@ import { initializeApp } from 'firebase/app';
 // @ts-ignore 
 import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-import { getDatabase, ref, set } from "firebase/database";
+// import { getDatabase, ref, set } from "firebase/database";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -34,20 +35,19 @@ const auth = initializeAuth(app, {
     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
 
-const db = getDatabase(app);
+const db = getFirestore(app);
 
-const writeUserData = (userId, name, email, imageUrl) => {
-    set(ref(db, 'users/' + userId), {
-        username: name,
-        email: email,
-        profile_picture: imageUrl ?? '',
-    })
-        .then(() => {
-            console.log('User data saved');
-        })
-        .catch((error) => {
-            console.error('Error saving user data: ', error);
+const writeUserData = async (userId, name, email, imageUrl) => {
+    try {
+        await setDoc(doc(db, 'users', userId), {
+            username: name,
+            email: email,
+            profile_picture: imageUrl ?? '',
         });
-}
+        console.log('User data saved');
+    } catch (error) {
+        console.error('Error saving user data: ', error);
+    }
+};
 
 export { auth, db, writeUserData };
