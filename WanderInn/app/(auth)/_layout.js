@@ -1,8 +1,10 @@
 import { showToast } from '@/constants/constants';
 import { auth } from '@/firebaseConfig';
+import { login, selectIsLoggedIn } from '@/redux/reducer/authReducer';
 import { Redirect, Slot, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AuthStack = () => {
     return (
@@ -37,13 +39,20 @@ const AuthStack = () => {
 
 export default function AuthLayout() {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const dispatch = useDispatch();
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
     auth.onAuthStateChanged((user) => {
         if (user) {
             // console.log('User is logged in', user);
             if (user.emailVerified) {
-                setIsLoggedIn(true);
+                const userData = {
+                    email: user.email,
+                    uid: user.uid,
+                };
+
+                dispatch(login(userData));
             } else {
                 console.log('User is not verified');
             }
@@ -56,6 +65,8 @@ export default function AuthLayout() {
     //         setIsLoggedIn(true);
     //     }, 5000);
     // }, []);
+
+    console.log('isLoggedIn ==> ', isLoggedIn);
 
     if (!isLoggedIn) {
         return (

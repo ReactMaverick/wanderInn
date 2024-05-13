@@ -11,10 +11,14 @@ import { commonStyles } from '@/constants/styles';
 import { FACEBOOK, GOOGLE, TWTTER } from '@/constants/images';
 import { platform, showToast } from '@/constants/constants';
 import Loader from '@/components/loader/Loader';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/reducer/authReducer';
 
 export default function LoginPage() {
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(false);
@@ -70,7 +74,9 @@ export default function LoginPage() {
                     const user = userCredential.user;
                     // ...
 
-                    console.log('User ==> ', user);
+                    // console.log('User ==> ', user);
+
+                    // console.log('User ==> ', user);
 
                     setIsLoggedIn(true);
 
@@ -78,7 +84,15 @@ export default function LoginPage() {
                         showToast('success', 'Logged in successfully');
                         setIsUserVerified(true);
 
-                        router.push('(tabs)');
+                        const userData = {
+                            email: user.email,
+                            uid: user.uid,
+                        };
+
+                        console.log('User Data ==> ', userData);
+
+                        dispatch(login(userData));
+
                     } else {
                         showToast('error', 'Please verify your email');
 
@@ -206,7 +220,8 @@ export default function LoginPage() {
                                 <Text style={styles.orLoginWithText}>Or login with</Text>
                                 <View style={styles.orLoginWithLine} />
                             </View>
-                            {/* Social Media Login Buttons */}
+
+
                             <View style={styles.SocialMediaLogin} >
                                 <TouchableOpacity style={styles.SocoalButton}>
                                     <Image source={FACEBOOK} style={styles.socialMediaIcon} />
@@ -219,7 +234,6 @@ export default function LoginPage() {
                                 </TouchableOpacity>
                             </View>
 
-                            {/* Social Media Login Buttons */}
                         </View>
 
                         <View style={styles.loginLinkContainer}>

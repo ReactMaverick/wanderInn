@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { SplashScreen } from "expo-router";
 import CustomSplashScreen from "@/components/splash/Splash";
 import { useFonts } from "expo-font";
+import { Provider } from "react-redux";
+import { persistor, store } from "@/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default function RootLayout() {
 
@@ -31,6 +34,10 @@ export default function RootLayout() {
   }
 
   return (
-    <Slot />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Slot />
+      </PersistGate>
+    </Provider>
   );
 }

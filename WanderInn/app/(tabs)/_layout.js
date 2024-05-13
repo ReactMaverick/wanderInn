@@ -1,9 +1,17 @@
-import { Stack, Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import React, { useState } from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '@/redux/reducer/authReducer';
 
 export default function TabLayout() {
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    if (!isLoggedIn) {
+        return <Redirect href='login' />
+    }
 
     return (
         <Tabs

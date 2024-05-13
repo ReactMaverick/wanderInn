@@ -227,11 +227,6 @@ export default function RegisterPage() {
                             {/* Social Media Login Buttons */}
                         </View>
 
-                        {/* Verify OTP */}
-                        <Link href='verifyOTP' style={styles.loginLink}>Verify OTP</Link>
-
-                        {/* Verify OTP */}
-
                         <View style={styles.loginLinkContainer}>
                             <Text style={styles.orLoginWithText}>Already have an account? <Link href='/login' style={styles.loginLink}>Login</Link></Text>
                         </View>
