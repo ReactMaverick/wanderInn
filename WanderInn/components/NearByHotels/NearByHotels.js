@@ -6,7 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
 import { commonStyles } from "../../constants/styles";
-import { HOTEL } from "@/constants/images";
+import { HOTEL, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
+import { BlurView } from 'expo-blur';
 
 export default function NearByHotelsScreen() {
     const blinkValue = useRef(new Animated.Value(1)).current;
@@ -17,7 +18,7 @@ export default function NearByHotelsScreen() {
         Animated.sequence([
             Animated.timing(blinkValue, {
                 toValue: 0,
-                duration: 500,
+                duration: 1000,
                 useNativeDriver: true,
             }),
             Animated.timing(blinkValue, {
@@ -42,13 +43,62 @@ export default function NearByHotelsScreen() {
                     <Image style={styles.HotelCardImg}
                         source={HOTEL}
                     />
-                    <View>
 
-                    </View>
+                    <BlurView
+                        intensity={80}
+                        tint="dark"
+                        style={styles.HotelCardReviewbox}>
+                        <View style={styles.HotelCardReview}>
+                            <Text style={styles.HotelCardReviewText}>15k+ People Reviews</Text>
+                            <View style={styles.UsersGroupImgs}>
+                                <Image style={styles.UsersGroupImg}
+                                    source={USER1}
+                                />
+                                <Image style={styles.UsersGroupImg}
+                                    source={USER2}
+                                />
+
+                                <Image style={styles.UsersGroupImg}
+                                    source={USER4}
+                                />
+                                <View style={styles.UsersGroupImgPlusBox}>
+                                    <Image style={styles.UsersGroupImgPlus}
+                                        source={USER5}
+                                    />
+                                    <View style={styles.UsersOverlay}>
+                                        <Text style={styles.UsersGroupImgText}>+</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.ReviewBox}>
+                            <Text style={styles.ReviewText}>4.5</Text>
+                            <Ionicons name="star" style={styles.ReviewStar} />
+                        </View>
+                    </BlurView>
                 </View>
                 <View style={styles.HotelCardContent}>
-                    <Text style={styles.HotelCardTitle}>Hotel Name</Text>
-                    <Text style={styles.HotelCardLocation}>Location</Text>
+                    <View style={styles.HotelCardContentInner}>
+                        <View style={styles.HotelCardTop}>
+                            <Text style={styles.HotelCardTitle}>Hotel Linda Place</Text>
+                            <View style={styles.HotelLocation}>
+                                <Ionicons name="location-sharp" style={styles.HotelLocationIcon} />
+                                <Text style={styles.HotelLocationText}>New York, USA</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <Text style={styles.Hoteldistance}>Starting from</Text>
+                            <Text style={styles.HotelPrice}>$23/ Night</Text>
+                        </View>
+                    </View>
+                    {/* offer box */}
+                    <View style={styles.DistanceBox}>
+                        <Text style={styles.DistanceText}>2 km from central</Text>
+                        <View style={styles.OfferBox}>
+                            <Text style={styles.OfferText}>50% off</Text>
+                        </View>
+                    </View>
+
                 </View>
             </View>
         </Pressable>

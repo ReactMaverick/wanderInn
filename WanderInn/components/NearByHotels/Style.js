@@ -1,11 +1,11 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
-import { H6, p, small } from "@/constants/fontConstants";
+import { H4, H5, H6, p, small, smallS } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     HotelCard: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.screenBg,
         borderRadius: deviceHeight / 40,
         padding: deviceWidth / 35,
         marginVertical: deviceHeight / 50,
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         elevation: 10,
     },
     HotelCardImgBox: {
-        width: deviceWidth / 1.5,
+        width: deviceWidth / 1.4,
         height: deviceHeight / 4,
         borderRadius: deviceHeight / 50,
         overflow: 'hidden',
@@ -62,6 +62,148 @@ export const styles = StyleSheet.create({
         fontSize: H6,
         color: colors.secondary,
     },
+
+    HotelCardReviewbox: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        zIndex: 1,
+        backgroundColor: colors.boxBG,
+        paddingHorizontal: deviceWidth / 50,
+        paddingVertical: deviceHeight / 70,
+        width: '100%',
+    },
+    HotelCardReview: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    HotelCardReviewText: {
+        fontSize: smallS,
+        color: colors.white,
+        marginRight: deviceWidth / 50,
+        fontFamily: 'LatoBold',
+    },
+    UsersGroupImgs: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: deviceHeight / 70 - 5,
+    },
+    UsersGroupImg: {
+        width: deviceHeight / 30,
+        height: deviceHeight / 30,
+        borderRadius: deviceHeight / 30,
+        marginRight: -deviceHeight / 60,
+    },
+    UsersGroupImgPlusBox: {
+        position: 'relative',
+        borderRadius: deviceHeight / 30,
+        width: deviceHeight / 30,
+        height: deviceHeight / 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    UsersGroupImgPlus: {
+        width: deviceHeight / 30,
+        height: deviceHeight / 30,
+        borderRadius: deviceHeight / 30,
+    },
+    UsersOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        borderRadius: deviceHeight / 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    UsersGroupImgText: {
+        fontSize: H4,
+        color: colors.white,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
+    },
+    ReviewBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: deviceWidth / 50,
+        backgroundColor: 'rgba(255, 255, 255, 0.21)',
+        borderRadius: deviceHeight / 100,
+    },
+    ReviewText: {
+        fontSize: p,
+        color: colors.white,
+        fontFamily: 'LatoBold',
+        marginRight: deviceWidth / 50,
+        lineHeight: deviceHeight / 35,
+    },
+    ReviewStar: {
+        fontSize: p,
+        color: colors.secondary,
+    },
+    HotelCardContent: {
+        padding: deviceWidth / 50,
+    },
+    HotelCardTop: {
+        // flexDirection: 'row',
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+    },
+    HotelCardContentInner: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    HotelCardTitle: {
+        fontSize: H5,
+        color: colors.headlineColor,
+        fontFamily: 'LatoBold',
+    },
+    HotelLocation: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    HotelLocationIcon: {
+        fontSize: H6,
+        color: colors.primary,
+        marginRight: deviceWidth / 50,
+    },
+
+    HotelLocationText: {
+        fontSize: small,
+        color: colors.gray,
+    },
+    Hoteldistance: {
+        fontSize: small,
+        color: colors.gray,
+    },
+    HotelPrice: {
+        fontSize: small,
+        color: colors.gray,
+    },
+    DistanceText: {
+        fontSize: small,
+        color: colors.gray,
+    },
+    OfferBox: {
+        backgroundColor: colors.primary,
+        paddingHorizontal: deviceWidth / 50,
+        paddingVertical: deviceHeight / 70 - 5,
+        borderRadius: 5,
+        marginTop: deviceHeight / 70,
+    },
+
+    OfferText: {
+        color: colors.white,
+        fontSize: small,
+        lineHeight: deviceHeight / 35,
+    },
+
+
 
 
 

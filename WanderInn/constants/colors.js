@@ -11,6 +11,7 @@ export const colors = {
   primaryBlue: '#79B9FD',
   primaryBlueLight: '#E9F3FF',
   inputShadow: 'rgba(30, 51, 80, 0.03)',
+  boxBG: 'rgba(177, 200, 243, 0.03)',
   boxShadowColor: 'rgba(31, 138, 252, 0.12)',
   borderDarkColor: '#9FADBE',
   checkIconColor: '#2ED297',

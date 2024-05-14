@@ -14,4 +14,4 @@ export const H5 = RFValue(20, deviceHeight);
 export const H6 = RFValue(18, deviceHeight);
 export const p = RFValue(16, deviceHeight);
 export const small = RFValue(14, deviceHeight);
-export const smallS = RFValue(14, deviceHeight);
+export const smallS = RFValue(12, deviceHeight);
