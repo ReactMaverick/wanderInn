@@ -16,50 +16,94 @@ export default function HomePage() {
                     <LocationSearchInputScreen />
                 </View>
                 <View style={styles.container}>
-
                     <View style={styles.TitleRow}>
                         <Text style={styles.Title}>Near by Hotels</Text>
                         <Pressable onPress={() => {
-                            alert('View All');
+                            alert('See all Near by Hotels');
                         }}>
                             <Text style={styles.ViewAll}>See all</Text>
                         </Pressable>
                     </View>
-                    <FlatList
-                        ItemSeparatorComponent={ItemSeparator}
-                        horizontal
-                        data={[
-                            { key: 'a' },
-                            { key: 'b' },
-                            { key: 'c' },
-                            { key: 'd' },
-                            { key: 'e' },
-                            { key: 'f' },
-                            { key: 'g' },
-                            { key: 'h' },
-                            { key: 'i' },
-                            { key: 'j' },
-                            { key: 'k' },
-                            { key: 'l' },
-                            { key: 'm' },
-                            { key: 'n' },
-                            { key: 'o' },
-                            { key: 'p' },
-                            { key: 'q' },
-                            { key: 'r' },
-                            { key: 's' },
-                            { key: 't' },
-                            { key: 'u' },
-                            { key: 'v' },
-                            { key: 'w' },
-                            { key: 'x' },
-                            { key: 'y' },
-                            { key: 'z' },
-
-                        ]}
-                        renderItem={({ item }) => (<NearByHotelsScreen />)}
-                    />
                 </View>
+                <FlatList
+                    ItemSeparatorComponent={ItemSeparator}
+                    horizontal
+                    data={[
+                        { key: 'a' },
+                        { key: 'b' },
+                        { key: 'c' },
+                        { key: 'd' },
+                        { key: 'e' },
+                        { key: 'f' },
+                        { key: 'g' },
+                        { key: 'h' },
+                        { key: 'i' },
+                        { key: 'j' },
+                        { key: 'k' },
+                        { key: 'l' },
+                        { key: 'm' },
+                        { key: 'n' },
+                        { key: 'o' },
+                        { key: 'p' },
+                        { key: 'q' },
+                        { key: 'r' },
+                        { key: 's' },
+                        { key: 't' },
+                        { key: 'u' },
+                        { key: 'v' },
+                        { key: 'w' },
+                        { key: 'x' },
+                        { key: 'y' },
+                        { key: 'z' },
+
+                    ]}
+                    renderItem={({ item }) => (<NearByHotelsScreen />)}
+                />
+                <View style={styles.container}>
+                    <View style={styles.TitleRow}>
+                        <Text style={styles.Title}>Popular Hotels</Text>
+                        <Pressable onPress={() => {
+                            alert('See all Popular Hotels');
+                        }}>
+                            <Text style={styles.ViewAll}>See all</Text>
+                        </Pressable>
+                    </View>
+                </View>
+                <FlatList
+                    ItemSeparatorComponent={ItemSeparator}
+                    horizontal
+                    data={[
+                        { key: 'a' },
+                        { key: 'b' },
+                        { key: 'c' },
+                        { key: 'd' },
+                        { key: 'e' },
+                        { key: 'f' },
+                        { key: 'g' },
+                        { key: 'h' },
+                        { key: 'i' },
+                        { key: 'j' },
+                        { key: 'k' },
+                        { key: 'l' },
+                        { key: 'm' },
+                        { key: 'n' },
+                        { key: 'o' },
+                        { key: 'p' },
+                        { key: 'q' },
+                        { key: 'r' },
+                        { key: 's' },
+                        { key: 't' },
+                        { key: 'u' },
+                        { key: 'v' },
+                        { key: 'w' },
+                        { key: 'x' },
+                        { key: 'y' },
+                        { key: 'z' },
+
+                    ]}
+                    renderItem={({ item }) => (<NearByHotelsScreen />)}
+                />
+
             </ScrollView >
         </>
     );

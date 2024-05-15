@@ -1,10 +1,17 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, Pressable, } from 'react-native';
 import { styles } from './Style';
-
+import HeaderScreen from '@/components/Header/Header';
+import { Link } from 'expo-router';
 export default function MyBookingPage() {
+    const ItemSeparator = () => <View style={{ width: 20 }} />;
     return (
-        <View style={styles.container}>
-            <Text>My Booking</Text>
-        </View>
+        <>
+            <HeaderScreen />
+            <ScrollView>
+                <View style={styles.container}>
+
+                </View>
+            </ScrollView >
+        </>
     );
 }

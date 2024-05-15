@@ -7,9 +7,10 @@ export const styles = StyleSheet.create({
     HotelCard: {
         backgroundColor: colors.screenBg,
         borderRadius: deviceHeight / 40,
-        padding: deviceWidth / 35,
+        // padding: deviceWidth / 35,
         marginVertical: deviceHeight / 50,
         shadowColor: colors.primary,
+        overflow: 'hidden',
         borderColor: colors.borderDarkColor,
         borderWidth: 1,
         shadowOffset: {
@@ -25,6 +26,7 @@ export const styles = StyleSheet.create({
         borderRadius: deviceHeight / 50,
         overflow: 'hidden',
         position: 'relative',
+        margin: deviceWidth / 35,
     },
     HotelCardImg: {
         width: '100%',
@@ -57,6 +59,12 @@ export const styles = StyleSheet.create({
         width: deviceHeight / 25,
         justifyContent: 'center',
         alignItems: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowRadius: 10,
+        elevation: 10,
     },
     HeartIcon: {
         fontSize: H6,
@@ -78,12 +86,14 @@ export const styles = StyleSheet.create({
     HotelCardReview: {
         flexDirection: 'row',
         alignItems: 'center',
+
     },
     HotelCardReviewText: {
         fontSize: smallS,
         color: colors.white,
         marginRight: deviceWidth / 50,
         fontFamily: 'LatoBold',
+
     },
     UsersGroupImgs: {
         flexDirection: 'row',
@@ -145,62 +155,94 @@ export const styles = StyleSheet.create({
         color: colors.secondary,
     },
     HotelCardContent: {
-        padding: deviceWidth / 50,
+        paddingBottom: deviceWidth / 35,
+        paddingHorizontal: deviceWidth / 35,
     },
-    HotelCardTop: {
-        // flexDirection: 'row',
-        justifyContent: 'space-between',
-        // alignItems: 'center',
-    },
+
     HotelCardContentInner: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginVertical: deviceHeight / 70 - 5,
+    },
+    HotelCardTop: {
+        justifyContent: 'space-between',
+        width: deviceWidth / 2,
+    },
+    HotelCardRight: {
+        justifyContent: 'space-between',
+        flex: 1,
     },
 
     HotelCardTitle: {
         fontSize: H5,
         color: colors.headlineColor,
         fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
     },
     HotelLocation: {
         flexDirection: 'row',
         alignItems: 'center',
     },
     HotelLocationIcon: {
-        fontSize: H6,
-        color: colors.primary,
+        fontSize: small,
+        color: colors.gray,
         marginRight: deviceWidth / 50,
     },
 
     HotelLocationText: {
         fontSize: small,
         color: colors.gray,
+        lineHeight: deviceHeight / 35,
+        fontFamily: 'LatoRegular',
+        flexShrink: 1,
     },
     Hoteldistance: {
-        fontSize: small,
+        fontSize: p,
         color: colors.gray,
+        lineHeight: deviceHeight / 35,
+        fontFamily: 'LatoRegular',
+        marginBottom: deviceHeight / 70 - 5,
     },
     HotelPrice: {
         fontSize: small,
-        color: colors.gray,
+        color: colors.primary,
+        fontFamily: 'LatoBold',
+    },
+    DistanceBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: deviceHeight / 70 - 5,
     },
     DistanceText: {
         fontSize: small,
         color: colors.gray,
+        lineHeight: deviceHeight / 35,
     },
     OfferBox: {
-        backgroundColor: colors.primary,
-        paddingHorizontal: deviceWidth / 50,
-        paddingVertical: deviceHeight / 70 - 5,
+        backgroundColor: colors.secondary,
+        paddingHorizontal: deviceWidth / 30,
         borderRadius: 5,
-        marginTop: deviceHeight / 70,
     },
 
     OfferText: {
+        color: colors.headlineColor,
+        fontSize: small,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
+    },
+    HotelCardBottom: {
+        marginTop: deviceHeight / 70 - 5,
+        backgroundColor: colors.primary,
+        flex: 1
+    },
+    HotelCardBottomText: {
         color: colors.white,
         fontSize: small,
-        lineHeight: deviceHeight / 35,
+        fontFamily: 'LatoRegular',
+        textAlign: 'center',
+        lineHeight: deviceHeight / 30,
     },
 
 

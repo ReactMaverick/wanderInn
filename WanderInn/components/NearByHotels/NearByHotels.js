@@ -83,10 +83,10 @@ export default function NearByHotelsScreen() {
                             <Text style={styles.HotelCardTitle}>Hotel Linda Place</Text>
                             <View style={styles.HotelLocation}>
                                 <Ionicons name="location-sharp" style={styles.HotelLocationIcon} />
-                                <Text style={styles.HotelLocationText}>New York, USA</Text>
+                                <Text style={styles.HotelLocationText}>New York, USA New York, New York, USA New York,  </Text>
                             </View>
                         </View>
-                        <View>
+                        <View style={styles.HotelCardRight}>
                             <Text style={styles.Hoteldistance}>Starting from</Text>
                             <Text style={styles.HotelPrice}>$23/ Night</Text>
                         </View>
@@ -99,6 +99,9 @@ export default function NearByHotelsScreen() {
                         </View>
                     </View>
 
+                </View>
+                <View style={styles.HotelCardBottom}>
+                    <Text style={styles.HotelCardBottomText}>15 peoples booked today</Text>
                 </View>
             </View>
         </Pressable>
