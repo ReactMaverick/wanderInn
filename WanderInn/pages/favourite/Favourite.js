@@ -1,10 +1,22 @@
-import { Text, View } from "react-native";
-import { styles } from "./Style";
+import { View, ScrollView, } from 'react-native';
+import { styles } from './Style';
+import HeaderScreen from '@/components/Header/Header';
+import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
+
 
 export default function FavouritePage() {
     return (
-        <View style={styles.container}>
-            <Text>Favourite Screen</Text>
-        </View>
+        <>
+            <HeaderScreen />
+            <ScrollView>
+                <View style={styles.container}>
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                </View>
+            </ScrollView >
+        </>
     );
 }

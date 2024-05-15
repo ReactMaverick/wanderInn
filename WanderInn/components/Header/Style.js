@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         // borderBottomEndRadius: deviceHeight / 15,
         // borderBottomStartRadius: deviceHeight / 15,
         paddingTop: deviceHeight / 30,
-        paddingHorizontal: deviceWidth / 20,
+        paddingHorizontal: deviceWidth / 30,
     },
     LeftBar: {
         flexDirection: "row",

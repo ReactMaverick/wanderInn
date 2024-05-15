@@ -30,7 +30,7 @@ export const commonStyles = StyleSheet.create({
   },
   CustomBtn: {
     backgroundColor: colors.primary,
-    paddingVertical: deviceHeight * 1 / 65,
+    paddingVertical: deviceHeight * 1 / 75,
     borderRadius: 10,
   },
   CustomBtnText: {

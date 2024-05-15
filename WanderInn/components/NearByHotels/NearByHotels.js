@@ -83,7 +83,7 @@ export default function NearByHotelsScreen() {
                             <Text style={styles.HotelCardTitle}>Hotel Linda Place</Text>
                             <View style={styles.HotelLocation}>
                                 <Ionicons name="location-sharp" style={styles.HotelLocationIcon} />
-                                <Text style={styles.HotelLocationText}>New York, USA New York, New York, USA New York,  </Text>
+                                <Text style={styles.HotelLocationText}>New York, USA New York,</Text>
                             </View>
                         </View>
                         <View style={styles.HotelCardRight}>

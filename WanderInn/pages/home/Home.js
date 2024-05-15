@@ -4,6 +4,8 @@ import HeaderScreen from '@/components/Header/Header';
 import LocationSearchInputScreen from '@/components/locationSearchInput/locationSearchInput';
 import { Link } from 'expo-router';
 import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
+import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
+import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
 
 export default function HomePage() {
     const ItemSeparator = () => <View style={{ width: 20 }} />;
@@ -68,41 +70,18 @@ export default function HomePage() {
                             <Text style={styles.ViewAll}>See all</Text>
                         </Pressable>
                     </View>
-                </View>
-                <FlatList
-                    ItemSeparatorComponent={ItemSeparator}
-                    horizontal
-                    data={[
-                        { key: 'a' },
-                        { key: 'b' },
-                        { key: 'c' },
-                        { key: 'd' },
-                        { key: 'e' },
-                        { key: 'f' },
-                        { key: 'g' },
-                        { key: 'h' },
-                        { key: 'i' },
-                        { key: 'j' },
-                        { key: 'k' },
-                        { key: 'l' },
-                        { key: 'm' },
-                        { key: 'n' },
-                        { key: 'o' },
-                        { key: 'p' },
-                        { key: 'q' },
-                        { key: 'r' },
-                        { key: 's' },
-                        { key: 't' },
-                        { key: 'u' },
-                        { key: 'v' },
-                        { key: 'w' },
-                        { key: 'x' },
-                        { key: 'y' },
-                        { key: 'z' },
 
-                    ]}
-                    renderItem={({ item }) => (<NearByHotelsScreen />)}
-                />
+                </View>
+                <View style={styles.PopularHotelsRow}>
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                    <PopularHotelsScreen />
+                </View>
+                <View style={[styles.container, { marginBottom: 20 }]}>
+                    <BannerSliderScreen />
+                </View>
 
             </ScrollView >
         </>

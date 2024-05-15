@@ -20,6 +20,7 @@ export const colors = {
   screenBg: '#F6F8FC',
   borderLightColor: '#CDD8E7',
   BGColor: '#DFFFFF',
+  BGYellowColor: 'rgba(255, 193, 7, 0.78)',
   BGBlueColor: 'rgba(31, 138, 252, 0.16)',
   gradientStart: 'rgba(137, 196, 249, 1)',
   gradientEnd: 'rgba(180, 251, 255, 1)',

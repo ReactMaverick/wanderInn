@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         marginVertical: deviceHeight / 50,
         shadowColor: colors.primary,
         overflow: 'hidden',
-        borderColor: colors.borderDarkColor,
+        borderColor: colors.lightBlue,
         borderWidth: 1,
         shadowOffset: {
             width: 0,

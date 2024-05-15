@@ -1,5 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
+import { H5, p } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         // alignItems: "center",
-        paddingHorizontal: deviceWidth / 20,
+        paddingHorizontal: deviceWidth / 30,
     },
     LocSearchBox: {
         position: 'relative',
@@ -31,16 +32,21 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingVertical: deviceHeight / 50,
+        paddingVertical: deviceHeight / 60,
     },
     Title: {
-        fontSize: deviceHeight / 40,
+        fontSize: H5,
         fontFamily: 'LatoBold',
         color: colors.blueDarkColor,
     },
     ViewAll: {
-        fontSize: deviceHeight / 50,
+        fontSize: p,
         fontFamily: 'LatoRegular',
         color: colors.blueDarkColor,
+    },
+    PopularHotelsRow: {
+        flex: 1,
+        justifyContent: "space-between",
+        marginBottom: deviceHeight / 50,
     },
 });

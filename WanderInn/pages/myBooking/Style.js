@@ -6,6 +6,6 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        paddingHorizontal: deviceWidth / 20,
+        // paddingHorizontal: deviceWidth / 30,
     },
 });

@@ -2,14 +2,22 @@ import { View, Text, ScrollView, Pressable, } from 'react-native';
 import { styles } from './Style';
 import HeaderScreen from '@/components/Header/Header';
 import { Link } from 'expo-router';
+import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels';
+
+
 export default function MyBookingPage() {
-    const ItemSeparator = () => <View style={{ width: 20 }} />;
+
     return (
         <>
             <HeaderScreen />
             <ScrollView>
                 <View style={styles.container}>
-
+                    <MyBookingHotelsScreen />
+                    <MyBookingHotelsScreen />
+                    <MyBookingHotelsScreen />
+                    <MyBookingHotelsScreen />
+                    <MyBookingHotelsScreen />
+                    <MyBookingHotelsScreen />
                 </View>
             </ScrollView >
         </>

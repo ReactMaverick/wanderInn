@@ -11,4 +11,13 @@ export const USER3 = require('../assets/images/avatar3.png');
 export const USER4 = require('../assets/images/avatar4.png');
 export const USER5 = require('../assets/images/avatar5.png');
 export const HOTEL = require('../assets/images/hotel1.jpg');
+export const HOTEL1 = require('../assets/images/hotel2.jpg');
+export const SlIDERBG1 = require('../assets/images/SliderBanner1.png');
+export const SlIDERBG2 = require('../assets/images/SliderBanner2.png');
+export const SlIDERBG3 = require('../assets/images/SliderBanner3.png');
+
+export const SlIDER = require('../assets/images/sliderImg1.png');
+export const SlIDER1 = require('../assets/images/sliderImg2.png');
+export const SlIDER2 = require('../assets/images/sliderImg3.png');
+export const OFFER = require('../assets/images/offer.png');
 
