@@ -17,5 +17,6 @@ router.get('/getHotels', authMiddleware.isAuth, hotelController.getHotels);
 router.get('/getHotelById/:id', authMiddleware.isAuth, hotelController.getHotelById);
 router.post('/updateHotel/:id', authMiddleware.isAuth, hotelController.updateHotel);
 router.delete('/deleteHotel/:id', authMiddleware.isAuth, hotelController.deleteHotel);
+router.delete('/deleteRoomById/:id', authMiddleware.isAuth, hotelController.deleteRoomById);
 
 module.exports = router;
