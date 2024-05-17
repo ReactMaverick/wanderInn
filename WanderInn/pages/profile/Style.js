@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
     LocSearchBox: {
         position: 'relative',
-        paddingHorizontal: deviceWidth / 20,
+        paddingHorizontal: deviceWidth / 30,
     },
     LocBoxDevider: {
         height: deviceHeight / 8,
@@ -28,18 +28,18 @@ export const styles = StyleSheet.create({
         zIndex: -1,
     },
     ProfileBoxOuter: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.screenBg,
         borderRadius: deviceHeight / 40,
         padding: deviceWidth / 20,
         marginVertical: deviceHeight / 50,
         minHeight: deviceHeight / 4.5,
-        shadowColor: colors.primary,
+        shadowColor: colors.primary, // Assuming colors.primary is defined elsewhere for your primary color
         shadowOffset: {
-            width: 0,
-            height: 5,
+            width: 0, // Remove horizontal shadow offset
+            height: 7, // Set vertical shadow offset to 7px
         },
-        shadowRadius: 10,
-        elevation: 10,
+        shadowRadius: 24,
+        elevation: 12,
         justifyContent: 'space-between',
     },
     ProfileBoxTop: {
@@ -111,5 +111,42 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         gap: deviceWidth / 50,
     },
+    IconListBox: {
+        backgroundColor: colors.screenBg,
+        borderRadius: deviceHeight / 40,
+        marginVertical: deviceHeight / 50,
+        minHeight: deviceHeight / 4.5,
+        shadowColor: colors.primary, // Assuming colors.primary is defined elsewhere for your primary color
+        shadowOffset: {
+            width: 0, // Remove horizontal shadow offset
+            height: 7, // Set vertical shadow offset to 7px
+        },
+        shadowRadius: 24,
+        elevation: 12,
+        justifyContent: 'space-between',
+    },
+    IconListBoxUL: {
+        justifyContent: 'space-between',
+        paddingVertical: deviceHeight / 70,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.borderLightColor,
+    },
+    IconListItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: deviceWidth / 30,
+        paddingHorizontal: deviceWidth / 20,
+        paddingVertical: deviceHeight / 50 - 10,
 
+    },
+    IconListIcon: {
+        height: deviceHeight / 30,
+        width: deviceHeight / 30,
+    },
+    IconListText: {
+        fontSize: H6,
+        // color: colors.darkColor,
+        lineHeight: deviceHeight / 30,
+        fontFamily: 'LatoRegular',
+    },
 });

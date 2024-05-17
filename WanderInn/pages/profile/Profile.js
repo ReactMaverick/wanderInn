@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable, Image, Alert, } from 'react-native';
+import { View, Text, ScrollView, Pressable, Image, Alert, FlatList, } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { styles } from './Style';
 import { signOut } from 'firebase/auth';
@@ -10,11 +10,18 @@ import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/reducer/authReducer';
 import HeaderScreen from '@/components/Header/Header';
-import { USER } from '@/constants/images';
+import { ADD_CARD, ADD_CARD1, COUPONS, COUPONS1, GIFT, GIFT1, TRIP, TRIP1, UPI, UPI1, USER, USERICON, USERICON1 } from '@/constants/images';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 
 export default function ProfilePage() {
+    // active class IconListItem //
+    const [active, setActive] = useState(0);
+
+    const item1 = (index) => {
+        setActive(index);
+    }
+
 
     const router = useRouter();
 
@@ -65,7 +72,21 @@ export default function ProfilePage() {
                             </View>
                             {/* edit icon button  */}
 
-                            <Pressable style={styles.EditProfileBtn} onPress={() => Alert('editProfile')}>
+                            <Pressable style={styles.EditProfileBtn}
+                                onPress={() => {
+                                    Alert.alert('Edit Profile', 'Do you want to edit your profile?', [
+                                        {
+                                            text: 'Cancel',
+                                            onPress: () => console.log('Cancel Pressed'),
+                                            style: 'cancel'
+                                        },
+                                        {
+                                            text: 'Edit',
+                                            onPress: () => console.log('Edit Pressed')
+                                        }
+                                    ]);
+                                }}
+                            >
                                 <Feather name="edit-3" style={styles.EditProfileIcon} />
                             </Pressable>
 
@@ -95,7 +116,74 @@ export default function ProfilePage() {
                     </View>
                 </View>
                 <View style={styles.container}>
-
+                    <View style={styles.IconListBox}>
+                        <View style={styles.IconListBoxUL}>
+                            <Pressable
+                                onPress={
+                                    () => item1(0)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 0 ? USERICON : USERICON1
+                                } style={styles.IconListIcon} />
+                                <Text style={styles.IconListText}>Personal Info</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={
+                                    () => item1(1)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 1 ? TRIP : TRIP1
+                                } style={styles.IconListIcon} />
+                                <Text style={styles.IconListText}>Profile</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={
+                                    () => item1(2)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 2 ? COUPONS : COUPONS1
+                                } style={styles.IconListIcon} />
+                                <Text style={styles.IconListText}>Profile</Text>
+                            </Pressable>
+                        </View>
+                        <View style={styles.IconListBoxUL}>
+                            <Pressable
+                                onPress={
+                                    () => item1(3)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 3 ? ADD_CARD : ADD_CARD1
+                                } style={styles.IconListIcon} />
+                                <Text style={styles.IconListText}>Profile</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={
+                                    () => item1(4)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 4 ? UPI : UPI1
+                                } style={styles.IconListIcon} />
+                                <Text style={[styles.IconListText]}>Profile</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={
+                                    () => item1(5)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 5 ? GIFT : GIFT1
+                                } style={styles.IconListIcon} />
+                                <Text style={[styles.IconListText,
+                                { color: active === 5 ? colors.primary : colors.darkColor }
+                                ]}>Profile</Text>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
 
             </ScrollView >

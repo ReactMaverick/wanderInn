@@ -21,3 +21,26 @@ export const SlIDER1 = require('../assets/images/sliderImg2.png');
 export const SlIDER2 = require('../assets/images/sliderImg3.png');
 export const OFFER = require('../assets/images/offer.png');
 
+// png icons  //
+export const ADD_CARD = require('../assets/images/icons/add_card.png');
+export const ADD_CARD1 = require('../assets/images/icons/add_card1.png');
+export const COUPONS = require('../assets/images/icons/coupons.png');
+export const COUPONS1 = require('../assets/images/icons/coupons1.png');
+export const ENCRYTED = require('../assets/images/icons/encrypted.png');
+export const ENCRYTED1 = require('../assets/images/icons/encrypted1.png');
+export const FAQ = require('../assets/images/icons/FAQ.png');
+export const FAQ1 = require('../assets/images/icons/FAQ1.png');
+export const GIFT = require('../assets/images/icons/GIFT.png');
+export const GIFT1 = require('../assets/images/icons/GIFT1.png');
+export const LOGOUT = require('../assets/images/icons/logout.png');
+export const LOGOUT1 = require('../assets/images/icons/logout1.png');
+export const PRIVACY = require('../assets/images/icons/PRIVACY.png');
+export const PRIVACY1 = require('../assets/images/icons/PRIVACY1.png');
+export const TRIP = require('../assets/images/icons/trip.png');
+export const TRIP1 = require('../assets/images/icons/trip1.png');
+export const USERICON = require('../assets/images/icons/user.png');
+export const USERICON1 = require('../assets/images/icons/user1.png');
+export const UPI = require('../assets/images/icons/upi.png');
+export const UPI1 = require('../assets/images/icons/upi1.png');
+
+
