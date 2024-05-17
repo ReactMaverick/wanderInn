@@ -6,6 +6,7 @@ import { Link } from 'expo-router';
 import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
 import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
+import { commonStyles } from '@/constants/styles';
 
 export default function HomePage() {
     const ItemSeparator = () => <View style={{ width: 20 }} />;
@@ -18,12 +19,12 @@ export default function HomePage() {
                     <LocationSearchInputScreen />
                 </View>
                 <View style={styles.container}>
-                    <View style={styles.TitleRow}>
-                        <Text style={styles.Title}>Near by Hotels</Text>
+                    <View style={commonStyles.TitleRow}>
+                        <Text style={commonStyles.Title}>Near by Hotels</Text>
                         <Pressable onPress={() => {
                             alert('See all Near by Hotels');
                         }}>
-                            <Text style={styles.ViewAll}>See all</Text>
+                            <Text style={commonStyles.ViewAll}>See all</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -62,12 +63,12 @@ export default function HomePage() {
                     renderItem={({ item }) => (<NearByHotelsScreen />)}
                 />
                 <View style={styles.container}>
-                    <View style={styles.TitleRow}>
-                        <Text style={styles.Title}>Popular Hotels</Text>
+                    <View style={commonStyles.TitleRow}>
+                        <Text style={commonStyles.Title}>Popular Hotels</Text>
                         <Pressable onPress={() => {
                             alert('See all Popular Hotels');
                         }}>
-                            <Text style={styles.ViewAll}>See all</Text>
+                            <Text style={commonStyles.ViewAll}>See all</Text>
                         </Pressable>
                     </View>
 

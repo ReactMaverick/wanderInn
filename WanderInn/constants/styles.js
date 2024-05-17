@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
-import { H3, p } from "@/constants/fontConstants";
+import { H3, H5, p } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const commonStyles = StyleSheet.create({
@@ -39,5 +39,22 @@ export const commonStyles = StyleSheet.create({
     fontSize: p,
     fontFamily: 'LatoBold',
     lineHeight: deviceHeight * 1 / 25,
+  },
+  TitleRow: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: deviceHeight / 60,
+  },
+  Title: {
+    fontSize: H5,
+    fontFamily: 'LatoBold',
+    color: colors.blueDarkColor,
+  },
+  ViewAll: {
+    fontSize: p,
+    fontFamily: 'LatoRegular',
+    color: colors.blueDarkColor,
   },
 });

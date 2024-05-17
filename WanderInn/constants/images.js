@@ -20,6 +20,12 @@ export const SlIDER = require('../assets/images/sliderImg1.png');
 export const SlIDER1 = require('../assets/images/sliderImg2.png');
 export const SlIDER2 = require('../assets/images/sliderImg3.png');
 export const OFFER = require('../assets/images/offer.png');
+export const INDIA = require('../assets/images/india.png');
+export const IMG1 = require('../assets/images/img1.jpg');
+export const IMG2 = require('../assets/images/img2.jpg');
+export const IMG3 = require('../assets/images/img3.jpg');
+export const IMG4 = require('../assets/images/img4.jpg');
+export const IMG5 = require('../assets/images/img5.jpg');
 
 // png icons  //
 export const ADD_CARD = require('../assets/images/icons/add_card.png');
@@ -42,5 +48,6 @@ export const USERICON = require('../assets/images/icons/user.png');
 export const USERICON1 = require('../assets/images/icons/user1.png');
 export const UPI = require('../assets/images/icons/upi.png');
 export const UPI1 = require('../assets/images/icons/upi1.png');
+
 
 

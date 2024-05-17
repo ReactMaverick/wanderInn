@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
             height: 5,
         },
         shadowRadius: 10,
-        elevation: 10,
+        elevation: 5,
         margin: deviceWidth / 35,
     },
     HotelCardImgBox: {

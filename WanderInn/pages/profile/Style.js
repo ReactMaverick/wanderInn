@@ -131,13 +131,16 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.borderLightColor,
     },
+    IconListBoxULnew: {
+        justifyContent: 'space-between',
+        paddingVertical: deviceHeight / 70,
+    },
     IconListItem: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: deviceWidth / 30,
         paddingHorizontal: deviceWidth / 20,
-        paddingVertical: deviceHeight / 50 - 10,
-
+        paddingVertical: deviceHeight / 40 - 3,
     },
     IconListIcon: {
         height: deviceHeight / 30,
@@ -145,8 +148,44 @@ export const styles = StyleSheet.create({
     },
     IconListText: {
         fontSize: H6,
-        // color: colors.darkColor,
         lineHeight: deviceHeight / 30,
         fontFamily: 'LatoRegular',
+    },
+    TitleRow: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: deviceHeight / 60,
+    },
+    Title: {
+        fontSize: H5,
+        fontFamily: 'LatoBold',
+        color: colors.blueDarkColor,
+    },
+    IconListBox1: {
+        backgroundColor: colors.screenBg,
+        borderRadius: deviceHeight / 40,
+        marginVertical: deviceHeight / 50,
+        shadowColor: colors.primary, // Assuming colors.primary is defined elsewhere for your primary color
+        shadowOffset: {
+            width: 0, // Remove horizontal shadow offset
+            height: 7, // Set vertical shadow offset to 7px
+        },
+        shadowRadius: 24,
+        elevation: 12,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    IconListItem1: {
+        alignItems: 'center',
+        gap: deviceWidth / 30,
+        paddingHorizontal: deviceWidth / 20,
+        paddingVertical: deviceHeight / 40 - 3,
+    },
+    RegionImage: {
+        width: deviceHeight / 25,
+        height: deviceHeight / 35,
+        objectFit: 'contain',
     },
 });

@@ -3,9 +3,12 @@ import { styles } from "./Style";
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Animated, Pressable, Image, } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from "expo-router";
 
 export default function HeaderScreen() {
     const shakeAnim = useRef(new Animated.Value(0)).current;  // Initial value for shake: 0
+
+    const router = useRouter();
 
     const shake = () => {
         Animated.sequence([
@@ -31,7 +34,16 @@ export default function HeaderScreen() {
                     </Text>
                 </View>
             </View>
-            <Pressable style={styles.NotificationBtn} onPress={() => { shake(); }}>
+            <Pressable style={styles.NotificationBtn}
+                onPress={() => {
+                    shake()
+                    setTimeout(() => {
+                        console.log(router);
+                        router.navigate("notification");
+                    }, 500);
+
+                }}
+            >
                 <Animated.View style={{ transform: [{ rotate: rotateData }] }}>
                     <Ionicons name="notifications-outline" style={styles.NotificationIcon} />
                 </Animated.View>

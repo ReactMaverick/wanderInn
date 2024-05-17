@@ -42,7 +42,6 @@ export default function PopularHotelsScreen() {
                             <View style={styles.ReviewBox}>
                                 <Ionicons name="star" style={styles.ReviewStar} />
                                 <Text style={styles.ReviewText}>4.5</Text>
-
                             </View>
                             <Text style={styles.HotelCardLocation}>(4569 Peoples Reviews)</Text>
                         </View>

@@ -3,20 +3,54 @@ import * as Progress from 'react-native-progress';
 import { styles } from './Style';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebaseConfig';
-import { deviceHeight, showToast } from '@/constants/constants';
+import { deviceHeight, deviceWidth, showToast } from '@/constants/constants';
 import { useState } from 'react';
 import Loader from '@/components/loader/Loader';
 import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/reducer/authReducer';
 import HeaderScreen from '@/components/Header/Header';
-import { ADD_CARD, ADD_CARD1, COUPONS, COUPONS1, GIFT, GIFT1, TRIP, TRIP1, UPI, UPI1, USER, USERICON, USERICON1 } from '@/constants/images';
+import { ADD_CARD, ADD_CARD1, COUPONS, COUPONS1, FAQ, FAQ1, GIFT, GIFT1, INDIA, LOGOUT, LOGOUT1, TRIP, TRIP1, UPI, UPI1, USER, USERICON, USERICON1 } from '@/constants/images';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import { commonStyles } from '@/constants/styles';
+import SelectDropdown from '../../components/customSelectDrondown/SelectDropdown';
 
 export default function ProfilePage() {
+
+
+    const [selected, setSelected] = useState(null);
+
+    const data = [
+        { key: "1", value: "English" },
+        { key: "2", value: "Hindi" },
+        { key: "3", value: "Tamil" },
+        { key: "4", value: "Telugu" },
+        { key: "5", value: "Kannada" },
+        { key: "6", value: "Malayalam" },
+        { key: "7", value: "Gujarati" },
+        { key: "8", value: "Marathi" },
+        { key: "9", value: "Bengali" },
+        { key: "10", value: "Punjabi" }
+    ];
+
+    const [selected1, setSelected1] = useState(null);
+    const data1 = [
+        { key: "1", value: "USD" },
+        { key: "2", value: "INR" },
+        { key: "3", value: "EUR" },
+        { key: "4", value: "GBP" },
+        { key: "5", value: "AUD" },
+        { key: "6", value: "CAD" },
+        { key: "7", value: "SGD" },
+        { key: "8", value: "JPY" },
+        { key: "9", value: "CNY" },
+        { key: "10", value: "HKD" }
+    ];
+
+
     // active class IconListItem //
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(null);
 
     const item1 = (index) => {
         setActive(index);
@@ -54,6 +88,8 @@ export default function ProfilePage() {
     if (isLoading) {
         return <Loader />;
     }
+
+
 
     return (
         <>
@@ -126,7 +162,9 @@ export default function ProfilePage() {
                                 <Image source={
                                     active === 0 ? USERICON : USERICON1
                                 } style={styles.IconListIcon} />
-                                <Text style={styles.IconListText}>Personal Info</Text>
+                                <Text style={[styles.IconListText,
+                                { color: active === 0 ? colors.primary : colors.darkColor }
+                                ]}>Personal Info</Text>
                             </Pressable>
                             <Pressable
                                 onPress={
@@ -136,7 +174,9 @@ export default function ProfilePage() {
                                 <Image source={
                                     active === 1 ? TRIP : TRIP1
                                 } style={styles.IconListIcon} />
-                                <Text style={styles.IconListText}>Profile</Text>
+                                <Text style={[styles.IconListText,
+                                { color: active === 1 ? colors.primary : colors.darkColor }
+                                ]}>My Trip</Text>
                             </Pressable>
                             <Pressable
                                 onPress={
@@ -146,7 +186,9 @@ export default function ProfilePage() {
                                 <Image source={
                                     active === 2 ? COUPONS : COUPONS1
                                 } style={styles.IconListIcon} />
-                                <Text style={styles.IconListText}>Profile</Text>
+                                <Text style={[styles.IconListText,
+                                { color: active === 2 ? colors.primary : colors.darkColor }
+                                ]}>My Coupons</Text>
                             </Pressable>
                         </View>
                         <View style={styles.IconListBoxUL}>
@@ -158,7 +200,9 @@ export default function ProfilePage() {
                                 <Image source={
                                     active === 3 ? ADD_CARD : ADD_CARD1
                                 } style={styles.IconListIcon} />
-                                <Text style={styles.IconListText}>Profile</Text>
+                                <Text style={[styles.IconListText,
+                                { color: active === 3 ? colors.primary : colors.darkColor }
+                                ]}>Saved Cards</Text>
                             </Pressable>
                             <Pressable
                                 onPress={
@@ -168,7 +212,9 @@ export default function ProfilePage() {
                                 <Image source={
                                     active === 4 ? UPI : UPI1
                                 } style={styles.IconListIcon} />
-                                <Text style={[styles.IconListText]}>Profile</Text>
+                                <Text style={[styles.IconListText,
+                                { color: active === 4 ? colors.primary : colors.darkColor }
+                                ]}>UPI</Text>
                             </Pressable>
                             <Pressable
                                 onPress={
@@ -180,10 +226,126 @@ export default function ProfilePage() {
                                 } style={styles.IconListIcon} />
                                 <Text style={[styles.IconListText,
                                 { color: active === 5 ? colors.primary : colors.darkColor }
-                                ]}>Profile</Text>
+                                ]}>My Gift Card</Text>
+                            </Pressable>
+                        </View>
+                        <View style={styles.IconListBoxULnew}>
+                            <Pressable
+                                onPress={
+                                    () => item1(6)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 6 ? ADD_CARD : ADD_CARD1
+                                } style={styles.IconListIcon} />
+                                <Text style={[styles.IconListText,
+                                { color: active === 6 ? colors.primary : colors.darkColor }
+                                ]}>Saved Cards</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={
+                                    () => item1(7)
+                                }
+                                style={styles.IconListItem}>
+                                <Image source={
+                                    active === 7 ? UPI : UPI1
+                                } style={styles.IconListIcon} />
+                                <Text style={[styles.IconListText,
+                                { color: active === 7 ? colors.primary : colors.darkColor }
+                                ]}>UPI</Text>
                             </Pressable>
                         </View>
                     </View>
+                    <View style={styles.TitleRow}>
+                        <Text style={commonStyles.Title}>Settings</Text>
+                    </View>
+                    <View style={styles.IconListBox1}>
+                        {/* Language ,  Currency , Region select here */}
+                        <View
+                            style={styles.IconListItem1}>
+                            <Text style={styles.IconListText}>Language</Text>
+                            {/* select input with icon  */}
+                            <SelectDropdown
+                                data={data}
+                                placeholder={"English"}
+                                selected={selected}
+                                setSelected={setSelected}
+                                searchOptions={{
+                                    cursorColor: colors.headlineColor,
+                                    placeholderTextColor: colors.darkColor,
+                                }}
+                                searchBoxStyles={{
+                                    borderWidth: 0,
+                                    borderRadius: 5,
+                                    width: deviceWidth / 5,
+                                    height: deviceHeight / 20,
+                                }}
+                                dropdownStyles={{
+                                    borderColor: colors.inputColor,
+                                    borderWidth: 2,
+                                    width: deviceWidth / 3.5,
+                                    height: "fit-content"
+                                }}
+                            />
+                        </View>
+                        <View
+                            style={styles.IconListItem1}>
+                            <Text style={styles.IconListText}>Currency</Text>
+                            <SelectDropdown
+                                data={data1}
+                                placeholder={"INR"}
+                                selected={selected1}
+                                setSelected={setSelected1}
+                                searchOptions={{
+                                    cursorColor: colors.headlineColor,
+                                    placeholderTextColor: colors.darkColor,
+                                }}
+                                searchBoxStyles={{
+                                    borderWidth: 0,
+                                    borderRadius: 5,
+                                    width: deviceWidth / 5,
+                                    height: deviceHeight / 20,
+                                }}
+                                dropdownStyles={{
+                                    borderColor: colors.inputColor,
+                                    borderWidth: 2,
+                                    width: deviceWidth / 3.5,
+                                    height: "fit-content"
+                                }}
+                            />
+                        </View>
+                        <View
+                            style={styles.IconListItem1}>
+                            <Text style={styles.IconListText}>Region</Text>
+                            <Image source={INDIA} style={styles.RegionImage} />
+                        </View>
+
+                    </View>
+                    <Pressable
+                        onPress={
+                            () => item1(8)
+                        }
+                        style={styles.IconListItem}>
+                        <Image source={
+                            active === 8 ? FAQ : FAQ1
+                        } style={styles.IconListIcon} />
+                        <Text style={[styles.IconListText,
+                        { color: active === 8 ? colors.primary : colors.darkColor }
+                        ]}>FAQ</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={
+
+                            () => item1(9)
+                        }
+                        style={styles.IconListItem}>
+                        <Image source={
+                            active === 9 ? LOGOUT : LOGOUT1
+                        } style={styles.IconListIcon} />
+                        <Text style={[styles.IconListText,
+                        { color: active === 9 ? colors.primary : colors.darkColor }
+                        ]}>Log Out</Text>
+                    </Pressable>
                 </View>
 
             </ScrollView >
