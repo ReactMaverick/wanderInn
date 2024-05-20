@@ -141,9 +141,7 @@ export const styles = StyleSheet.create({
     HotelCardContentInner: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // alignItems: 'center',
         marginVertical: deviceHeight / 70,
-        // backgroundColor: 'red',
     },
     HotelCardTop: {
         justifyContent: "space-evenly",
@@ -232,7 +230,6 @@ export const styles = StyleSheet.create({
     HotelReviewOuterBoxTop: {
         justifyContent: "space-evenly",
         width: deviceWidth / 2,
-        gap: deviceHeight / 70 - 5,
     },
     HotelReviewOuterBox: {
         flexDirection: 'row',
@@ -298,6 +295,151 @@ export const styles = StyleSheet.create({
         color: colors.white,
         fontFamily: 'LatoBold',
         lineHeight: deviceHeight / 30,
+    },
+    outerBox: {
+        backgroundColor: colors.white,
+        borderRadius: deviceHeight / 40,
+        padding: deviceWidth / 35,
+        marginVertical: deviceHeight / 50,
+        shadowColor: colors.primary,
+        overflow: 'hidden',
+
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowRadius: 10,
+        elevation: 10,
+    },
+    HotelCalender: {
+        fontSize: H6,
+        color: colors.primary,
+        fontFamily: 'LatoBold',
+        // lineHeight: deviceHeight / 40,
+        textAlign: 'center',
+    },
+    HotelCalender1: {
+        fontSize: small,
+        color: colors.primary,
+        fontFamily: 'LatoRegular',
+        // lineHeight: deviceHeight / 40,
+        textAlign: 'center',
+    },
+    HotelTravelTitle: {
+        fontSize: H6,
+        color: colors.headlineColor,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
+    },
+    HotelCheckInRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    HotelCheckIn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: deviceHeight / 60 - 10,
+    },
+    Dot: {
+        height: deviceHeight / 100,
+        width: deviceHeight / 100,
+        borderRadius: deviceHeight / 100,
+        backgroundColor: colors.darkColor,
+        marginHorizontal: deviceHeight / 70,
+    },
+    HotelCheckInBig: {
+        fontSize: p,
+        color: colors.darkColor,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
+    },
+    HotelCheckInSmall: {
+        fontSize: small,
+        color: colors.darkColor,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 30,
+    },
+    roomsDatesRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        // gap: deviceWidth / 55,
+    },
+    roomsDatesCol: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: deviceWidth / 2.3 - 5,
+        justifyContent: 'space-between',
+        backgroundColor: colors.inputColor,
+        borderRadius: deviceHeight / 70 - 5,
+        padding: deviceWidth / 35,
+        marginVertical: deviceHeight / 50,
+        shadowColor: colors.primary,
+        overflow: 'hidden',
+        borderColor: colors.borderColor2,
+        borderWidth: 1,
+    },
+    roomsDatesColIcon: {
+        width: deviceHeight / 35,
+        height: deviceHeight / 35,
+    },
+    roomsDatesColText: {
+        fontSize: p,
+        color: colors.primary,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 30,
+    },
+    MainTitle: {
+        paddingVertical: deviceHeight / 50,
+        position: 'relative',
+    },
+    readMoreBtn: {
+        position: 'absolute',
+        bottom: deviceHeight / 55 - 5,
+        right: 0,
+        paddingVertical: deviceWidth / 60,
+        paddingHorizontal: deviceWidth / 30,
+    },
+    readMoreBtnText: {
+        fontSize: p,
+        color: colors.primary,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 40,
+        textDecorationLine: 'underline',
+    },
+
+    FacilityRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+    },
+    FacilityCol: {
+        width: deviceWidth / 6,
+        alignItems: 'center',
+    },
+    FacilityIconBox: {
+        backgroundColor: colors.inputColor,
+        height: deviceHeight / 12,
+        width: deviceHeight / 12,
+        padding: deviceHeight / 70,
+        borderRadius: deviceHeight / 60,
+        marginBottom: deviceHeight / 80 - 5,
+    },
+    FacilityIcon: {
+        height: "100%",
+        width: "100%",
+    },
+    FacilityText: {
+        fontSize: small,
+        color: colors.darkColor,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 35,
+    },
+    Map: {
+        width: "100%",
+        height: deviceHeight / 3.8,
+        objectFit: 'cover',
+        borderRadius: deviceHeight / 50,
     },
 
 });

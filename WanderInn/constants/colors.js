@@ -19,6 +19,7 @@ export const colors = {
   placeholderColor: '#AEBBCC',
   screenBg: '#F6F8FC',
   borderLightColor: '#CDD8E7',
+  borderColor2: '#DAE5F3',
   BGColor: '#DFFFFF',
   BGYellowColor: 'rgba(255, 193, 7, 0.78)',
   BGBlueColor: 'rgba(31, 138, 252, 0.16)',

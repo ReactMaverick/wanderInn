@@ -26,6 +26,12 @@ export const IMG2 = require('../assets/images/img2.jpg');
 export const IMG3 = require('../assets/images/img3.jpg');
 export const IMG4 = require('../assets/images/img4.jpg');
 export const IMG5 = require('../assets/images/img5.jpg');
+export const BED = require('../assets/images/bed.png');
+export const BATH = require('../assets/images/bathtub.png');
+export const DINNER = require('../assets/images/dinner.png');
+export const WIFI = require('../assets/images/wifi.png');
+export const AC = require('../assets/images/ac.png');
+export const MAP = require('../assets/images/map.png');
 
 // png icons  //
 export const ADD_CARD = require('../assets/images/icons/add_card.png');
@@ -48,6 +54,5 @@ export const USERICON = require('../assets/images/icons/user.png');
 export const USERICON1 = require('../assets/images/icons/user1.png');
 export const UPI = require('../assets/images/icons/upi.png');
 export const UPI1 = require('../assets/images/icons/upi1.png');
-
-
-
+export const CALENDER = require('../assets/images/icons/calendar.png');
+export const USERSOLID = require('../assets/images/icons/mdi_users.png');

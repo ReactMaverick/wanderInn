@@ -57,4 +57,10 @@ export const commonStyles = StyleSheet.create({
     fontFamily: 'LatoRegular',
     color: colors.blueDarkColor,
   },
+  Para: {
+    fontSize: p,
+    fontFamily: 'LatoRegular',
+    color: colors.darkColor,
+    lineHeight: deviceHeight / 35,
+  },
 });
