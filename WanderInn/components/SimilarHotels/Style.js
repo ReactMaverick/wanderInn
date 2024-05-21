@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     HotelCard: {
         backgroundColor: colors.white,
         borderRadius: deviceHeight / 40,
-        marginVertical: deviceHeight / 55 - 6,
+        marginVertical: deviceHeight / 50,
         marginHorizontal: deviceWidth / 25,
         shadowColor: colors.primary,
         overflow: 'hidden',
@@ -28,7 +28,6 @@ export const styles = StyleSheet.create({
         height: '100%',
         objectFit: 'cover',
     },
-
     HeartIconBox: {
         height: deviceHeight / 30,
         width: deviceHeight / 30,
@@ -42,6 +41,10 @@ export const styles = StyleSheet.create({
         },
         shadowRadius: 10,
         elevation: 10,
+        position: 'absolute',
+        top: deviceHeight / 100,
+        right: deviceWidth / 20 - 5,
+        zIndex: 1,
     },
     HeartIcon: {
         fontSize: p,
@@ -50,7 +53,7 @@ export const styles = StyleSheet.create({
     CatagoryBox: {
         position: 'absolute',
         top: deviceHeight / 100,
-        left: deviceWidth / 5,
+        left: deviceWidth / 20 - 5,
         backgroundColor: colors.BGYellowColor,
         paddingHorizontal: deviceWidth / 50,
         paddingVertical: deviceHeight / 100 - 5,

@@ -4,7 +4,7 @@ import { View, Text, Pressable, Image, TouchableOpacity, } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
-import { HOTEL } from "@/constants/images";
+import { HOTEL, IMG1, IMG5 } from "@/constants/images";
 
 export default function SimilarHotelsScreen() {
     const [isFav, setIsFav] = useState(false);
@@ -20,8 +20,15 @@ export default function SimilarHotelsScreen() {
                     <View style={styles.CatagoryBox}>
                         <Text style={styles.CatagoryText}>40% Off</Text>
                     </View>
+                    <Pressable
+                        onPress={() => {
+                            setIsFav(!isFav);
+                        }}
+                        style={styles.HeartIconBox}>
+                        <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
+                    </Pressable>
                     <Image style={styles.HotelCardImg}
-                        source={HOTEL}
+                        source={IMG5}
                     />
 
                 </View>

@@ -225,45 +225,57 @@ export default function HotelsDetailsPage() {
                             <Pressable onPress={() => {
                                 alert('See all Near by Hotels');
                             }}>
-                                <Text style={commonStyles.ViewAll}>See all</Text>
+                                <Text style={commonStyles.ViewAll}>See All</Text>
                             </Pressable>
                         </View>
                     </View>
                 </View>
-                <FlatList
-                    // ItemSeparatorComponent={ItemSeparator}
-                    horizontal
-                    data={[
-                        { key: 'a' },
-                        { key: 'b' },
-                        { key: 'c' },
-                        { key: 'd' },
-                        { key: 'e' },
-                        { key: 'f' },
-                        { key: 'g' },
-                        { key: 'h' },
-                        { key: 'i' },
-                        { key: 'j' },
-                        { key: 'k' },
-                        { key: 'l' },
-                        { key: 'm' },
-                        { key: 'n' },
-                        { key: 'o' },
-                        { key: 'p' },
-                        { key: 'q' },
-                        { key: 'r' },
-                        { key: 's' },
-                        { key: 't' },
-                        { key: 'u' },
-                        { key: 'v' },
-                        { key: 'w' },
-                        { key: 'x' },
-                        { key: 'y' },
-                        { key: 'z' },
+                <View style={styles.SimilarHotelsList}>
+                    <FlatList
+                        // ItemSeparatorComponent={ItemSeparator}  
+                        horizontal
+                        data={[
+                            { key: 'a' },
+                            { key: 'b' },
+                            { key: 'c' },
+                            { key: 'd' },
+                            { key: 'e' },
+                            { key: 'f' },
+                            { key: 'g' },
+                            { key: 'h' },
+                            { key: 'i' },
+                            { key: 'j' },
+                            { key: 'k' },
+                            { key: 'l' },
+                            { key: 'm' },
+                            { key: 'n' },
+                            { key: 'o' },
+                            { key: 'p' },
+                            { key: 'q' },
+                            { key: 'r' },
+                            { key: 's' },
+                            { key: 't' },
+                            { key: 'u' },
+                            { key: 'v' },
+                            { key: 'w' },
+                            { key: 'x' },
+                            { key: 'y' },
+                            { key: 'z' },
 
-                    ]}
-                    renderItem={({ item }) => (<SimilarHotelsScreen />)}
-                />
+                        ]}
+                        renderItem={({ item }) => (<SimilarHotelsScreen />)}
+                    />
+                </View>
+                {/* book now button  */}
+
+                <Pressable onPress={() => {
+                    alert('Book Now');
+                }}
+                    style={styles.BookNowBtn}>
+                    <Text style={styles.BookNowBtnText}>Book Now</Text>
+                </Pressable>
+
+
             </ScrollView>
         </>
     );

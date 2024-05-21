@@ -441,5 +441,25 @@ export const styles = StyleSheet.create({
         objectFit: 'cover',
         borderRadius: deviceHeight / 50,
     },
+    SimilarHotelsList: {
+        // paddingBottom: deviceHeight / 20,
+    },
+    BookNowBtn: {
+        backgroundColor: colors.primary,
+        paddingVertical: deviceHeight / 50,
+        borderRadius: deviceHeight / 50,
+        marginHorizontal: deviceWidth / 30,
+        width: deviceWidth - deviceWidth / 15,
+        borderRadius: deviceHeight / 100,
+        marginVertical: deviceHeight / 30,
+    },
+    BookNowBtnText: {
+        color: colors.white,
+        fontSize: H6,
+        textAlign: 'center',
+        lineHeight: deviceHeight / 30,
+        fontFamily: 'LatoBold',
+    },
+
 
 });
