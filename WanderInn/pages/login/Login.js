@@ -13,6 +13,9 @@ import { platform, showToast } from '@/constants/constants';
 import Loader from '@/components/loader/Loader';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/reducer/authReducer';
+import { LOGIN_URL } from '@/values/api/url';
+import { postData } from '@/values/api/apiprovider';
+import { StatusBar } from 'expo-status-bar';
 
 export default function LoginPage() {
 
@@ -64,12 +67,12 @@ export default function LoginPage() {
             updatedErrors.password = 'Password must be at least 8 characters';
             setErrors(updatedErrors);
         } else if (Object.keys(updatedErrors).length === 0) {
-            console.log('Form Data ==> ', formData);
+            // console.log('Form Data ==> ', formData);
 
             setIsLoading(true);
 
             signInWithEmailAndPassword(auth, formData.email, formData.password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
                     // ...
@@ -81,7 +84,7 @@ export default function LoginPage() {
                     setIsLoggedIn(true);
 
                     if (user.emailVerified) {
-                        showToast('success', 'Logged in successfully');
+
                         setIsUserVerified(true);
 
                         const userData = {
@@ -89,9 +92,29 @@ export default function LoginPage() {
                             uid: user.uid,
                         };
 
-                        console.log('User Data ==> ', userData);
+                        // console.log('User Data ==> ', userData);
 
-                        dispatch(login(userData));
+
+                        try {
+                            const response = await postData(LOGIN_URL, userData);
+
+                            console.log('Response ==> ', response);
+
+                            if (response.isSuccess) {
+                                showToast('success', response.message);
+
+                                dispatch(login(response.data));
+
+                            } else {
+                                console.log('Error ==> ', response.message);
+                                showToast('error', response.message);
+                            }
+
+                        } catch (error) {
+                            console.log('Error ==> ', error);
+                            showToast('error', 'Something went wrong');
+                        }
+
 
                     } else {
                         showToast('error', 'Please verify your email');
@@ -103,10 +126,12 @@ export default function LoginPage() {
                     const errorCode = error.code;
                     const errorMessage = error.message;
 
+                    console.log('Error ==> ', errorCode, errorMessage);
+
                     showToast('error', errorMessage);
                 })
                 .finally(() => {
-                    setIsLoading(false);
+                    console.log('Finally block');
 
                     setIsEmailValid(false);
 
@@ -116,6 +141,8 @@ export default function LoginPage() {
                     });
 
                     setErrors({});
+
+                    setIsLoading(false);
                 });
 
         }
@@ -145,77 +172,78 @@ export default function LoginPage() {
         return <Loader />;
     }
 
-
     return (
-        <KeyboardAvoidingView
-            behavior={platform === "ios" ? "padding" : "height"}
-            style={commonStyles.keyboardAvoidingView}
-        >
-            <SafeAreaView>
-                <ScrollView
-                    style={commonStyles.bg}
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps="handled"
-                >
-                    <View style={styles.container}>
-                        <View style={styles.titleContainer}>
-                            <Text style={styles.headerText}>Log In</Text>
-                            <Text style={styles.headerSubText}>
-                                Hi! Welcome Back you’ve been missed
-                            </Text>
-                        </View>
-                        <View style={styles.InputContainer}>
-                            <View style={styles.formContainer}>
+        <>
+            <StatusBar style="auto" />
+            <KeyboardAvoidingView
+                behavior={platform === "ios" ? "padding" : "height"}
+                style={commonStyles.keyboardAvoidingView}
+            >
+                <SafeAreaView>
+                    <ScrollView
+                        style={commonStyles.bg}
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
+                    >
+                        <View style={styles.container}>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.headerText}>Log In</Text>
+                                <Text style={styles.headerSubText}>
+                                    Hi! Welcome Back you’ve been missed
+                                </Text>
+                            </View>
+                            <View style={styles.InputContainer}>
+                                <View style={styles.formContainer}>
 
-                                <CustomInput
-                                    label="Email"
-                                    placeholder="Enter your email"
-                                    keyboardType={'email-address'}
-                                    value={formData.email}
-                                    rightIcon={isEmailValid ? "checkmark-circle" : false}
-                                    iconColor={colors.checkIconColor}
-                                    onChangeText={(text) => handleTextChange(text, 'email')}
-                                    required={true}
-                                    error={errors.email ? true : false}
-                                    errorText={errors.email}
-                                />
-                                <CustomInput
-                                    label="Password"
-                                    placeholder="Enter your password"
-                                    value={formData.password}
-                                    secureTextEntry={!isPasswordVisible}
-                                    rightIcon={isPasswordVisible ? "eye-outline" : "eye-off-outline"}
-                                    iconColor={colors.gray}
-                                    onIconPress={() => {
-                                        setIsPasswordVisible(!isPasswordVisible);
-                                    }}
-                                    onChangeText={(text) => handleTextChange(text, 'password')}
-                                    required={true}
-                                    error={errors.password ? true : false}
-                                    errorText={errors.password}
-                                />
-                                <TouchableOpacity style={styles.forgotPassword}>
-                                    <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-                                </TouchableOpacity>
+                                    <CustomInput
+                                        label="Email"
+                                        placeholder="Enter your email"
+                                        keyboardType={'email-address'}
+                                        value={formData.email}
+                                        rightIcon={isEmailValid ? "checkmark-circle" : false}
+                                        iconColor={colors.checkIconColor}
+                                        onChangeText={(text) => handleTextChange(text, 'email')}
+                                        required={true}
+                                        error={errors.email ? true : false}
+                                        errorText={errors.email}
+                                    />
+                                    <CustomInput
+                                        label="Password"
+                                        placeholder="Enter your password"
+                                        value={formData.password}
+                                        secureTextEntry={!isPasswordVisible}
+                                        rightIcon={isPasswordVisible ? "eye-outline" : "eye-off-outline"}
+                                        iconColor={colors.gray}
+                                        onIconPress={() => {
+                                            setIsPasswordVisible(!isPasswordVisible);
+                                        }}
+                                        onChangeText={(text) => handleTextChange(text, 'password')}
+                                        required={true}
+                                        error={errors.password ? true : false}
+                                        errorText={errors.password}
+                                    />
+                                    <TouchableOpacity style={styles.forgotPassword}>
+                                        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                                    </TouchableOpacity>
 
-                                <TouchableOpacity
-                                    style={[commonStyles.btn, { marginTop: 27 }]}
-                                    onPress={handleSignIn}
-                                >
-                                    <Text style={commonStyles.btnText}>Log in</Text>
-                                </TouchableOpacity>
-
-                                {isLoggedIn && !isUserVerified && (
                                     <TouchableOpacity
                                         style={[commonStyles.btn, { marginTop: 27 }]}
-                                        onPress={handleSendVerificationEmail}
+                                        onPress={handleSignIn}
                                     >
-                                        <Text style={commonStyles.btnText}>Send Verification Email</Text>
+                                        <Text style={commonStyles.btnText}>Log in</Text>
                                     </TouchableOpacity>
-                                )}
-                            </View>
 
-                            <View style={styles.orLoginWith}>
+                                    {isLoggedIn && !isUserVerified && (
+                                        <TouchableOpacity
+                                            style={[commonStyles.btn, { marginTop: 27 }]}
+                                            onPress={handleSendVerificationEmail}
+                                        >
+                                            <Text style={commonStyles.btnText}>Send Verification Email</Text>
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
+
+                                {/* <View style={styles.orLoginWith}>
                                 <View style={styles.orLoginWithLine} />
                                 <Text style={styles.orLoginWithText}>Or login with</Text>
                                 <View style={styles.orLoginWithLine} />
@@ -232,17 +260,18 @@ export default function LoginPage() {
                                 <TouchableOpacity style={styles.SocoalButton}>
                                     <Image source={GOOGLE} style={styles.socialMediaIcon} />
                                 </TouchableOpacity>
+                            </View> */}
+
+                            </View>
+
+                            <View style={styles.loginLinkContainer}>
+                                <Text style={styles.orLoginWithText}>Dont have an account? <Link href='/register' style={styles.loginLink}>Sign up</Link></Text>
                             </View>
 
                         </View>
-
-                        <View style={styles.loginLinkContainer}>
-                            <Text style={styles.orLoginWithText}>Dont have an account? <Link href='/register' style={styles.loginLink}>Sign up</Link></Text>
-                        </View>
-
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </KeyboardAvoidingView>
+                    </ScrollView>
+                </SafeAreaView>
+            </KeyboardAvoidingView>
+        </>
     );
 }

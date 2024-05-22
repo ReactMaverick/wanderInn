@@ -4,9 +4,21 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const route = require('./routes/route');
+
 dotenv.config();
 
+
+const route = require('./routes/route');
+const admin = require('firebase-admin');
+
+
+
+// Replace with the path to your service account key file
+const serviceAccount = require('./serviceAccount/wanderInn-config.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

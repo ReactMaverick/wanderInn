@@ -4,7 +4,7 @@ import { styles } from './Style';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebaseConfig';
 import { deviceHeight, deviceWidth, showToast } from '@/constants/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from '@/components/loader/Loader';
 import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { commonStyles } from '@/constants/styles';
 import SelectDropdown from '../../components/customSelectDrondown/SelectDropdown';
+import { getToken } from '@/common/common';
 
 export default function ProfilePage() {
 
@@ -69,20 +70,21 @@ export default function ProfilePage() {
             .then(() => {
                 console.log('User logged out');
 
-                showToast('success', 'Logged out successfully');
-
                 dispatch(logout());
 
                 router.replace('login');
+
+                setIsLoading(false);
+
+                showToast('success', 'Logged out successfully');
             })
             .catch((error) => {
                 console.error('Error logging out: ', error);
 
                 showToast('error', 'Error logging out');
-            })
-            .finally(() => {
+
                 setIsLoading(false);
-            });
+            })
     }
 
     if (isLoading) {
@@ -336,7 +338,12 @@ export default function ProfilePage() {
                     <Pressable
                         onPress={
 
-                            () => item1(9)
+                            () => {
+                                item1(9);
+                                handleLogout();
+                            }
+
+
                         }
                         style={styles.IconListItem}>
                         <Image source={
