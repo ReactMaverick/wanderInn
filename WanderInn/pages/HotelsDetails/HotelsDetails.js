@@ -11,6 +11,7 @@ import { commonStyles } from '@/constants/styles';
 import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
 import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels';
 import SimilarHotelsScreen from '@/components/SimilarHotels/SimilarHotels';
+import { router } from 'expo-router';
 
 export default function HotelsDetailsPage() {
     const [isFav, setIsFav] = useState(false);
@@ -105,7 +106,8 @@ export default function HotelsDetailsPage() {
                             {/* see all button with icon  */}
                             <Pressable
                                 onPress={() => {
-                                    alert('See all Reviews');
+                                    console.log('Hotel clicked');
+                                    router.push('reviews');
                                 }}
                                 style={styles.seeAllBtn}>
                                 <Text style={styles.seeAllBtnText}>See All</Text>
