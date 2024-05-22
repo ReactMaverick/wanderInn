@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         paddingBottom: deviceWidth * 5 / 100,
         paddingHorizontal: deviceWidth * 5 / 100,
         paddingTop: deviceHeight * 5 / 100,
-        minHeight: deviceHeight,
+        minHeight: deviceHeight + 30,
     },
     InputContainer: {
         alignItems: 'center',

@@ -9,11 +9,11 @@ export default function TabLayout() {
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
+    console.log('isLoggedIn in tabLayout ==> ', isLoggedIn);
+
     if (!isLoggedIn) {
         return <Redirect href='login' />
-    }
-
-    return (
+    } else return (
         <Tabs
             screenOptions={{
                 headerShown: false,

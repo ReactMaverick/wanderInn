@@ -37,7 +37,7 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <StatusBar style="inverted" />
+        <StatusBar style="dark" />
         <Slot />
       </PersistGate>
     </Provider>
