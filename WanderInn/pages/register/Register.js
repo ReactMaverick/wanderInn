@@ -5,12 +5,14 @@ import { colors } from '@/constants/colors';
 import { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
-import { auth, googleProvider, writeUserData } from '@/firebaseConfig';
+import { auth } from '@/firebaseConfig';
 import { isValidEmail } from '@/constants/validation';
 import { platform, showToast } from '@/constants/constants';
 import Loader from '@/components/loader/Loader';
 import { commonStyles } from '@/constants/styles';
 import { FACEBOOK, GOOGLE, TWTTER } from '@/constants/images';
+import { postData } from '@/values/api/apiprovider';
+import { REGISTER_URL } from '@/values/api/url';
 
 export default function RegisterPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +45,7 @@ export default function RegisterPage() {
         setErrors(updatedErrors);
     }
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         const updatedErrors = {};
 
         if (!formData.name) {
@@ -71,36 +73,19 @@ export default function RegisterPage() {
             updatedErrors.confirmPassword = 'Passwords do not match';
             setErrors(updatedErrors);
         } else if (Object.keys(updatedErrors).length === 0) {
-            console.log('Form Data ==> ', formData);
+            // console.log('Form Data ==> ', formData);
 
             setIsLoading(true);
 
-            createUserWithEmailAndPassword(auth, formData.email, formData.password)
-                .then((userCredential) => {
-                    // Signed up 
-                    const user = userCredential.user;
+            try {
+                const response = await postData(REGISTER_URL, formData);
 
-                    console.log('User ==> ', user);
+                console.log('Response ==> ', response);
 
-                    showToast('success', 'User created successfully');
+                if (response.isSuccess) {
+                    showToast('success', response.message);
 
-
-                    writeUserData(user.uid, formData.name, formData.email);
-
-                    router.push('login');
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
-
-                    console.log('Error ==> ', errorCode, errorMessage);
-
-                    showToast('error', errorMessage);
-
-                })
-                .finally(() => {
-                    setIsLoading(false);
+                    router.push('/login');
 
                     setFormData({
                         name: '',
@@ -108,12 +93,16 @@ export default function RegisterPage() {
                         password: '',
                         confirmPassword: ''
                     });
+                } else {
+                    showToast('error', response.message);
+                }
 
-                    setIsEmailValid(false);
-
-                    setErrors({});
-                });
-
+            } catch (error) {
+                console.log('Error ==> ', error);
+                showToast('error', 'Something went wrong');
+            } finally {
+                setIsLoading(false);
+            }
         }
     }
 
@@ -204,12 +193,12 @@ export default function RegisterPage() {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={styles.orLoginWith}>
+                            {/* <View style={styles.orLoginWith}>
                                 <View style={styles.orLoginWithLine} />
                                 <Text style={styles.orLoginWithText}>Or login with</Text>
                                 <View style={styles.orLoginWithLine} />
                             </View>
-                            {/* Social Media Login Buttons */}
+                            
                             <View style={styles.SocialMediaLogin} >
                                 <TouchableOpacity style={styles.SocoalButton}>
                                     <Image source={FACEBOOK} style={styles.socialMediaIcon} />
@@ -222,9 +211,8 @@ export default function RegisterPage() {
                                 >
                                     <Image source={GOOGLE} style={styles.socialMediaIcon} />
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
 
-                            {/* Social Media Login Buttons */}
                         </View>
 
                         <View style={styles.loginLinkContainer}>

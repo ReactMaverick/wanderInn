@@ -10,6 +10,12 @@ const hotelController = require('../controllers/hotelController');
 // Authentication APIs
 router.post('/register', userController.register);
 router.post('/login', userController.login);
+router.post('/generateIdToken', userController.generateIdToken);
+router.post('/forgotPassword', authMiddleware.isAuth, userController.forgotPassword);
+
+// User APIs
+router.get('/getUser', authMiddleware.isAuth, userController.getUser);
+router.post('/updateUser', authMiddleware.isAuth, userController.updateUser);
 
 // Hotels APIs
 router.post('/addHotel', authMiddleware.isAuth, hotelController.addHotel);
