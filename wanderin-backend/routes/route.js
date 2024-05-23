@@ -11,7 +11,7 @@ const hotelController = require('../controllers/hotelController');
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.post('/generateIdToken', userController.generateIdToken);
-router.post('/forgotPassword', authMiddleware.isAuth, userController.forgotPassword);
+router.post('/forgotPassword', userController.forgotPassword);
 
 // User APIs
 router.get('/getUser', authMiddleware.isAuth, userController.getUser);
