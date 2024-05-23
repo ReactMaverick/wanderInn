@@ -67,7 +67,9 @@ export default function LoginPage() {
             updatedErrors.password = 'Password must be at least 8 characters';
             setErrors(updatedErrors);
         } else if (Object.keys(updatedErrors).length === 0) {
-            // console.log('Form Data ==> ', formData);
+            console.log('Form Data ==> ', formData);
+
+            // console.log('Auth ==> ', auth);
 
             setIsLoading(true);
 
@@ -77,7 +79,7 @@ export default function LoginPage() {
                     const user = userCredential.user;
                     // ...
 
-                    // console.log('User ==> ', user);
+                    console.log('User ==> ', user);
 
                     // console.log('User ==> ', user);
 
