@@ -370,4 +370,99 @@ exports.searchHotelsFilter = async (req, res) => {
     }
 };
 
+exports.popularHotels = async (req, res) => {
+    try {
+        const { search = '', page = 1, limit = 10 } = req.body;
+        console.log("req.query",req.query)
+        // Construct the query object   
+        const query = {};
 
+        if (search) {
+            query.$or = [
+                { name: new RegExp(search, 'i') },
+                { location: new RegExp(search, 'i') }
+            ];
+        }
+
+        // Calculate the number of documents to skip
+        const skip = (page - 1) * limit;
+
+        // Fetch the hotels based on the query, sorted by starRating in descending order
+        const hotels = await Hotel.find(query)
+            .sort({ starRating: -1 })
+            .skip(skip)
+            .limit(Number(limit));
+
+        // Get the total count for pagination purposes
+        const totalCount = await Hotel.countDocuments(query);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return res.status(200).json(helper.response(200, true, "Popular hotels fetched successfully", {
+            hotels,
+            pagination: {
+                totalItems: totalCount,
+                totalPages,
+                currentPage: page,
+                pageSize: limit
+            }
+        }));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+};
+
+exports.nearbyHotels = async (req, res) => {
+    try {
+        const { location, radius, search = '', page = 1, limit = 10 } = req.body;
+
+        // Assuming location is provided as an array of coordinates [longitude, latitude]
+        const coordinates = location.coordinates;
+
+        // Construct the query object
+        const query = {
+            location: {
+                $geoWithin: {
+                    $centerSphere: [coordinates, radius / 6378.1] // Convert radius from meters to radians
+                }
+            }
+        };
+
+        if (search) {
+            query.$or = [
+                { name: new RegExp(search, 'i') },
+                { location: new RegExp(search, 'i') }
+            ];
+        }
+
+        // Calculate the number of documents to skip
+        const skip = (page - 1) * limit;
+
+        // Fetch the hotels based on the query, sorted by distance, with pagination
+        const hotels = await Hotel.find(query)
+            .sort() // Assuming you have a 'distance' field in your schema
+            .skip(skip)
+            .limit(Number(limit));
+
+        // Get the total count for pagination purposes
+        const totalCount = await Hotel.countDocuments(query);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return res.status(200).json(helper.response(200, true, "Nearby hotels fetched successfully", {
+            hotels,
+            pagination: {
+                totalItems: totalCount,
+                totalPages,
+                currentPage: page,
+                pageSize: limit
+            }
+        }));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+};

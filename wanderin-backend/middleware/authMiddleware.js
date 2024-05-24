@@ -17,6 +17,7 @@ authMiddleware.isAuth = async (req, res, next) => {
 
         // Check if the header is in the format "Bearer <token>"
         const parts = authHeader.split(' ');
+        // console.log('Parts ==>', parts);
 
         if (parts.length !== 2 || parts[0] !== 'Bearer') {
             return res.status(401).json(helper.response(401, false, 'Invalid authorization header format. Format is "Bearer <token>"'));
@@ -31,10 +32,11 @@ authMiddleware.isAuth = async (req, res, next) => {
 
         // Verify the token using Firebase Admin SDK
         const decodedToken = await admin.auth().verifyIdToken(token);
-
+        // console.log('Decoded token:', decodedToken);
+        
         // Attach decoded user info to request object (optional)
         req.currentUser = decodedToken;
-
+        // console.log('req.currentUser:', req.currentUser);
         // console.log('Decoded token:', decodedToken);
 
         next();

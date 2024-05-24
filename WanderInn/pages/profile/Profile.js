@@ -7,8 +7,8 @@ import { deviceHeight, deviceWidth, showToast } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import Loader from '@/components/loader/Loader';
 import { useRouter } from 'expo-router';
-import { useDispatch } from 'react-redux';
-import { logout } from '@/redux/reducer/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectIsLoggedIn, selectUser } from '@/redux/reducer/authReducer';
 import HeaderScreen from '@/components/Header/Header';
 import { ADD_CARD, ADD_CARD1, COUPONS, COUPONS1, FAQ, FAQ1, GIFT, GIFT1, INDIA, LOGOUT, LOGOUT1, TRIP, TRIP1, UPI, UPI1, USER, USERICON, USERICON1 } from '@/constants/images';
 import { Feather } from '@expo/vector-icons';
@@ -19,7 +19,12 @@ import { getToken } from '@/common/common';
 
 export default function ProfilePage() {
 
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
+    console.log('isLoggedIn in tabLayout ==> ', isLoggedIn);
+    
+    const user = useSelector(selectUser);
+    console.log('user in tabLayout ==> ', user);
     const [selected, setSelected] = useState(null);
 
     const data = [
@@ -102,10 +107,10 @@ export default function ProfilePage() {
                     <View style={styles.ProfileBoxOuter}>
                         <View style={styles.ProfileBoxTop}>
                             <View style={styles.ProfileBoxTopLeft}>
-                                <Image source={USER} style={styles.ProfileImage} />
+                                <Image source={user.image ? user.image : USER} style={styles.ProfileImage} />
                                 <View style={styles.ProfileBoxProfile}>
-                                    <Text style={styles.ProfileName}>Jenny Wilson</Text>
-                                    <Text style={styles.ProfileEmail}>jenny.wilson@example.com</Text>
+                                    <Text style={styles.ProfileName}>{user.name}</Text>
+                                    <Text style={styles.ProfileEmail}>{user.email}</Text>
                                 </View>
                             </View>
                             {/* edit icon button  */}

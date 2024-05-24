@@ -4,6 +4,9 @@ const admin = require('firebase-admin');
 const jwt_token = require('jsonwebtoken');
 const helper = require('../helper/index');
 const fs = require('fs');
+const User = require('../models/userModel');
+const Hotel = require('../models/hotelModel');
+const Booking = require('../models/bookingSchema');
 
 const firebase_API_KEY = process.env.FIREBASE_API_KEY;
 
@@ -207,3 +210,146 @@ exports.forgotPassword = async (req, res) => {
         }
     }
 }
+
+// Controller function to add a hotel to favorites
+exports.addToFavorites = async (req, res) => {
+    try {
+        const { hotelId, userId } = req.body;
+        // const user = req.user; // Assuming the user object is available in the request
+        console.log("User ID: ", userId);
+        console.log("Hotel ID: ", hotelId);
+        // Check if the hotel exists
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) {
+            return res.status(404).json({ success: false, message: "Hotel not found" });
+        }
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        console.log("User: ", user);
+        // Add the hotel to the user's favorites
+        user.Favourites.push(hotel);
+        await user.save();
+
+        // Return the updated user object with full hotel details
+        const updatedUser = await User.findById(user._id).populate('Favourites');
+        return res.status(200).json({ success: true, message: "Hotel added to favorites", user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Something went wrong!" });
+    }
+};
+exports.removeFromFavorites = async (req, res) => {
+    try {
+        const { hotelId, userId } = req.body;
+        // const user = req.user; // Assuming the user object is available in the request
+        console.log("User ID: ", userId);
+        console.log("Hotel ID: ", hotelId);
+        // Check if the hotel exists
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) {
+            return res.status(404).json({ success: false, message: "Hotel not found" });
+        }
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        console.log("User: ", user);
+        // Remove the hotel from the user's favorites
+        user.Favourites = user.Favourites.filter(fav => fav._id.toString() !== hotelId);
+        await user.save();
+
+        // Return the updated user object with full hotel details
+        const updatedUser = await User.findById(user._id).populate('Favourites');
+        return res.status(200).json({ success: true, message: "Hotel removed from favorites", user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Something went wrong!" });
+    }
+}
+exports.getFavouriteHotelsByUser = async (req, res) => {
+    try {
+        const { userId, searchQuery, page = 1, limit = 10 } = req.body;
+
+        // Find the user and populate their favorite hotels
+        const user = await User.findById(userId).populate({
+            path: 'Favourites',
+            match: searchQuery ? { name: { $regex: searchQuery, $options: 'i' } } : {},
+            options: {
+                skip: (page - 1) * limit,
+                limit: parseInt(limit),
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Get the total count of favorite hotels that match the search query
+        const totalFavorites = await Hotel.countDocuments({
+            _id: { $in: user.Favourites },
+            ...(searchQuery && { name: { $regex: searchQuery, $options: 'i' } })
+        });
+
+        return res.status(200).json({
+            success: true,
+            favorites: user.Favourites,
+            totalFavorites,
+            totalPages: Math.ceil(totalFavorites / limit),
+            currentPage: page
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Something went wrong!" });
+    }
+}
+exports.getBookingsByUser = async (req, res) => {
+    try {
+        const { userId, searchQuery, page = 1, limit = 10 } = req.body;
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json(helper.response(404, false, "User not found"));
+        }
+
+        // Create a query object for searching
+        const query = {
+            user: userId
+        };
+
+        // If a search query is provided, add it to the search criteria
+        if (searchQuery) {
+            query.$or = [
+                { 'hotel': new RegExp(searchQuery, 'i') },
+                { 'room': new RegExp(searchQuery, 'i') }
+            ];
+        }
+
+        // Calculate the skip value for pagination
+        const skip = (page - 1) * limit;
+
+        // Fetch bookings based on the search criteria with pagination
+        const bookings = await Booking.find(query)
+            .skip(skip)
+            .limit(limit)
+            .populate('hotel')
+            .populate('room');
+
+        // Get the total count of bookings for pagination
+        const totalBookings = await Booking.countDocuments(query);
+
+        return res.status(200).json(helper.response(200, true, "Bookings fetched successfully", {
+            bookings,
+            pagination: {
+                total: totalBookings,
+                page,
+                limit
+            }
+        }));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+};

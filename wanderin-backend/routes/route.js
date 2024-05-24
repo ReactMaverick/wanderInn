@@ -21,6 +21,10 @@ router.post('/forgotPassword', userController.forgotPassword);
 // User APIs
 router.get('/getUser', authMiddleware.isAuth, userController.getUser);
 router.post('/updateUser', authMiddleware.isAuth, userController.updateUser);
+router.post('/addToFavourites', authMiddleware.isAuth, userController.addToFavorites);
+router.post('/removeFromFavourites', authMiddleware.isAuth, userController.removeFromFavorites);
+router.post('/getFavourites', authMiddleware.isAuth, userController.getFavouriteHotelsByUser);
+router.post('/getBookingsByUser', userController.getBookingsByUser);
 
 // Hotels APIs
 router.post('/addHotel', authMiddleware.isAuth, hotelController.addHotel);
@@ -31,6 +35,9 @@ router.delete('/deleteHotel/:id', authMiddleware.isAuth, hotelController.deleteH
 router.delete('/deleteRoomById/:id', authMiddleware.isAuth, hotelController.deleteRoomById);
 router.post('/hotelsSearch', authMiddleware.isAuth, hotelController.searchHotels);
 router.post('/hotelSearctFilter', authMiddleware.isAuth, hotelController.searchHotelsFilter);
+router.post('/popularHotels',authMiddleware.isAuth, hotelController.popularHotels);
+router.post('/nearbyHotels',authMiddleware.isAuth, hotelController.nearbyHotels);
+
 
 //Booking APIs
 router.post('/bookHotel', authMiddleware.isAuth, bookingController.bookHotel);

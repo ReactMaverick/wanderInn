@@ -10,7 +10,7 @@ import { HOTEL, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
 import { BlurView } from 'expo-blur';
 import { useRouter } from "expo-router";
 
-export default function NearByHotelsScreen() {
+export default function  NearByHotelsScreen() {
     const router = useRouter();
     const blinkValue = useRef(new Animated.Value(1)).current;
     const [isFav, setIsFav] = useState(false);

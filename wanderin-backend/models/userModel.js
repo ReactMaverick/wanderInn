@@ -27,10 +27,14 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // bookings: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Booking'
-    // }],
+    bookings: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Booking'
+    }],
+    Favourites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hotel'
+    }],
 })
 
 module.exports = mongoose.model('User', userSchema);
