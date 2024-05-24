@@ -204,8 +204,85 @@ export const styles = StyleSheet.create({
         fontFamily: 'LatoRegular',
         textAlign: 'right',
     },
-    HotelCardPAckAge: {
+    HotelDetailsCard: {
+        backgroundColor: colors.screenBg,
+        borderRadius: deviceHeight / 40,
+        marginVertical: deviceHeight / 60 - 5,
+        shadowColor: colors.primary,
+        padding: deviceWidth / 40,
+        overflow: 'hidden',
+        borderColor: colors.lightBlue,
+        borderWidth: 1,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    HotelDetailsCardInner: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    HotelDetailsCardLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    HotelDetailsCardRight: {
+        flex: 1.2,
+        alignItems: 'center',
+        height: deviceHeight / 13,
+        justifyContent: 'center',
+        backgroundColor: colors.inputColor,
+        borderRadius: deviceHeight / 100,
+    },
+    HotelDetailsCardRightText: {
+        color: colors.gray,
+        fontSize: H5,
+        fontFamily: 'LatoBold',
+    },
+    HotelDetailsCardRightText1: {
+        color: colors.borderDarkColor,
+        fontSize: p,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 40,
+    },
+    HotelDetailsCard1: {
+        justifyContent: 'center',
+        gap: deviceHeight / 100 - 5,
+    },
+    arrowIcon: {
+        fontSize: H5,
+        color: colors.blueDarkColor,
+        marginHorizontal: deviceWidth / 30,
+    },
+    HotelDetailsCard2: {
+        justifyContent: 'center',
+        gap: deviceHeight / 100 - 5,
+    },
+    HotelDetailsCardTitle: {
+        fontSize: H6,
+        color: colors.headlineColor,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 35,
+    },
+    HotelDetailsCardSubTitle: {
+        fontSize: small,
+        color: colors.gray,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 40,
+    },
 
+    CancellationPolicy: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: deviceWidth / 100,
+        marginBottom: deviceHeight / 100,
+    },
+    HotelDetailsCardLeftMain: {
+        flex: 5,
+        gap: deviceWidth / 30,
     },
 
 });

@@ -3,7 +3,7 @@ import { styles } from './Style';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { deviceHeight } from '@/constants/constants';
-import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { HOTEL1, } from "@/constants/images";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -75,6 +75,34 @@ export default function ReviewsPage() {
 
                             </View>
                         </View>
+                    </View>
+                    <View style={styles.HotelDetailsCard}>
+                        <View style={styles.HotelDetailsCardInner}>
+                            <View style={styles.HotelDetailsCardLeftMain}>
+                                <View style={styles.HotelDetailsCardLeft}>
+                                    <View style={styles.HotelDetailsCard1}>
+                                        <Text style={styles.HotelDetailsCardTitle}>Tue, May 7</Text>
+                                        <Text style={styles.HotelDetailsCardSubTitle}>12: 00 PM</Text>
+                                    </View>
+
+                                    <Ionicons name="arrow-forward" style={styles.arrowIcon} />
+                                    <View style={styles.HotelDetailsCard2}>
+                                        <Text style={styles.HotelDetailsCardTitle}>Wed, May 8</Text>
+                                        <Text style={styles.HotelDetailsCardSubTitle}>12: 00 PM</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.CancellationPolicy}>
+                                    <MaterialCommunityIcons name="shield-off" style={styles.CancellationPolicyIcon} />
+                                    <Text style={styles.CancellationPolicyText}>Free Cancellation</Text>
+                                </View>
+                            </View>
+                            <View style={styles.HotelDetailsCardRight}>
+                                <Text style={styles.HotelDetailsCardRightText}>1</Text>
+                                <Text style={styles.HotelDetailsCardRightText1}>night</Text>
+                            </View>
+                        </View>
+                        {/* Cancellation Policy with icon  */}
+
                     </View>
                 </View>
             </ScrollView>
