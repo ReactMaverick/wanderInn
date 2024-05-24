@@ -1,11 +1,16 @@
-import { View, Text, ScrollView, Pressable, FlatList, } from 'react-native';
+import { View, Text, ScrollView, Pressable, FlatList, Image, } from 'react-native';
 import { styles } from './Style';
 import { Ionicons } from '@expo/vector-icons';
 import * as Progress from 'react-native-progress';
 import { colors } from '@/constants/colors';
 import { deviceHeight } from '@/constants/constants';
+import { HOTEL, HOTEL1, USER1, USER2, USER3, USER4, USER5 } from '@/constants/images';
+import { AntDesign } from '@expo/vector-icons';
+import { useState } from 'react';
 
 export default function ReviewsPage() {
+    const [isLIke, setIsLIke] = useState(false);
+    const [isPressed, setIsPressed] = useState(false);
 
     return (
         <View style={{
@@ -137,20 +142,111 @@ export default function ReviewsPage() {
                 <FlatList
                     horizontal
                     data={[
-                        { key: '1', title: 'All Reviews' },
-                        { key: '2', title: 'Excellent' },
-                        { key: '3', title: 'Very Good' },
-                        { key: '4', title: 'Good' },
-                        { key: '5', title: 'Average' },
-                        { key: '6', title: 'Poor' },
+                        { key: '1', title: 'All Guest' },
+                        { key: '2', title: 'Family' },
+                        { key: '3', title: 'Friends' },
+                        { key: '4', title: 'Couples' },
                     ]}
                     renderItem={({ item }) => <View style={styles.ReviewCatagoryBox}>
                         <Text style={styles.ReviewCatagoryBoxTitle}>{item.title}</Text>
                     </View>}
-
-
                 />
-
+                <View style={styles.container}>
+                    <View style={styles.reviewMAinBox}>
+                        <View style={styles.reviewHead}>
+                            <Text style={styles.reviewHeadTitle}>All (5967)Reviews</Text>
+                        </View>
+                        <View style={styles.reviewBody}>
+                            <View style={styles.reviewBodyHead}>
+                                <View style={styles.UserINfoBox}>
+                                    <Image source={USER4} style={styles.UserImage} />
+                                    <View style={styles.UserINfo}>
+                                        <Text style={styles.UserName}>Lisa Angles</Text>
+                                        <View style={styles.UserPostDateBox}>
+                                            <Text style={styles.UserDate}>Friend</Text>
+                                            <View style={styles.Dot} />
+                                            <Text style={styles.UserDate}>23 April, 2024</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.ReviewStarBox}>
+                                    <Text style={styles.ReviewStarText}>4.5</Text>
+                                    <Ionicons name="star" style={styles.ReviewStar} />
+                                </View>
+                            </View>
+                            <View style={styles.ReviewDetailsBox}>
+                                <Text style={styles.ReviewDetailsBoxTitle}>Executive Room</Text>
+                                <Text style={styles.ReviewDetailsText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor ini officia.</Text>
+                                <View style={styles.ReviewDetailsImagesRow}>
+                                    <Image source={HOTEL} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL1} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL1} style={styles.ReviewDetailsImages} />
+                                </View>
+                                {/* Helpful, share button  */}
+                                <View style={styles.ReviewDetailsFooter}>
+                                    <Pressable
+                                        onPress={() => setIsLIke(!isLIke)}
+                                        style={styles.likeBtn}>
+                                        <Text style={[styles.likeBtnText, { color: isLIke ? colors.primary : colors.blueDarkColor }]}>Helpful</Text>
+                                        <AntDesign name={isLIke ? "like1" : "like2"} style={[styles.likeBtnIcon, { color: isLIke ? colors.primary : colors.blueDarkColor }]} />
+                                    </Pressable>
+                                    <Pressable
+                                        onPress={() => setIsPressed(!isPressed)}
+                                        style={styles.likeBtn}>
+                                        <Text style={[styles.likeBtnText, { color: isPressed ? colors.primary : colors.blueDarkColor }]}>Share</Text>
+                                        <Ionicons name={isPressed ? "share-social-sharp" : "share-social-outline"} style={[styles.likeBtnIcon, { color: isPressed ? colors.primary : colors.blueDarkColor }]} />
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.devider} />
+                        <View style={styles.reviewBody}>
+                            <View style={styles.reviewBodyHead}>
+                                <View style={styles.UserINfoBox}>
+                                    <Image source={USER3} style={styles.UserImage} />
+                                    <View style={styles.UserINfo}>
+                                        <Text style={styles.UserName}>Esther Howard</Text>
+                                        <View style={styles.UserPostDateBox}>
+                                            <Text style={styles.UserDate}>Friend</Text>
+                                            <View style={styles.Dot} />
+                                            <Text style={styles.UserDate}>23 April, 2024</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.ReviewStarBox}>
+                                    <Text style={styles.ReviewStarText}>4.5</Text>
+                                    <Ionicons name="star" style={styles.ReviewStar} />
+                                </View>
+                            </View>
+                            <View style={styles.ReviewDetailsBox}>
+                                <Text style={styles.ReviewDetailsBoxTitle}>Executive Room</Text>
+                                <Text style={styles.ReviewDetailsText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor ini officia.</Text>
+                                <View style={styles.ReviewDetailsImagesRow}>
+                                    <Image source={HOTEL} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL1} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL} style={styles.ReviewDetailsImages} />
+                                    <Image source={HOTEL1} style={styles.ReviewDetailsImages} />
+                                </View>
+                                {/* Helpful, share button  */}
+                                <View style={styles.ReviewDetailsFooter}>
+                                    <Pressable
+                                        onPress={() => setIsLIke(!isLIke)}
+                                        style={styles.likeBtn}>
+                                        <Text style={[styles.likeBtnText, { color: isLIke ? colors.primary : colors.blueDarkColor }]}>Helpful</Text>
+                                        <AntDesign name={isLIke ? "like1" : "like2"} style={[styles.likeBtnIcon, { color: isLIke ? colors.primary : colors.blueDarkColor }]} />
+                                    </Pressable>
+                                    <Pressable
+                                        onPress={() => setIsPressed(!isPressed)}
+                                        style={styles.likeBtn}>
+                                        <Text style={[styles.likeBtnText, { color: isPressed ? colors.primary : colors.blueDarkColor }]}>Share</Text>
+                                        <Ionicons name={isPressed ? "share-social-sharp" : "share-social-outline"} style={[styles.likeBtnIcon, { color: isPressed ? colors.primary : colors.blueDarkColor }]} />
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
 
             </ScrollView>
         </View>

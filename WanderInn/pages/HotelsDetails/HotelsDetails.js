@@ -13,10 +13,9 @@ import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels'
 import SimilarHotelsScreen from '@/components/SimilarHotels/SimilarHotels';
 import { router } from 'expo-router';
 
-export default function HotelsDetailsPage() {
+export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
     const ItemSeparator = () => <View style={{ width: 20 }} />;
-
 
     return (
         <>
@@ -272,6 +271,7 @@ export default function HotelsDetailsPage() {
 
                 <Pressable onPress={() => {
                     alert('Book Now');
+                    router.push('bookingDetails');
                 }}
                     style={styles.BookNowBtn}>
                     <Text style={styles.BookNowBtnText}>Book Now</Text>

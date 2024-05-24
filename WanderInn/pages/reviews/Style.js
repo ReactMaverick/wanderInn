@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
-import { H1, H3, H6, p, small, smallS } from "@/constants/fontConstants";
+import { H1, H3, H5, H6, p, small, smallS } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
     },
     BackHeader: {
         width: deviceWidth,
-        paddingVertical: deviceHeight / 20,
+        paddingBottom: deviceHeight / 40,
+        paddingTop: deviceHeight / 20,
         justifyContent: "center",
         paddingHorizontal: deviceWidth / 20,
     },
@@ -66,6 +67,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 4,
     },
+
     reviewLeftBox: {
         flex: 1.2,
         justifyContent: 'center',
@@ -112,9 +114,11 @@ export const styles = StyleSheet.create({
     ReviewCatagoryBox: {
         backgroundColor: colors.screenBg,
         borderRadius: deviceHeight / 80,
-        margin: deviceHeight / 80,
-        justifyContent: 'space-between',
+        marginHorizontal: deviceHeight / 95 / 2,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderColor: colors.lightBlue,
+        minWidth: deviceWidth / 3.5,
         borderWidth: 1,
     },
     ReviewCatagoryBoxTitle: {
@@ -123,5 +127,135 @@ export const styles = StyleSheet.create({
         fontFamily: 'LatoBold',
         padding: deviceHeight / 60,
     },
+    reviewHeadTitle: {
+        fontSize: H5,
+        color: colors.blueDarkColor,
+        fontFamily: 'LatoBold',
+        padding: deviceHeight / 50 / 3,
+    },
+    reviewMAinBox: {
+        justifyContent: 'space-between',
+        paddingBottom: deviceHeight / 20,
+        paddingTop: deviceHeight / 40,
+        paddingHorizontal: deviceWidth / 30,
+        backgroundColor: colors.screenBg,
+        borderRadius: deviceHeight / 40,
+        shadowColor: colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowRadius: 10,
+        elevation: 4,
+    },
+    reviewHead: {
+        marginBottom: deviceHeight / 50,
+    },
+    reviewBodyHead: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: deviceHeight / 50,
+    },
+    UserINfoBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 6,
 
+    },
+    UserImage: {
+        height: deviceHeight / 12,
+        width: deviceHeight / 12,
+        borderRadius: deviceHeight / 10,
+        marginRight: deviceHeight / 50,
+    },
+    ReviewStarBox: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: deviceWidth / 100,
+        backgroundColor: colors.inputColor,
+        paddingHorizontal: deviceWidth / 35,
+        paddingVertical: deviceHeight / 100 / 1.5,
+        borderRadius: deviceHeight / 100,
+    },
+    ReviewStarText: {
+        fontSize: H6,
+        color: colors.gray,
+        fontFamily: 'LatoBold',
+    },
+    ReviewStar: {
+        fontSize: small,
+        color: colors.secondary,
+    },
+    UserINfo: {
+        gap: deviceWidth / 100,
+        flex: 1,
+    },
+    UserName: {
+        fontSize: H5,
+        color: colors.blueDarkColor,
+        fontFamily: 'LatoBold',
+    },
+    UserPostDateBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    Dot: {
+        height: deviceHeight / 100 / 1.5,
+        width: deviceHeight / 100 / 1.5,
+        borderRadius: deviceHeight / 100,
+        backgroundColor: colors.borderDarkColor,
+        marginHorizontal: deviceHeight / 100,
+    },
+    UserDate: {
+        fontSize: small,
+        color: colors.borderDarkColor,
+        fontFamily: 'LatoRegular',
+    },
+    ReviewDetailsBoxTitle: {
+        fontSize: H5,
+        color: colors.blueDarkColor,
+        fontFamily: 'LatoBold',
+        marginBottom: deviceHeight / 80,
+    },
+    ReviewDetailsText: {
+        fontSize: p,
+        color: colors.borderDarkColor,
+        fontFamily: 'LatoRegular',
+    },
+    ReviewDetailsImagesRow: {
+        flexDirection: 'row',
+        gap: deviceWidth / 30,
+        alignItems: 'center',
+        marginVertical: deviceHeight / 50,
+    },
+    ReviewDetailsImages: {
+        height: deviceHeight / 15,
+        width: deviceHeight / 15,
+        borderRadius: deviceHeight / 90,
+    },
+    ReviewDetailsFooter: {
+        flexDirection: 'row',
+        gap: deviceWidth / 20,
+        alignItems: 'center',
+    },
+    likeBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: deviceWidth / 50,
+    },
+    likeBtnIcon: {
+        fontSize: H6,
+
+    },
+    likeBtnText: {
+        fontSize: small,
+        fontFamily: 'LatoBold',
+    },
+    devider: {
+        height: 1,
+        backgroundColor: colors.borderLightColor,
+        marginVertical: deviceHeight / 50,
+    },
 });
