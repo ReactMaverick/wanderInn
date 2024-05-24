@@ -224,7 +224,10 @@ export default function LoginPage() {
                                         error={errors.password ? true : false}
                                         errorText={errors.password}
                                     />
-                                    <TouchableOpacity style={styles.forgotPassword}>
+                                    <TouchableOpacity
+                                        style={styles.forgotPassword}
+                                        onPress={() => router.push('/forgotPassword')}
+                                    >
                                         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
                                     </TouchableOpacity>
 

@@ -30,6 +30,12 @@ const AuthStack = () => {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="forgotPassword"
+                options={{
+                    headerShown: false,
+                }}
+            />
         </Stack>
     );
 }

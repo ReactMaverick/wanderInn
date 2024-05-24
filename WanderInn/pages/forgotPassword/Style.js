@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: deviceWidth * 5 / 100,
         backgroundColor: colors.screenBg,
         minHeight: deviceHeight + 30,
-        gap: 40,
+        gap: 20,
     },
     titleContainer: {
         marginBottom: 40,
@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.placeholderColor,
     },
     loginLinkContainer: {
-        marginTop: 40,
+        marginTop: 20,
     },
     loginLink: {
         color: colors.primary,
@@ -99,5 +99,8 @@ export const styles = StyleSheet.create({
         lineHeight: 20.32,
         textDecorationColor: colors.primary,
         textDecorationLine: 'underline',
-    }
+    },
+    linksContainer: {
+        marginTop: 20,
+    },
 });

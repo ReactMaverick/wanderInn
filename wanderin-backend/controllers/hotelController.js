@@ -7,6 +7,8 @@ const Review = require('../models/reviewSchema');
 const helper = require('../helper/index');
 const { generateToken, sendEmailVerifyEmail, sendResetPasswordEmail } = require('../common/common');
 const fs = require('fs');
+const Booking = require('../models/bookingSchema');
+const Deal = require('../models/dealSchema');
 
 
 exports.addHotel = async (req, res) => {
@@ -34,7 +36,7 @@ exports.addHotel = async (req, res) => {
 
         const savedRooms = await Promise.all(roomPromises);
 
-        
+
         // const savedReviews = await Promise.all(reviewPromises);
 
         // Update saved hotel with saved room and review ids
@@ -50,17 +52,29 @@ exports.addHotel = async (req, res) => {
 };
 exports.getHotels = async (req, res) => {
     try {
-        const hotels = await Hotel.find();
+        let hotels = await Hotel.find();
+
+        hotels = await Hotel.populate(hotels, { path: 'rooms' });
+        // in hotel.reviews only review id is stored so we need to populate reviews array to get the review details
+        hotels = await Hotel.populate(hotels, { path: 'reviews' });
+
+        // console.log("hotels==> ",hotels)
         return res.status(200).json(helper.response(200, true, "Hotels fetched successfully", hotels));
     } catch (error) {
         res.status(500).json(helper.response(500, false, "Something went wrong!"));
     }
 }
 exports.getHotelById = async (req, res) => {
-    console.log("req.params.id==> ",req.params.id)
+    console.log("req.params.id==> ", req.params.id)
     try {
         const hotel = await Hotel.findById(req.params.id);
-        return res.status(200).json(helper.response(200, true, "Hotel fetched successfully", hotel));
+        if (!hotel) {
+            return res.status(404).json(helper.response(404, false, "Hotel not found"));
+        }
+        //hotel have rooms array  where in only rooms id is stored so we need to populate rooms array to get the room details
+        let hotelPopulated = await Hotel.populate(hotel, { path: 'rooms' });
+        hotelPopulated = await Hotel.populate(hotelPopulated, { path: 'reviews' });
+        return res.status(200).json(helper.response(200, true, "Hotel fetched successfully", hotelPopulated));
     } catch (error) {
         res.status(500).json(helper.response(500, false, "Something went wrong!"));
     }
@@ -112,7 +126,13 @@ exports.updateHotel = async (req, res) => {
         // const updatedReviews = await Promise.all(reviewPromises);
 
         // Update hotel with updated room and review ids
-        hotel.rooms = updatedRooms.map(room => room._id);
+        // console.log("updatedRooms==> ",updatedRooms)
+        hotel.rooms = updatedRooms.map((room) => {
+            // console.log("room._id==> ", room)
+            return room
+            // let fetchedRoom = Room.findById(room);
+            // console.log("fetched Room==> ", fetchedRoom)
+        });
         // hotel.reviews = updatedReviews.map(review => review._id);
 
         await hotel.save();
@@ -126,7 +146,7 @@ exports.updateHotel = async (req, res) => {
 exports.deleteHotel = async (req, res) => {
     try {
         const hotel = await hotelSchema.findById(req.params.id);
-        console.log("hotel==> ",hotel)
+        console.log("hotel==> ", hotel)
         if (!hotel) {
             return res.status(404).json(helper.response(404, false, "Hotel not found"));
         }
@@ -153,3 +173,201 @@ exports.deleteRoomById = async (req, res) => {
         res.status(500).json(helper.response(500, false, "Something went wrong!"));
     }
 }
+
+
+exports.searchHotels = async (req, res) => {
+    try {
+        const { location, radius, checkInDate, checkOutDate, guestNumber } = req.body;
+
+        // Assuming location is provided as an array of coordinates [longitude, latitude]
+        const coordinates = location.coordinates;
+
+        // Construct the query to find hotels within the specified radius of the given location
+        const hotels = await Hotel.find({
+            location: {
+                $geoWithin: {
+                    $centerSphere: [coordinates, radius / 6378.1] // Convert radius from meters to radians
+                }
+            }
+        });
+
+
+        // Filter hotels based on availability for the specified dates and guest number
+        const availableHotels = [];
+
+        // Iterate through each hotel
+        for (const hotel of hotels) {
+            // Retrieve all bookings for the hotel 
+            const hotelBookings = await Booking.find({ hotel: hotel._id });
+            // console.log("hotelBookings==> ", hotelBookings)
+            // Check if there are any available rooms for the specified dates and guest number
+            const availableRooms = [];
+
+            // Iterate through each room in the hotel
+            for (const room of hotel.rooms) {
+                // Check if the room is available for the specified dates and guest number if 
+                
+                const hotelBookingsRoom = await Booking.findOne({ room, checkInDate, checkOutDate });
+                // console.log("hotelBookingsRoom?.status==> ", hotelBookingsRoom?.status)
+                // console.log("hotelBookingsRoom==> ", hotelBookingsRoom)
+                // console.log("room==> ", room)
+                const isAvailable = hotelBookings.every(booking => {
+                    const bookingCheckInDate = new Date(booking.checkInDate);
+                    const bookingCheckOutDate = new Date(booking.checkOutDate);
+                    const desiredCheckInDate = new Date(checkInDate);
+                    const desiredCheckOutDate = new Date(checkOutDate);
+                    // console.log("bookingCheckInDate==> ", bookingCheckInDate)
+                    // console.log("desiredCheckOutDate==> ", desiredCheckOutDate)
+                    // console.log("bookingCheckOutDate==> ", bookingCheckOutDate)
+                    // console.log("desiredCheckInDate==> ", desiredCheckInDate)
+
+                    // console.log("bookingCheckInDate >= desiredCheckOutDate==> ", bookingCheckInDate >= desiredCheckOutDate)
+                    // console.log("bookingCheckOutDate <= desiredCheckInDate==> ", bookingCheckOutDate <= desiredCheckInDate)
+
+                    return (
+                        (bookingCheckInDate >= desiredCheckOutDate || bookingCheckOutDate <= desiredCheckInDate) || hotelBookingsRoom === null || hotelBookingsRoom?.status == 'cancelled'
+                    );
+                });
+
+                // If the room is available, add it to the list of available rooms
+                if (isAvailable) {
+                    // availableRooms.push(room);
+                    const roomDetails = await Room.findById(room);
+
+                    // Check for any active deals on the room
+                    const activeDeals = await Deal.find({
+                        room: room,
+                        startDate: { $lte: new Date(checkOutDate) },
+                        endDate: { $gte: new Date(checkInDate) }
+                    });
+                    console.log("activeDeals==> ", activeDeals)
+                    let discount = 0;
+                    if (activeDeals.length > 0) {
+                        discount = activeDeals[0].discountPercentage;
+                    }
+                    console.log("discount==> ", discount)
+                    // Add room details and discount information
+                    availableRooms.push({
+                        ...roomDetails._doc, // Spread the room document properties
+                        discount
+                    });
+                }
+            }
+            console.log("availableRooms==> ", availableRooms)
+            //availableRooms is array of room ids so we need to fetch the room details and replace room ids with room details
+            const availableRoomsDetails = await Room.find({ _id: { $in: availableRooms } });
+            // console.log("availableRoomsDetails==> ", availableRoomsDetails)
+            // availableRooms = availableRoomsDetails;
+
+
+
+            // If there are available rooms in the hotel, add the hotel to the list of available hotels
+            if (availableRooms.length > 0) {
+                availableHotels.push({
+                    _id: hotel._id,
+                    name: hotel.name,
+                    location: hotel.location,
+                    starRating: hotel.starRating,
+                    availableRooms: availableRooms
+                });
+            }
+        }
+
+        return res.status(200).json(helper.response(200, true, "Hotels found successfully", availableHotels));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+};
+
+exports.searchHotelsFilter = async (req, res) => {
+    try {
+        const { location, radius, checkInDate, checkOutDate, guestNumber, starRating, amenities } = req.body;
+
+        // Assuming location is provided as an array of coordinates [longitude, latitude]
+        const coordinates = location.coordinates;
+
+        // Construct the query to find hotels within the specified radius of the given location
+        const hotelQuery = {
+            location: {
+                $geoWithin: {
+                    $centerSphere: [coordinates, radius / 6378.1] // Convert radius from meters to radians
+                }
+            }
+        };
+
+        // Add star rating to the query if provided
+        if (starRating) {
+            hotelQuery.starRating = { $gte: starRating };
+        }
+
+        // Add amenities to the query if provided
+        if (amenities && amenities.length > 0) {
+            hotelQuery.amenities = { $all: amenities };
+        }
+
+        const hotels = await Hotel.find(hotelQuery).populate('rooms');
+
+        // Filter hotels based on availability for the specified dates and guest number
+        const availableHotels = [];
+
+        // Iterate through each hotel
+        for (const hotel of hotels) {
+            // Retrieve all bookings for the hotel
+            const hotelBookings = await Booking.find({ hotel: hotel._id });
+
+            // Check if there are any available rooms for the specified dates and guest number
+            const availableRooms = [];
+
+            // Iterate through each room in the hotel
+            for (const room of hotel.rooms) {
+                const hotelBookingsRoom = await Booking.findOne({ room, checkInDate, checkOutDate });
+                // console.log("hotelBookingsRoom==> ", hotelBookingsRoom)
+                console.log("hotelBookingsRoom?.status==> ", hotelBookingsRoom?.status)
+                // console.log("room==> ", room)
+                // Check if the room is available for the specified dates
+                const isAvailable = hotelBookings.every(booking => {
+                    const bookingCheckInDate = new Date(booking.checkInDate);
+                    const bookingCheckOutDate = new Date(booking.checkOutDate);
+                    const desiredCheckInDate = new Date(checkInDate);
+                    const desiredCheckOutDate = new Date(checkOutDate);
+                    console.log("bookingCheckInDate==> ", bookingCheckInDate)
+                    console.log("desiredCheckOutDate==> ", desiredCheckOutDate)
+                    console.log("bookingCheckOutDate==> ", bookingCheckOutDate)
+                    console.log("desiredCheckInDate==> ", desiredCheckInDate)
+
+                    console.log("bookingCheckInDate >= desiredCheckOutDate==> ", bookingCheckInDate >= desiredCheckOutDate)
+                    console.log("bookingCheckOutDate <= desiredCheckInDate==> ", bookingCheckOutDate <= desiredCheckInDate)
+
+                    return (
+                        (bookingCheckInDate >= desiredCheckOutDate || bookingCheckOutDate <= desiredCheckInDate) || hotelBookingsRoom === null || hotelBookingsRoom?.status == 'cancelled'
+                    );
+                });
+                // Check if the room meets the guest number criteria
+                if (isAvailable && (!guestNumber || room.guestCapacity >= guestNumber)) {
+                    const roomDetails = await Room.findById(room);
+                    availableRooms.push(roomDetails);
+                }
+            }
+
+            // If there are available rooms in the hotel, add the hotel to the list of available hotels
+            if (availableRooms.length > 0) {
+                availableHotels.push({
+                    _id: hotel._id,
+                    name: hotel.name,
+                    location: hotel.location,
+                    starRating: hotel.starRating,
+                    amenities: hotel.amenities,
+                    availableRooms: availableRooms // Include full room details
+                });
+            }
+        }
+
+        return res.status(200).json(helper.response(200, true, "Hotels found successfully", availableHotels));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+};
+
+

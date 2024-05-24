@@ -182,24 +182,28 @@ exports.updateUser = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
     try {
-        const { email } = req.currentUser;
+        const { email } = req.body;
 
-        // Send password reset email using Firebase Admin SDK
-        const passwordResetEmailLink = await admin.auth().generatePasswordResetLink(email);
+        const userRecord = await admin.auth().getUserByEmail(email);
 
-        console.log('Password reset email status:', passwordResetEmailLink);
+        // console.log("User Record ==> ", userRecord);
 
-        // Check passwordResetEmailLink for success (optional)
-        if (passwordResetEmailLink) {
-            return res.status(200).json(helper.response(200, true, "Password reset email sent successfully!", { passwordResetEmailLink }));
-        } else {
-            res.status(500).json({ message: 'Error sending reset email' });
+        if (!userRecord) {
+            return res.status(400).json(helper.response(400, false, "User not found!"));
         }
+
+        return res.status(200).json(helper.response(200, true, "User found!"));
 
     } catch (error) {
 
-        console.error('Error sending password reset link:', error);
+        if (error.code === 'auth/user-not-found') {
+            // User not found
+            return res.status(400).json(helper.response(400, false, "User not found!"));
+        } else {
+            // Some other error occurred.
+            console.error('Error fetching user data:', error);
 
-        return res.status(500).json(helper.response(500, false, "something went wrong in sending password reset link!"));
+            return res.status(500).json(helper.response(500, false, "something went wrong in checking user!"));
+        }
     }
 }
