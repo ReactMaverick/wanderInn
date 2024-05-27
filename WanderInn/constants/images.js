@@ -56,3 +56,5 @@ export const UPI = require('../assets/images/icons/upi.png');
 export const UPI1 = require('../assets/images/icons/upi1.png');
 export const CALENDER = require('../assets/images/icons/calendar.png');
 export const USERSOLID = require('../assets/images/icons/mdi_users.png');
+export const CHECKED = require('../assets/images/checked.png');
+export const UNCHECKED = require('../assets/images/unchecked.png');

@@ -1,5 +1,9 @@
+import { p } from "./fontConstants";
+
 export const colors = {
   primary: '#1F8AFC',
+  green: '#51CAB4',
+  primaryLight: '#1F8AFC99',
   secondary: '#FFC107',
   tertiary: '#ff0000',
   white: '#fff',
