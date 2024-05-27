@@ -8,24 +8,57 @@ import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
 import { commonStyles } from '@/constants/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getFivePopularHotels, getHotels } from '@/redux/reducer/hotelReducer';
+import { useEffect, useState } from 'react';
+import { getFiveNearbyHotels, getFivePopularHotels, getHotels } from '@/redux/reducer/hotelReducer';
+import Loader from '@/components/loader/Loader';
+import * as Location from 'expo-location';
 
 export default function HomePage() {
     const dispatch = useDispatch();
     const ItemSeparator = () => <View style={{ width: 20 }} />;
     const hotels= useSelector(state => state.hotel.hotels)
+    const [location , setLocation] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     const fivePopularHotels = useSelector(state => state.hotel.fivePopularHotels)
+    const fiveNearbyHotels = useSelector(state => state.hotel.fiveNearbyHotels)
     // console.log('Hotels From Home==> ', hotels);
-    console.log('Five Popular Hotels From Home==> ', fivePopularHotels);
+    // console.log('Five Popular Hotels From Home==> ', fivePopularHotels);
+    console.log('Five Nearby Hotels From Home==> ', fiveNearbyHotels);
+
+    // get the location of the user
+    // const getLocation = async () => {
+    //     let { status } = await Location.requestForegroundPermissionsAsync();
+    //     if (status !== 'granted') {
+    //         setErrorMsg('Permission to access location was denied');
+    //         return;
+    //     }
+    //     let location = await Location.getCurrentPositionAsync({});
+    //     console.log('Location==>', location);
+    //     setLocation(location);
+    // }
+    // useEffect(() => {
+    //     if(location){
+    //         dispatch(getFiveNearbyHotels(location))
+    //     }
+        
+    // }, [location])
     useEffect(() => {
-        // dispatch(getHotels()).then((res) => {
-        //     console.log('Hotels ==> ', res.payload);
+        // getLocation();
+        Promise.all([
+            // dispatch(getHotels()),
+            dispatch(getFivePopularHotels()),
             
-        // })
-        dispatch(getFivePopularHotels())
-    }, []
-    )
+            // Add more async actions here
+        ])
+            .then(() => setIsLoading(false))
+            .catch((error) => {
+                console.error(error);
+                setIsLoading(false);
+                // Handle the error appropriately
+            });
+    }, []);
+    
+
     return (
         <>
             <HeaderScreen />
@@ -44,6 +77,12 @@ export default function HomePage() {
                         </Pressable>
                     </View>
                 </View>
+                {/* {fiveNearbyHotels? fiveNearbyHotels.map((hotel) => (
+                    
+                    
+                
+                )):(<Loader/>)
+                } */}
                 <FlatList
                     ItemSeparatorComponent={ItemSeparator}
                     horizontal
@@ -90,14 +129,18 @@ export default function HomePage() {
 
                 </View>
                 <View style={styles.PopularHotelsRow}>
-                    {fivePopularHotels.map((hotel) => (
-                        <PopularHotelsScreen key={hotel.id} hotel={hotel} />
-                    ))}
-                    {/* // <PopularHotelsScreen />
+                    {fivePopularHotels? fivePopularHotels.map((hotel) => (
+                        <PopularHotelsScreen key={hotel._id} hotel={hotel} />
+                    )):(<Loader/>)
+                }
+                    
+                    {/* 
                     // <PopularHotelsScreen />
                     // <PopularHotelsScreen />
                     // <PopularHotelsScreen />
-                    // <PopularHotelsScreen /> */}
+                    // <PopularHotelsScreen />
+                    // <PopularHotelsScreen /> 
+                    */}
                 </View>
                 <View style={[styles.container, { marginBottom: 20 }]}>
                     <BannerSliderScreen />

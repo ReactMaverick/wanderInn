@@ -9,17 +9,19 @@ import { commonStyles } from "../../constants/styles";
 import { HOTEL1, } from "@/constants/images";
 import { BlurView } from 'expo-blur';
 
-export default function PopularHotelsScreen({key,hotel}) {
+export default function PopularHotelsScreen({hotel}) {
 
     const [isFav, setIsFav] = useState(false);
 
     const animateIcon = () => {
         setIsFav(!isFav);
     }
-    console.log('Hotel From PopularHotels==> ', hotel)
+    
+
+    // console.log('Hotel From PopularHotels==> ', hotel._id)
 
     return (
-        <Pressable key={key} onPress={() => { alert('Hotel Clicked'); }}>
+        <Pressable onPress={() => { alert('Hotel Clicked'); }}>
             <View style={styles.HotelCard}>
                 <View style={styles.HotelCardImgBox}>
                     <View style={styles.CatagoryBox}>
@@ -32,7 +34,7 @@ export default function PopularHotelsScreen({key,hotel}) {
                 <View style={styles.HotelCardContent}>
                     <View style={styles.HotelCardContentLeft}>
                         <View style={styles.HotelCardContentLeftTop}>
-                            <Text style={styles.HotelCardTitle}>{hotel.name}</Text>
+                            <Text style={styles.HotelCardTitle}>{hotel?.name}</Text>
                             <View style={styles.HotelLocation}>
                                 <Ionicons name="location-sharp" style={styles.HotelLocationIcon} />
                                 <Text style={styles.HotelLocationText}>New York, USA New York,</Text>
@@ -41,7 +43,7 @@ export default function PopularHotelsScreen({key,hotel}) {
                         <View style={styles.HotelCardContentLeftBottom}>
                             <View style={styles.ReviewBox}>
                                 <Ionicons name="star" style={styles.ReviewStar} />
-                                <Text style={styles.ReviewText}>{hotel.starRating}</Text>
+                                <Text style={styles.ReviewText}>{hotel?.starRating}</Text>
                             </View>
                             <Text style={styles.HotelCardLocation}>(4569 Peoples Reviews)</Text>
                         </View>
@@ -54,7 +56,7 @@ export default function PopularHotelsScreen({key,hotel}) {
                             </View>
                         </Pressable>
                         <View style={styles.HotelCardPAckAge}>
-                            <Text style={styles.HotelCardPAckPrice}>$23</Text>
+                            <Text style={styles.HotelCardPAckPrice}>${hotel?.lowestPriceRoom}</Text>
                             <Text style={styles.HotelCardPAckTime}>/ Night</Text>
                         </View>
 

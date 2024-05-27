@@ -40,6 +40,35 @@ export const getFivePopularHotels = createAsyncThunk(
         }
     }
 );
+export const getFiveNearbyHotels = createAsyncThunk(
+    'hotel/getFiveNearbyHotels',
+    async (location) => {
+        try {
+            console.log('Location ====> ', location)
+            const token = await getToken();
+            console.log('Token ==> ', token);
+            console.log('API_URL ==> ', API_URL + "nearbyHotels");
+            const response = await postData(
+                API_URL + "nearbyHotels",
+                {
+                    "location": {
+                        "coordinates": [location.coords.latitude, location.coords.longitude]
+                    },
+                    "radius": 500000, // Radius in meters
+                    // "search": "luxury",
+                    "page": 1,
+                    "limit": 5
+                },
+                token
+            );
+            console.log(" getFiveNearbyHotels response====> ",response.data.hotels);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const hotelSlice = createSlice({
     name: 'hotel',
@@ -47,6 +76,7 @@ const hotelSlice = createSlice({
         hotels: [],
         selectedHotel: null,
         fivePopularHotels: [],
+        fiveNearbyHotels: [],
     },
     reducers: {
         setHotels: (state, action) => {
@@ -59,11 +89,11 @@ const hotelSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getHotels.pending, (state, action) => {
-                console.log('action.payload ==> ', action.payload);
+                // console.log('action.payload ==> ', action.payload);
                 // state.hotels = action.payload;
             })
         .addCase(getHotels.fulfilled, (state, action) => {
-            console.log('action.payload ==> ', action.payload);
+            // console.log('action.payload ==> ', action.payload);
             state.hotels = action.payload;
         })
         .addCase(getHotels.rejected, (state, action) => {
@@ -80,6 +110,19 @@ const hotelSlice = createSlice({
                 state.fivePopularHotels = action.payload.hotels;
             })
             .addCase(getFivePopularHotels.rejected, (state, action) => {
+                console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            });
+        builder
+            .addCase(getFiveNearbyHotels.pending, (state, action) => {
+                console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            })
+            .addCase(getFiveNearbyHotels.fulfilled, (state, action) => {
+                console.log('action.payload ==> ', action.payload);
+                state.fiveNearbyHotels = action.payload;
+            })
+            .addCase(getFiveNearbyHotels.rejected, (state, action) => {
                 console.log('action.payload ==> ', action.payload);
                 // state.hotels = action.payload;
             });
