@@ -368,7 +368,7 @@ export const styles = StyleSheet.create({
     roomsDatesCol: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: deviceWidth / 2.3 - 5,
+        width: deviceWidth / 2.4 - 1,
         justifyContent: 'space-between',
         backgroundColor: colors.inputColor,
         borderRadius: deviceHeight / 70 - 5,

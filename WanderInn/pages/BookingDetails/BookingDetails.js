@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { deviceHeight } from '@/constants/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HOTEL1, } from "@/constants/images";
+import { CHECKED, HOTEL1, } from "@/constants/images";
 import { AntDesign } from '@expo/vector-icons';
 
 export default function ReviewsPage() {
@@ -93,7 +93,7 @@ export default function ReviewsPage() {
                                 </View>
                                 <View style={styles.CancellationPolicy}>
                                     <MaterialCommunityIcons name="shield-off" style={styles.CancellationPolicyIcon} />
-                                    <Text style={styles.CancellationPolicyText}>Free Cancellation</Text>
+                                    <Text style={styles.CancellationPolicyText}>Cancellation Policy</Text>
                                 </View>
                             </View>
                             <View style={styles.HotelDetailsCardRight}>
@@ -101,9 +101,68 @@ export default function ReviewsPage() {
                                 <Text style={styles.HotelDetailsCardRightText1}>night</Text>
                             </View>
                         </View>
-                        {/* Cancellation Policy with icon  */}
-
                     </View>
+
+                    <View style={styles.TotalPriceCard}>
+                        <View style={styles.TotalPriceCardTop}>
+                            <View style={styles.TotalPriceCardTopLeft}>
+                                <Text style={styles.TotalPriceCardTitle}>Total Price</Text>
+                                <Text style={styles.TotalPriceCardSubTitle}>with taxes & fees</Text>
+                            </View>
+                            <View style={styles.TotalPriceCardTopRight}>
+                                <View style={styles.CatagoryBox1}>
+                                    <Text style={styles.CatagoryText1}>40% Off</Text>
+                                </View>
+                                <Text style={styles.TotalPriceCardPrice}>$23</Text>
+                            </View>
+                        </View>
+                        <View style={styles.TotalPriceCardBottom}>
+                            <View style={styles.PriceList}>
+                                <Text style={styles.PriceListText}>Original  Price (1 room x 1 night)</Text>
+                                <Text style={[styles.PriceListText, { textDecorationLine: 'line-through' }]}>$43</Text>
+                            </View>
+                            <View style={styles.PriceList}>
+                                <Text style={styles.PriceListText}>Our Price</Text>
+                                <Text style={styles.PriceListText}>$23</Text>
+
+                            </View>
+                            <View style={styles.PriceList}>
+                                <Text style={styles.PriceListText1}>Booking fee</Text>
+                                <Text style={styles.PriceListText1}>$0</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.TotalPriceCard}>
+                        <View style={styles.TotalPriceCardTop}>
+                            <View style={styles.SpecialBox}>
+                                <Text style={styles.TotalPriceCardTitle}>Special request</Text>
+                                <Text style={styles.TotalPriceCardSubTitle}>Select your preference (s). Subject to
+                                    availabilty</Text>
+                            </View>
+                        </View>
+                        <View style={styles.TotalPriceCardBottom}>
+                            <Text style={styles.TotalPriceCardTitle}>Which type of room would you prefer?</Text>
+                            {/* smoking room, Non-smoking room check box here */}
+                            <View style={styles.SmokingRoomBox}>
+                                <View style={styles.SmokingRoomBoxInner}>
+                                    <Pressable style={styles.SmokingRoomBoxCheckBox}>
+                                        <Image style={styles.SmokingRoomBoxCheckBoxInner} source={CHECKED} />
+                                    </Pressable>
+                                    <Image style={styles.SmokingRoomBoxImg} source={HOTEL1} />
+                                    <Text style={styles.SmokingRoomBoxText}>Smoking room</Text>
+
+                                </View>
+                                <View style={styles.SmokingRoomBoxInner}>
+                                    <Text style={styles.SmokingRoomBoxText}>Non-smoking room</Text>
+                                    <Pressable style={styles.SmokingRoomBoxCheckBox}>
+                                        <View style={styles.SmokingRoomBoxCheckBoxInner} />
+                                    </Pressable>
+                                </View>
+                            </View>
+
+                        </View>
+                    </View>
+
                 </View>
             </ScrollView>
         </View>

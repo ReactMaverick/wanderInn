@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
-import { H1, H3, H5, H6, p, small, smallS } from "@/constants/fontConstants";
+import { H1, H3, H4, H5, H6, p, small, smallS } from "@/constants/fontConstants";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -220,6 +220,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
     },
+
     HotelDetailsCardInner: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -280,9 +281,105 @@ export const styles = StyleSheet.create({
         gap: deviceWidth / 100,
         marginBottom: deviceHeight / 100,
     },
+    CancellationPolicyIcon: {
+        fontSize: small,
+        color: colors.primaryLight,
+    },
+    CancellationPolicyText: {
+        fontSize: small,
+        color: colors.gray,
+        fontFamily: 'LatoRegular',
+    },
     HotelDetailsCardLeftMain: {
         flex: 5,
         gap: deviceWidth / 30,
+    },
+    TotalPriceCard: {
+        backgroundColor: colors.screenBg,
+        borderRadius: deviceHeight / 40,
+        marginVertical: deviceHeight / 60 - 5,
+        shadowColor: colors.primary,
+        overflow: 'hidden',
+        borderColor: colors.lightBlue,
+        borderWidth: 1,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    CatagoryBox1: {
+        backgroundColor: colors.BGYellowColor,
+        paddingHorizontal: deviceWidth / 50,
+        paddingVertical: deviceHeight / 100 - 5,
+        borderRadius: deviceHeight / 50 - 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    CatagoryText1: {
+        color: colors.white,
+        fontSize: smallS,
+    },
+    TotalPriceCardTop: {
+        backgroundColor: colors.white,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: deviceWidth / 40,
+        paddingVertical: deviceHeight / 60,
+        borderBottomColor: colors.lightBlue,
+        borderBottomWidth: 1,
+    },
+    TotalPriceCardTopLeft: {
+        flex: 4.5,
+        justifyContent: 'space-between',
+    },
+    TotalPriceCardTitle: {
+        fontSize: H6,
+        color: colors.headlineColor,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 35,
+    },
+    TotalPriceCardSubTitle: {
+        fontSize: small,
+        color: colors.borderDarkColor,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 40,
+    },
+    TotalPriceCardTopRight: {
+        flex: 1,
+    },
+    TotalPriceCardPrice: {
+        fontSize: H4,
+        color: colors.primary,
+        fontFamily: 'LatoBold',
+        lineHeight: deviceHeight / 25,
+    },
+    TotalPriceCardBottom: {
+        backgroundColor: colors.inputColor,
+        paddingHorizontal: deviceWidth / 40,
+        paddingVertical: deviceHeight / 60,
+    },
+    PriceList: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: deviceHeight / 80,
+    },
+    PriceListText: {
+        fontSize: p,
+        color: colors.borderDarkColor,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 40,
+    },
+    PriceListText1: {
+        fontSize: p,
+        color: colors.green,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 40,
+    },
+    SpecialBox: {
+        width: deviceWidth / 1.5,
+        gap: deviceWidth / 25 - 5,
     },
 
 });
