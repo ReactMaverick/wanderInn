@@ -53,7 +53,7 @@ exports.addHotel = async (req, res) => {
 exports.getHotels = async (req, res) => {
     try {
         let hotels = await Hotel.find();
-
+        console.log("hotels==> ", hotels)
         hotels = await Hotel.populate(hotels, { path: 'rooms' });
         // in hotel.reviews only review id is stored so we need to populate reviews array to get the review details
         hotels = await Hotel.populate(hotels, { path: 'reviews' });
@@ -388,10 +388,30 @@ exports.popularHotels = async (req, res) => {
         const skip = (page - 1) * limit;
 
         // Fetch the hotels based on the query, sorted by starRating in descending order
-        const hotels = await Hotel.find(query)
+        let hotels = await Hotel.find(query)
             .sort({ starRating: -1 })
             .skip(skip)
             .limit(Number(limit));
+            // console.log("hotels from backend==> ",hotels)
+        // get the hotels all rooms price and give the lowest price room and add it to the hotel object
+        await Promise.all(hotels.map(async (hotel,i) => {
+            // console.log("hotel.rooms==> ", hotel.rooms)
+            // console.log("hotel.rooms==> ")
+            let lowestPriceRoom=5555555;
+            await Promise.all(hotel.rooms.map(async (roomId) => {
+                console.log(roomId)
+                const room =await Room.findById(roomId);
+                // console.log("room => ",room)
+                if(room.price < lowestPriceRoom){
+                    lowestPriceRoom = room.price;
+                }
+            }))
+           console.log("lowestPriceRoom==> ",lowestPriceRoom)
+              hotels[i].lowestPriceRoom = lowestPriceRoom;
+              
+              console.log("hotels[i].lowestPriceRoom==> ",hotels[i])
+        }))
+        console.log("hotels==> ",hotels)
 
         // Get the total count for pagination purposes
         const totalCount = await Hotel.countDocuments(query);
