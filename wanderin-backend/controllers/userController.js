@@ -306,47 +306,44 @@ exports.getFavouriteHotelsByUser = async (req, res) => {
 }
 exports.getBookingsByUser = async (req, res) => {
     try {
-        const { userId, searchQuery, page = 1, limit = 10 } = req.body;
+        const { email } = req.currentUser;
+        const { searchQuery, page = 1, limit = 10 } = req.body;
 
         // Find the user by ID
-        const user = await User.findById(userId);
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json(helper.response(404, false, "User not found"));
         }
 
-        // Create a query object for searching
-        const query = {
-            user: userId
-        };
+        // console.log("User: ", user);
+        const bookings = await Booking.find({ user: user._id })
+            .populate({
+                path: 'hotel',
+                match: { name: { $regex: searchQuery, $options: 'i' } }
+            })
+            .populate('room')
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .exec();
 
-        // If a search query is provided, add it to the search criteria
-        if (searchQuery) {
-            query.$or = [
-                { 'hotel': new RegExp(searchQuery, 'i') },
-                { 'room': new RegExp(searchQuery, 'i') }
-            ];
+        const filteredBookings = bookings.filter(booking => booking.hotel !== null);
+
+        if (filteredBookings.length === 0) {
+            return res.status(404).json(helper.response(404, false, "No bookings found"));
         }
 
-        // Calculate the skip value for pagination
-        const skip = (page - 1) * limit;
 
-        // Fetch bookings based on the search criteria with pagination
-        const bookings = await Booking.find(query)
-            .skip(skip)
-            .limit(limit)
-            .populate('hotel')
-            .populate('room');
+        const totalBookings = filteredBookings.length;
 
-        // Get the total count of bookings for pagination
-        const totalBookings = await Booking.countDocuments(query);
+        const pagination = {
+            totalPages: Math.ceil(totalBookings / limit),
+            currentPage: page,
+            totalBookings
+        };
 
-        return res.status(200).json(helper.response(200, true, "Bookings fetched successfully", {
-            bookings,
-            pagination: {
-                total: totalBookings,
-                page,
-                limit
-            }
+        return res.status(200).json(helper.response(200, true, "Bookings found", {
+            bookings: filteredBookings,
+            pagination
         }));
     } catch (error) {
         console.error(error);
