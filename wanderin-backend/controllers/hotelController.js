@@ -467,7 +467,25 @@ exports.nearbyHotels = async (req, res) => {
             .sort() // Assuming you have a 'distance' field in your schema
             .skip(skip)
             .limit(Number(limit));
+        await Promise.all(hotels.map(async (hotel, i) => {
+            // console.log("hotel.rooms==> ", hotel.rooms)
+            // console.log("hotel.rooms==> ")
+            let lowestPriceRoom = 5555555;
+            await Promise.all(hotel.rooms.map(async (roomId) => {
+                console.log(roomId)
+                const room = await Room.findById(roomId);
+                // console.log("room => ",room)
+                console.log("room.price==> ", room.price)
+                if (room.price < lowestPriceRoom) {
+                    lowestPriceRoom = room.price;
+                }
+            }))
+            console.log("lowestPriceRoom==> ", lowestPriceRoom)
+            hotels[i] = hotels[i].toObject();
+            hotels[i].lowestPriceRoom = lowestPriceRoom;
 
+            console.log("hotels[i].lowestPriceRoom==> ", hotels[i])
+        }))
         // Get the total count for pagination purposes
         const totalCount = await Hotel.countDocuments(query);
 

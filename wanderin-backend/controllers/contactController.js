@@ -4,7 +4,7 @@ const helper = require('../helper'); // Ensure the path is correct to your helpe
 exports.contactCustomerService = async (req, res) => {
     try {
         const { name, email, message } = req.body;
-
+      
         // Validate the request body
         if (!name || !email || !message) {
             return res.status(400).json(helper.response(400, false, "All fields are required"));

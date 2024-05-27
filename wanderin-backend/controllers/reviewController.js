@@ -1,12 +1,14 @@
 const Hotel = require('../models/hotelModel');
 const Review = require('../models/reviewSchema');
 const helper = require('../helper/index');
+const User = require('../models/userModel');
 
 
 exports.submitReview = async (req, res) => {
     try {
-        const { user, hotel, rating, comment } = req.body;
-
+        const {  hotel, rating, comment } = req.body;
+        const theUser = await User.findOne({ email: req.currentUser.email });
+        const user = theUser._id;
         // Create a new review
         const newReview = new Review({
             user,

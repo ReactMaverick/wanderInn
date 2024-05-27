@@ -9,11 +9,14 @@ const { generateToken, sendEmailVerifyEmail, sendResetPasswordEmail } = require(
 const fs = require('fs');
 const Booking = require('../models/bookingSchema');
 const Deal = require('../models/dealSchema');
+const User = require('../models/userModel');
 
 exports.bookHotel = async (req, res) => {
     try {
         const { hotelId, roomId, checkInDate, checkOutDate, totalPrice, transactionId } = req.body;
-        const user = req.user;
+        const user =await User.findOne({email:req.currentUser.email})
+        const userId = user._id
+        // console.log(user._id)
         console.log(hotelId, roomId, checkInDate, checkOutDate, totalPrice, transactionId, user )
         // Check if hotel and room exist
         const hotel = await Hotel.findById(hotelId);
@@ -59,7 +62,7 @@ exports.bookHotel = async (req, res) => {
 
         // Save booking details
         const booking = new Booking({
-            user: "60a5d21dc6b824001e6e077f",
+            user: userId,
             hotel: hotelId,
             room: roomId,
             checkInDate,
@@ -104,11 +107,14 @@ exports.updateBooking = async (req, res) => {
 // give code for cancel booking by user
 exports.cancelBooking = async (req, res) => {
     try {
-        const { user } = req.body; // Extract the user from the request body
+        // const { user } = req.body; // Extract the user from the request body
         const bookingId = req.params.id; // Get the booking ID from the request parameters
-
+        const user = await User.findOne({ email: req.currentUser.email })
+        const userId = user._id
         // Find the booking by its ID
+        
         const booking = await Booking.findById(bookingId);
+        // console.log(booking.user, userId)
         if (!booking) {
             return res.status(404).json(helper.response(404, false, "Booking not found"));
         }

@@ -214,8 +214,11 @@ exports.forgotPassword = async (req, res) => {
 // Controller function to add a hotel to favorites
 exports.addToFavorites = async (req, res) => {
     try {
-        const { hotelId, userId } = req.body;
+        const { hotelId} = req.body;
         // const user = req.user; // Assuming the user object is available in the request
+   
+        const user = await User.findOne({ email: req.currentUser.email });
+        const userId = user._id;
         console.log("User ID: ", userId);
         console.log("Hotel ID: ", hotelId);
         // Check if the hotel exists
@@ -223,7 +226,7 @@ exports.addToFavorites = async (req, res) => {
         if (!hotel) {
             return res.status(404).json({ success: false, message: "Hotel not found" });
         }
-        let user = await User.findById(userId);
+        // let user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
@@ -242,8 +245,10 @@ exports.addToFavorites = async (req, res) => {
 };
 exports.removeFromFavorites = async (req, res) => {
     try {
-        const { hotelId, userId } = req.body;
+        const { hotelId } = req.body;
         // const user = req.user; // Assuming the user object is available in the request
+        const user = await User.findOne({ email: req.currentUser.email });
+        const userId = user._id;
         console.log("User ID: ", userId);
         console.log("Hotel ID: ", hotelId);
         // Check if the hotel exists
@@ -251,7 +256,7 @@ exports.removeFromFavorites = async (req, res) => {
         if (!hotel) {
             return res.status(404).json({ success: false, message: "Hotel not found" });
         }
-        let user = await User.findById(userId);
+        // let user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
@@ -270,10 +275,11 @@ exports.removeFromFavorites = async (req, res) => {
 }
 exports.getFavouriteHotelsByUser = async (req, res) => {
     try {
-        const { userId, searchQuery, page = 1, limit = 10 } = req.body;
+        const {searchQuery, page = 1, limit = 10 } = req.body;
+        // console.log("req.currentuser: ", req.currentUser);
 
         // Find the user and populate their favorite hotels
-        const user = await User.findById(userId).populate({
+        const user = await User.findOne({email:req.currentUser.email}).populate({
             path: 'Favourites',
             match: searchQuery ? { name: { $regex: searchQuery, $options: 'i' } } : {},
             options: {

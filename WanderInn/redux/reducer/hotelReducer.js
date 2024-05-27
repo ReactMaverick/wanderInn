@@ -54,7 +54,7 @@ export const getFiveNearbyHotels = createAsyncThunk(
                     "location": {
                         "coordinates": [location.coords.latitude, location.coords.longitude]
                     },
-                    "radius": 500000, // Radius in meters
+                    "radius": 50000, // Radius in meters
                     // "search": "luxury",
                     "page": 1,
                     "limit": 5
@@ -120,7 +120,7 @@ const hotelSlice = createSlice({
             })
             .addCase(getFiveNearbyHotels.fulfilled, (state, action) => {
                 console.log('action.payload ==> ', action.payload);
-                state.fiveNearbyHotels = action.payload;
+                state.fiveNearbyHotels = action.payload.hotels;
             })
             .addCase(getFiveNearbyHotels.rejected, (state, action) => {
                 console.log('action.payload ==> ', action.payload);

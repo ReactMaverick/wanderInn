@@ -51,16 +51,16 @@ router.get('/getReviewsByHotelId/:id', authMiddleware.isAuth, reviewController.g
 //FAQ API's
 router.post('/addFaqs', authMiddleware.isAdmin, faqController.createFAQ);
 router.get('/faqs', faqController.getFAQs);
-router.put('/updateFaqById/:id', faqController.updateFAQ);
-router.delete('/deleteFaqById/:id', faqController.deleteFAQ);
+router.put('/updateFaqById/:id', authMiddleware.isAdmin, faqController.updateFAQ);
+router.delete('/deleteFaqById/:id', authMiddleware.isAdmin, faqController.deleteFAQ);
 
 //contact us
 router.post('/contact', contactController.contactCustomerService);
 
 //Deals controller
-router.post('/createDeal', dealController.createDeal);
-router.get('/getAllDeals', dealController.getDeals);
-router.put('/editDealById/:id', dealController.updateDeal);
-router.delete('/deleteDealById/:id', dealController.deleteDeal);
+router.post('/createDeal', authMiddleware.isAdmin, dealController.createDeal);
+router.get('/getAllDeals', authMiddleware.isAdmin, dealController.getDeals);
+router.put('/editDealById/:id', authMiddleware.isAdmin, dealController.updateDeal);
+router.delete('/deleteDealById/:id', authMiddleware.isAdmin, dealController.deleteDeal);
 
 module.exports = router;

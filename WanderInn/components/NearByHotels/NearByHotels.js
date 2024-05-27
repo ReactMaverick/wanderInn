@@ -10,11 +10,11 @@ import { HOTEL, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
 import { BlurView } from 'expo-blur';
 import { useRouter } from "expo-router";
 
-export default function  NearByHotelsScreen() {
+export default function  NearByHotelsScreen({hotel}) {
     const router = useRouter();
     const blinkValue = useRef(new Animated.Value(1)).current;
     const [isFav, setIsFav] = useState(false);
-
+    // console.log('Hotel From NearByHotelsScreen==> ', hotel)
     const animateIcon = () => {
         setIsFav(!isFav);
         Animated.sequence([
@@ -33,7 +33,7 @@ export default function  NearByHotelsScreen() {
     return (
         <Pressable onPress={() => {
             console.log('Hotel clicked');
-            router.push('hotelsDetails');
+            router.push(`/hotelsDetails`);
 
         }}>
             <View style={styles.HotelCard}>
@@ -86,7 +86,7 @@ export default function  NearByHotelsScreen() {
                 <View style={styles.HotelCardContent}>
                     <View style={styles.HotelCardContentInner}>
                         <View style={styles.HotelCardTop}>
-                            <Text style={styles.HotelCardTitle}>Hotel Linda Place</Text>
+                            <Text style={styles.HotelCardTitle}>{hotel.name}</Text>
                             <View style={styles.HotelLocation}>
                                 <Ionicons name="location-sharp" style={styles.HotelLocationIcon} />
                                 <Text style={styles.HotelLocationText}>New York, USA New York,</Text>
@@ -94,7 +94,7 @@ export default function  NearByHotelsScreen() {
                         </View>
                         <View style={styles.HotelCardRight}>
                             <Text style={styles.Hoteldistance}>Starting from</Text>
-                            <Text style={styles.HotelPrice}>$23/ Night</Text>
+                            <Text style={styles.HotelPrice}>${hotel.lowestPriceRoom}/ Night</Text>
                         </View>
                     </View>
                     {/* offer box */}

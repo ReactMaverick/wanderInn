@@ -18,6 +18,7 @@ export default function HomePage() {
     const ItemSeparator = () => <View style={{ width: 20 }} />;
     const hotels= useSelector(state => state.hotel.hotels)
     const [location , setLocation] = useState(null)
+    const [nearbyHotelLoading, setNearbyHotelLoading] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
     const fivePopularHotels = useSelector(state => state.hotel.fivePopularHotels)
     const fiveNearbyHotels = useSelector(state => state.hotel.fiveNearbyHotels)
@@ -26,35 +27,46 @@ export default function HomePage() {
     console.log('Five Nearby Hotels From Home==> ', fiveNearbyHotels);
 
     // get the location of the user
-    // const getLocation = async () => {
-    //     let { status } = await Location.requestForegroundPermissionsAsync();
-    //     if (status !== 'granted') {
-    //         setErrorMsg('Permission to access location was denied');
-    //         return;
-    //     }
-    //     let location = await Location.getCurrentPositionAsync({});
-    //     console.log('Location==>', location);
-    //     setLocation(location);
-    // }
-    // useEffect(() => {
-    //     if(location){
-    //         dispatch(getFiveNearbyHotels(location))
-    //     }
-        
-    // }, [location])
+    const getLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return;
+        }
+        let location = await Location.getCurrentPositionAsync({});
+        console.log('Location==>', location);
+        setLocation(location);
+    }
     useEffect(() => {
-        // getLocation();
+        if(location){
+            dispatch(getFiveNearbyHotels(location))
+            .then()
+            .catch((error) => {
+                console.error('Error ==> ', error);
+                showToast('error', 'Something went wrong! Please try again later.');
+            })
+            .finally(() => {
+                setNearbyHotelLoading(false);
+            });
+        }
+        
+    }, [location])
+    useEffect(() => {
+        getLocation();
         Promise.all([
             // dispatch(getHotels()),
             dispatch(getFivePopularHotels()),
             
             // Add more async actions here
         ])
-            .then(() => setIsLoading(false))
+            .then()
             .catch((error) => {
                 console.error(error);
                 setIsLoading(false);
                 // Handle the error appropriately
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     }, []);
     
@@ -77,46 +89,21 @@ export default function HomePage() {
                         </Pressable>
                     </View>
                 </View>
-                {/* {fiveNearbyHotels? fiveNearbyHotels.map((hotel) => (
-                    
+                {fiveNearbyHotels.length > 0 ? 
+                    (<FlatList
+                      
+                        keyExtractor={(item) => item._id}
+                        ItemSeparatorComponent={ItemSeparator}
+                        horizontal
+                        data={fiveNearbyHotels}
+                        renderItem={({ item }) => (<NearByHotelsScreen hotel={item} />)}
+                    />)
                     
                 
-                )):(<Loader/>)
-                } */}
-                <FlatList
-                    ItemSeparatorComponent={ItemSeparator}
-                    horizontal
-                    data={[
-                        { key: 'a' },
-                        { key: 'b' },
-                        { key: 'c' },
-                        { key: 'd' },
-                        { key: 'e' },
-                        { key: 'f' },
-                        { key: 'g' },
-                        { key: 'h' },
-                        { key: 'i' },
-                        { key: 'j' },
-                        { key: 'k' },
-                        { key: 'l' },
-                        { key: 'm' },
-                        { key: 'n' },
-                        { key: 'o' },
-                        { key: 'p' },
-                        { key: 'q' },
-                        { key: 'r' },
-                        { key: 's' },
-                        { key: 't' },
-                        { key: 'u' },
-                        { key: 'v' },
-                        { key: 'w' },
-                        { key: 'x' },
-                        { key: 'y' },
-                        { key: 'z' },
-
-                    ]}
-                    renderItem={({ item }) => (<NearByHotelsScreen />)}
-                />
+                    : nearbyHotelLoading === false && fiveNearbyHotels.length === 0?(<Text>No Nearby Hotels Found</Text>)
+                    :( <Loader/>)
+                }
+                
                 <View style={styles.container}>
                     <View style={commonStyles.TitleRow}>
                         <Text style={commonStyles.Title}>Popular Hotels</Text>
@@ -129,7 +116,7 @@ export default function HomePage() {
 
                 </View>
                 <View style={styles.PopularHotelsRow}>
-                    {fivePopularHotels? fivePopularHotels.map((hotel) => (
+                    {fivePopularHotels.length > 0 ? fivePopularHotels.map((hotel) => (
                         <PopularHotelsScreen key={hotel._id} hotel={hotel} />
                     )):(<Loader/>)
                 }

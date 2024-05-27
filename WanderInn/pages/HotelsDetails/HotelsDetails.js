@@ -16,7 +16,7 @@ import { router } from 'expo-router';
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
     const ItemSeparator = () => <View style={{ width: 20 }} />;
-
+     console.log(router.params)
     return (
         <>
             <ImageBackground source={HOTEL} resizeMode='cover' style={styles.bgImage}>
