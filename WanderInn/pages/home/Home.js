@@ -7,9 +7,25 @@ import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
 import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
 import { commonStyles } from '@/constants/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getFivePopularHotels, getHotels } from '@/redux/reducer/hotelReducer';
 
 export default function HomePage() {
+    const dispatch = useDispatch();
     const ItemSeparator = () => <View style={{ width: 20 }} />;
+    const hotels= useSelector(state => state.hotel.hotels)
+    const fivePopularHotels = useSelector(state => state.hotel.fivePopularHotels)
+    // console.log('Hotels From Home==> ', hotels);
+    console.log('Five Popular Hotels From Home==> ', fivePopularHotels);
+    useEffect(() => {
+        // dispatch(getHotels()).then((res) => {
+        //     console.log('Hotels ==> ', res.payload);
+            
+        // })
+        dispatch(getFivePopularHotels())
+    }, []
+    )
     return (
         <>
             <HeaderScreen />
@@ -74,11 +90,14 @@ export default function HomePage() {
 
                 </View>
                 <View style={styles.PopularHotelsRow}>
-                    <PopularHotelsScreen />
-                    <PopularHotelsScreen />
-                    <PopularHotelsScreen />
-                    <PopularHotelsScreen />
-                    <PopularHotelsScreen />
+                    {fivePopularHotels.map((hotel) => (
+                        <PopularHotelsScreen key={hotel.id} hotel={hotel} />
+                    ))}
+                    {/* // <PopularHotelsScreen />
+                    // <PopularHotelsScreen />
+                    // <PopularHotelsScreen />
+                    // <PopularHotelsScreen />
+                    // <PopularHotelsScreen /> */}
                 </View>
                 <View style={[styles.container, { marginBottom: 20 }]}>
                     <BannerSliderScreen />

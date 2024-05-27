@@ -322,11 +322,11 @@ exports.getBookingsByUser = async (req, res) => {
         // If a search query is provided, add it to the search criteria
         if (searchQuery) {
             query.$or = [
-                { 'hotel': new RegExp(searchQuery, 'i') },
-                { 'room': new RegExp(searchQuery, 'i') }
+                { 'hotel.name': new RegExp(searchQuery, 'i') },
+                { 'room.name': new RegExp(searchQuery, 'i') }
             ];
         }
-
+        console.log("Query: ", query);
         // Calculate the skip value for pagination
         const skip = (page - 1) * limit;
 

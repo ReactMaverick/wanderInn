@@ -1,5 +1,6 @@
 import { login, selectIsLoggedIn } from '@/redux/reducer/authReducer';
 import { Redirect, Slot, Stack, router } from 'expo-router';
+import { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { useSelector } from 'react-redux';
 
@@ -44,13 +45,13 @@ export default function AuthLayout() {
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoggedIn(true);
-    //     }, 5000);
-    // }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            // setIsLoggedIn(true);
+        }, 5000);
+    }, []);
 
-    console.log('isLoggedIn ==> ', isLoggedIn);
+    // console.log('isLoggedIn ==> ', isLoggedIn);
 
     if (!isLoggedIn) {
         return (
