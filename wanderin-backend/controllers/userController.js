@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
 
         const userRecord = await admin.auth().getUserByEmail(email);
 
-        console.log("User Record ==> ", userRecord);
+        //console.log("User Record ==> ", userRecord);
 
         return res.status(409).json(helper.response(409, false, "Email Already Exists!"));
 
@@ -32,7 +32,7 @@ exports.register = async (req, res) => {
                 password,
             });
 
-            console.log("New User ==> ", newUser);
+            //console.log("New User ==> ", newUser);
 
             let user = await userSchema.findOne({ email });
 
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
             user.isPhoneVerified = userRecord.phoneNumber ? true : false;
         }
 
-        // console.log("User Record ==> ", userRecord);
+        // //console.log("User Record ==> ", userRecord);
 
         user = await user.save();
 
@@ -106,7 +106,7 @@ exports.generateIdToken = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // console.log('API Key ==> ', firebase_API_KEY);
+        // //console.log('API Key ==> ', firebase_API_KEY);
 
         // Sign in the user using the Firebase Authentication REST API
         const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_API_KEY}`, {
@@ -123,11 +123,11 @@ exports.generateIdToken = async (req, res) => {
 
         const data = await response.json();
 
-        // console.log('Response ==> ', data);
+        // //console.log('Response ==> ', data);
 
         const idToken = data.idToken;
 
-        // console.log('Id token:', idToken);
+        // //console.log('Id token:', idToken);
 
         return res.status(200).json(helper.response(200, true, "Id token generated successfully!", { idToken }));
 
@@ -189,7 +189,7 @@ exports.forgotPassword = async (req, res) => {
 
         const userRecord = await admin.auth().getUserByEmail(email);
 
-        // console.log("User Record ==> ", userRecord);
+        // //console.log("User Record ==> ", userRecord);
 
         if (!userRecord) {
             return res.status(400).json(helper.response(400, false, "User not found!"));
@@ -216,10 +216,10 @@ exports.addToFavorites = async (req, res) => {
     try {
         const { hotelId} = req.body;
         // const user = req.user; // Assuming the user object is available in the request
-   
+        console.log("Current User: ", req.currentUser);
         const user = await User.findOne({ email: req.currentUser.email });
         const userId = user._id;
-        console.log("User ID: ", userId);
+        //console.log("User ID: ", userId);
         console.log("Hotel ID: ", hotelId);
         // Check if the hotel exists
         const hotel = await Hotel.findById(hotelId);
@@ -230,14 +230,21 @@ exports.addToFavorites = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
-        console.log("User: ", user);
+        //console.log("User: ", user);
         // Add the hotel to the user's favorites
+        //dont add the hotel if it already exists in the user's favorites
+        if (user.Favourites.includes(hotelId)) {
+            return res.status(400).json(helper.response(400,false,"Hotel already in favorites"));
+        }
+
         user.Favourites.push(hotel);
         await user.save();
 
         // Return the updated user object with full hotel details
         const updatedUser = await User.findById(user._id).populate('Favourites');
-        return res.status(200).json({ success: true, message: "Hotel added to favorites", user: updatedUser });
+        // return res.status(200).json({
+        return res.status(200).json(helper.response(200,true,"Hotel added to favorites",updatedUser));
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Something went wrong!" });
@@ -249,8 +256,8 @@ exports.removeFromFavorites = async (req, res) => {
         // const user = req.user; // Assuming the user object is available in the request
         const user = await User.findOne({ email: req.currentUser.email });
         const userId = user._id;
-        console.log("User ID: ", userId);
-        console.log("Hotel ID: ", hotelId);
+        //console.log("User ID: ", userId);
+        //console.log("Hotel ID: ", hotelId);
         // Check if the hotel exists
         const hotel = await Hotel.findById(hotelId);
         if (!hotel) {
@@ -260,14 +267,15 @@ exports.removeFromFavorites = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
-        console.log("User: ", user);
+        //console.log("User: ", user);
         // Remove the hotel from the user's favorites
         user.Favourites = user.Favourites.filter(fav => fav._id.toString() !== hotelId);
         await user.save();
 
         // Return the updated user object with full hotel details
         const updatedUser = await User.findById(user._id).populate('Favourites');
-        return res.status(200).json({ success: true, message: "Hotel removed from favorites", user: updatedUser });
+        return res.status(200).json(helper.response(200,true,"Hotel removed from favorites",updatedUser));
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Something went wrong!" });
@@ -275,8 +283,9 @@ exports.removeFromFavorites = async (req, res) => {
 }
 exports.getFavouriteHotelsByUser = async (req, res) => {
     try {
+        console.log("getFavouriteHotelsByUser")
         const {searchQuery, page = 1, limit = 10 } = req.body;
-        // console.log("req.currentuser: ", req.currentUser);
+        // //console.log("req.currentuser: ", req.currentUser);
 
         // Find the user and populate their favorite hotels
         const user = await User.findOne({email:req.currentUser.email}).populate({
@@ -289,7 +298,7 @@ exports.getFavouriteHotelsByUser = async (req, res) => {
         });
 
         if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
+            return res.status(404).json(helper.response(404,false,"User not found" ));
         }
 
         // Get the total count of favorite hotels that match the search query
@@ -298,13 +307,21 @@ exports.getFavouriteHotelsByUser = async (req, res) => {
             ...(searchQuery && { name: { $regex: searchQuery, $options: 'i' } })
         });
 
-        return res.status(200).json({
+        return res.status(200).json(helper.response(200, true, "Favourites found", {
             success: true,
-            favorites: user.Favourites,
+            favourites: user.Favourites,
             totalFavorites,
             totalPages: Math.ceil(totalFavorites / limit),
             currentPage: page
-        });
+        }))
+
+        // return res.status(200).json({
+        //     success: true,
+        //     favorites: user.Favourites,
+        //     totalFavorites,
+        //     totalPages: Math.ceil(totalFavorites / limit),
+        //     currentPage: page
+        // });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Something went wrong!" });
@@ -321,7 +338,7 @@ exports.getBookingsByUser = async (req, res) => {
             return res.status(404).json(helper.response(404, false, "User not found"));
         }
 
-        // console.log("User: ", user);
+        // //console.log("User: ", user);
         const bookings = await Booking.find({ user: user._id })
             .populate({
                 path: 'hotel',

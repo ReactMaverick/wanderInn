@@ -8,20 +8,52 @@ import { AntDesign } from '@expo/vector-icons';
 import { commonStyles } from "../../constants/styles";
 import { HOTEL1, } from "@/constants/images";
 import { BlurView } from 'expo-blur';
+import { formatToOneDecimalPlace } from "@/common/common";
+import { useDispatch, useSelector } from "react-redux";
+import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
+import { router } from "expo-router";
 
 export default function PopularHotelsScreen({hotel}) {
-
+    const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const [isFav, setIsFav] = useState(false);
+    const dispatch = useDispatch();
+    const blinkValue = useRef(new Animated.Value(1)).current;
 
+
+    const checkHotelsInFavList=()=>{
+        let isHotelInFavList = false;
+        favouriteHotels.map((favHotel)=>{
+            if(favHotel._id === hotel._id){
+                isHotelInFavList = true;
+            }
+        })
+       setIsFav(isHotelInFavList)
+    }
+    useEffect(() => {
+        checkHotelsInFavList();
+    }, [favouriteHotels])
     const animateIcon = () => {
-        setIsFav(!isFav);
+        if (!isFav) {
+            dispatch(addToFavorite(hotel._id))
+        } else {
+            dispatch(removeFromFavorite(hotel._id))
+        }
+        
+        //check if the hotel is already in the favoriteHotels list or not
+        
+
+        // setIsFav(!isFav);
     }
     
 
     // console.log('Hotel From PopularHotels==> ', hotel._id)
 
     return (
-        <Pressable onPress={() => { alert('Hotel Clicked'); }}>
+        <Pressable onPress={() => { 
+
+            console.log('Hotel clicked');
+            router.push(`/hotelsDetails/${hotel._id}`);
+            }}>
             <View style={styles.HotelCard}>
                 <View style={styles.HotelCardImgBox}>
                     <View style={styles.CatagoryBox}>
@@ -43,7 +75,7 @@ export default function PopularHotelsScreen({hotel}) {
                         <View style={styles.HotelCardContentLeftBottom}>
                             <View style={styles.ReviewBox}>
                                 <Ionicons name="star" style={styles.ReviewStar} />
-                                <Text style={styles.ReviewText}>{hotel?.starRating}</Text>
+                                <Text style={styles.ReviewText}>{formatToOneDecimalPlace(hotel?.starRating)}</Text>
                             </View>
                             <Text style={styles.HotelCardLocation}>(4569 Peoples Reviews)</Text>
                         </View>

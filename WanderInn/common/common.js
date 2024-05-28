@@ -14,3 +14,6 @@ export const getToken = async () => {
         return null;
     }
 }
+export const  formatToOneDecimalPlace=(num)=> {
+    return parseFloat(num?.toFixed(1));
+}

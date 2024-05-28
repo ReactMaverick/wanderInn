@@ -73,6 +73,21 @@ exports.getHotelById = async (req, res) => {
         }
         //hotel have rooms array  where in only rooms id is stored so we need to populate rooms array to get the room details
         let hotelPopulated = await Hotel.populate(hotel, { path: 'rooms' });
+        // set minimum price of the room in hotel object
+        let lowestPriceRoom = 5555555;
+        await Promise.all(hotelPopulated.rooms.map(async (roomId) => {
+            console.log(roomId)
+            const room = await Room.findById(roomId);
+            // console.log("room => ",room)
+            console.log("room.price==> ", room.price)
+            if (room.price < lowestPriceRoom) {
+                lowestPriceRoom = room.price;
+            }
+        }))
+        console.log("lowestPriceRoom==> ", lowestPriceRoom)
+        hotelPopulated = hotelPopulated.toObject();
+        hotelPopulated.lowestPriceRoom = lowestPriceRoom;
+        
         hotelPopulated = await Hotel.populate(hotelPopulated, { path: 'reviews' });
         return res.status(200).json(helper.response(200, true, "Hotel fetched successfully", hotelPopulated));
     } catch (error) {

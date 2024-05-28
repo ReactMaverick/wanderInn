@@ -9,13 +9,19 @@ import { commonStyles } from "../../constants/styles";
 import { HOTEL, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
 import { BlurView } from 'expo-blur';
 import { useRouter } from "expo-router";
+import { formatToOneDecimalPlace } from "@/common/common";
+import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function  NearByHotelsScreen({hotel}) {
     const router = useRouter();
+    const dispatch = useDispatch();
     const blinkValue = useRef(new Animated.Value(1)).current;
+    const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const [isFav, setIsFav] = useState(false);
     // console.log('Hotel From NearByHotelsScreen==> ', hotel)
     const animateIcon = () => {
+        
         setIsFav(!isFav);
         Animated.sequence([
             Animated.timing(blinkValue, {
@@ -29,12 +35,30 @@ export default function  NearByHotelsScreen({hotel}) {
                 useNativeDriver: true,
             }),
         ]).start();
+        if (!isFav) {
+            dispatch(addToFavorite(hotel._id))
+        } else {
+            dispatch(removeFromFavorite(hotel._id))
+        }
+   
     };
+    const checkHotelsInFavList = () => {
+        let isHotelInFavList = false;
+        favouriteHotels.map((favHotel) => {
+            if (favHotel._id === hotel._id){
+                isHotelInFavList = true;
+            }
+        })
+        setIsFav(isHotelInFavList)
+    }
+    useEffect(() => {
+        checkHotelsInFavList();
+    }, [favouriteHotels])
+
     return (
         <Pressable onPress={() => {
             console.log('Hotel clicked');
-            router.push(`/hotelsDetails`);
-
+            router.push(`/hotelsDetails/${hotel._id}`);
         }}>
             <View style={styles.HotelCard}>
                 <View style={styles.HotelCardImgBox}>
@@ -78,7 +102,7 @@ export default function  NearByHotelsScreen({hotel}) {
                             </View>
                         </View>
                         <View style={styles.ReviewBox}>
-                            <Text style={styles.ReviewText}>4.5</Text>
+                            <Text style={styles.ReviewText}>{formatToOneDecimalPlace(hotel.starRating)}</Text>
                             <Ionicons name="star" style={styles.ReviewStar} />
                         </View>
                     </BlurView>
