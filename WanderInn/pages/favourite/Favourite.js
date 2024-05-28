@@ -8,19 +8,19 @@ import { getFavoriteHotels } from '@/redux/reducer/hotelReducer';
 import Loader from '@/components/loader/Loader';
 
 
-export default function FavouritePage() {
+export default function FavouritePage({ navigation }) {
     const dispatch = useDispatch();
-    const [isLoading ,setLoading]=useState(true)
+    const [isLoading, setLoading] = useState(true)
 
     const [refreshing, setRefreshing] = useState(false);
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     console.log('Favourite Hotels From FavouritePage==> ', favouriteHotels)
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getFavoriteHotels())
-        .then()
-        .catch()
-        .finally(()=>setLoading(false))
-    },[])
+            .then()
+            .catch()
+            .finally(() => setLoading(false))
+    }, [])
     const onRefresh = () => {
         setRefreshing(true);
         // Simulate a network request
@@ -28,7 +28,7 @@ export default function FavouritePage() {
             setRefreshing(false);
         }, 2000); // Adjust the timeout as needed
     };
-    
+
     return (
         <>
             <HeaderScreen />
@@ -38,22 +38,22 @@ export default function FavouritePage() {
                 }
             >
                 <View style={styles.container}>
-                {isLoading===false && favouriteHotels.length===0 ? (
-                    <Text>No Favourite Hotels</Text>
-                ) : isLoading?(
-                    <Loader />
-                ):(
-                    favouriteHotels.map((hotel, index) => (
-                            <PopularHotelsScreen key={index} hotel={hotel} />
-                    ))
-                        
+                    {isLoading === false && favouriteHotels.length === 0 ? (
+                        <Text>No Favourite Hotels</Text>
+                    ) : isLoading ? (
+                        <Loader />
+                    ) : (
+                        favouriteHotels.map((hotel, index) => (
+                            <PopularHotelsScreen key={index} hotel={hotel} screen='(tabs)/favourite' />
+                        ))
+
                         // <PopularHotelsScreen />
                         // <PopularHotelsScreen />
                         // <PopularHotelsScreen />
                         // <PopularHotelsScreen />
-                   
-                )
-            }
+
+                    )
+                    }
                 </View>
             </ScrollView >
         </>
