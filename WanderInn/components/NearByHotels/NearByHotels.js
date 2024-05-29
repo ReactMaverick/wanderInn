@@ -13,7 +13,7 @@ import { formatToOneDecimalPlace } from "@/common/common";
 import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function  NearByHotelsScreen({hotel}) {
+export default function NearByHotels({ hotel }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const blinkValue = useRef(new Animated.Value(1)).current;
@@ -21,7 +21,7 @@ export default function  NearByHotelsScreen({hotel}) {
     const [isFav, setIsFav] = useState(false);
     // console.log('Hotel From NearByHotelsScreen==> ', hotel)
     const animateIcon = () => {
-        
+
         setIsFav(!isFav);
         Animated.sequence([
             Animated.timing(blinkValue, {
@@ -40,12 +40,12 @@ export default function  NearByHotelsScreen({hotel}) {
         } else {
             dispatch(removeFromFavorite(hotel._id))
         }
-   
+
     };
     const checkHotelsInFavList = () => {
         let isHotelInFavList = false;
         favouriteHotels.map((favHotel) => {
-            if (favHotel._id === hotel._id){
+            if (favHotel._id === hotel._id) {
                 isHotelInFavList = true;
             }
         })

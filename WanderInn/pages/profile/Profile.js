@@ -9,7 +9,7 @@ import Loader from '@/components/loader/Loader';
 import { useRouter } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectIsLoggedIn, selectUser } from '@/redux/reducer/authReducer';
-import HeaderScreen from '@/components/Header/Header';
+import HeaderScreen from '@/components/header/Header';
 import { ADD_CARD, ADD_CARD1, COUPONS, COUPONS1, FAQ, FAQ1, GIFT, GIFT1, INDIA, LOGOUT, LOGOUT1, TRIP, TRIP1, UPI, UPI1, USER, USERICON, USERICON1 } from '@/constants/images';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
@@ -22,7 +22,7 @@ export default function ProfilePage() {
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
     console.log('isLoggedIn in tabLayout ==> ', isLoggedIn);
-    
+
     const user = useSelector(selectUser);
     console.log('user in tabLayout ==> ', user);
     const [selected, setSelected] = useState(null);

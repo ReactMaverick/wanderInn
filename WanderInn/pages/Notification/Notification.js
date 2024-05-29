@@ -1,10 +1,10 @@
 import { View, ScrollView, Pressable, Text, Image, Animated, } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/Header/Header';
+import HeaderScreen from '@/components/header/Header';
 import { useState, useEffect, useRef } from 'react';
 import { USER } from '@/constants/images';
-import NotificationScreen from '@/components/Notification/Notification';
-import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels';
+import Notification from '@/components/notification/Notification';
+import MyBookingHotelsScreen from '@/components/myBookingHotels/MyBookingHotels';
 
 
 export default function NotificationPage() {
@@ -56,14 +56,14 @@ export default function NotificationPage() {
                             ...styles.notificationRow,
                             opacity: fadeAnim, // Bind opacity to animated value
                         }}>
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
                         </Animated.View>
                     </View>
                     {/*second tab content box  */}
@@ -76,11 +76,11 @@ export default function NotificationPage() {
                             ...styles.notificationRow,
                             opacity: fadeAnim, // Bind opacity to animated value
                         }}>
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
 
                         </Animated.View>
                     </View>
@@ -94,11 +94,11 @@ export default function NotificationPage() {
                             ...styles.notificationRow,
                             opacity: fadeAnim, // Bind opacity to animated value
                         }}>
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
-                            <NotificationScreen />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
+                            <Notification />
 
                         </Animated.View>
                     </View>
