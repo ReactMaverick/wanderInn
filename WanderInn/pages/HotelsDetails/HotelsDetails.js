@@ -8,9 +8,9 @@ import { BlurView } from 'expo-blur';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { commonStyles } from '@/constants/styles';
-import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
-import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels';
-import SimilarHotelsScreen from '@/components/SimilarHotels/SimilarHotels';
+import NearByHotelsScreen from '@/components/nearByHotels/NearByHotels';
+import MyBookingHotelsScreen from '@/components/myBookingHotels/MyBookingHotels';
+import SimilarHotelsScreen from '@/components/similarHotels/SimilarHotels';
 import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import { formatToOneDecimalPlace, getToken } from '@/common/common';
 import { getData } from '@/values/api/apiprovider';
@@ -21,6 +21,7 @@ import { addToFavorite, removeFromFavorite } from '@/redux/reducer/hotelReducer'
 
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
+    const { goBack } = useNavigationHistory();
     const dispatch = useDispatch()
     const favoriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const ItemSeparator = () => <View style={{ width: 20 }} />;

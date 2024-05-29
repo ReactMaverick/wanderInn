@@ -1,7 +1,7 @@
 import { View, ScrollView, Text, RefreshControl, } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/Header/Header';
-import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
+import HeaderScreen from '@/components/header/Header';
+import PopularHotelsScreen from '@/components/popularHotels/PopularHotels';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getFavoriteHotels } from '@/redux/reducer/hotelReducer';
@@ -16,7 +16,12 @@ export default function FavouritePage({ navigation }) {
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     console.log('Favourite Hotels From FavouritePage==> ', favouriteHotels)
     useEffect(() => {
-        dispatch(getFavoriteHotels())
+        useEffect(() => {
+            dispatch(getFavoriteHotels())
+                .then()
+                .catch()
+                .finally(() => setLoading(false))
+        }, [])
             .then()
             .catch()
             .finally(() => setLoading(false))
