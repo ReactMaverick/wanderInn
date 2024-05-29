@@ -21,7 +21,7 @@ import { addToFavorite, removeFromFavorite } from '@/redux/reducer/hotelReducer'
 
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
-    const { goBack } = useNavigationHistory();
+
     const dispatch = useDispatch()
     const favoriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const ItemSeparator = () => <View style={{ width: 20 }} />;
@@ -78,6 +78,7 @@ export default function BookingDetailsPage() {
     }, [])
     const handleBackPress = () => {
         previousScreen ? router.push(previousScreen) : router.back();
+
     }
     return (
         <>{isLoading === false && !hotel ? (

@@ -15,16 +15,15 @@ export default function FavouritePage({ navigation }) {
     const [refreshing, setRefreshing] = useState(false);
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     console.log('Favourite Hotels From FavouritePage==> ', favouriteHotels)
-    useEffect(() => {
-        useEffect(() => {
-            dispatch(getFavoriteHotels())
-                .then()
-                .catch()
-                .finally(() => setLoading(false))
-        }, [])
+
+    const getFavouriteHotels = async () => {
+        dispatch(getFavoriteHotels())
             .then()
             .catch()
             .finally(() => setLoading(false))
+    }
+    useEffect(() => {
+        getFavouriteHotels();
     }, [])
     const onRefresh = () => {
         setRefreshing(true);
