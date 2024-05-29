@@ -1,4 +1,4 @@
-import BookingDetailsPage from "@/pages/BookingDetails/BookingDetails";
+import BookingDetailsPage from "@/pages/bookingDetails/BookingDetails";
 
 export default function BookingDetailsScreen() {
   return (

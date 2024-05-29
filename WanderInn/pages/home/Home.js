@@ -1,11 +1,11 @@
 import { View, Text, ScrollView, Pressable, FlatList, RefreshControl } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/Header/Header';
+import HeaderScreen from '@/components/header/Header';
 import LocationSearchInputScreen from '@/components/locationSearchInput/locationSearchInput';
 import { Link } from 'expo-router';
-import NearByHotelsScreen from '@/components/NearByHotels/NearByHotels';
-import PopularHotelsScreen from '@/components/PopularHotels/PopularHotels';
-import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
+import NearByHotelsScreen from '@/components/nearByHotels/NearByHotels';
+import PopularHotelsScreen from '@/components/popularHotels/PopularHotels';
+import BannerSliderScreen from '@/components/bannerSlider/BannerSlider';
 import { commonStyles } from '@/constants/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -16,8 +16,8 @@ import * as Location from 'expo-location';
 export default function HomePage() {
     const dispatch = useDispatch();
     const ItemSeparator = () => <View style={{ width: 20 }} />;
-    const hotels= useSelector(state => state.hotel.hotels)
-    const [location , setLocation] = useState(null)   
+    const hotels = useSelector(state => state.hotel.hotels)
+    const [location, setLocation] = useState(null)
     const [refreshing, setRefreshing] = useState(false);
     const [nearbyHotelLoading, setNearbyHotelLoading] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
@@ -41,18 +41,18 @@ export default function HomePage() {
         setLocation(location);
     }
     useEffect(() => {
-        if(location){
+        if (location) {
             dispatch(getFiveNearbyHotels(location))
-            .then()
-            .catch((error) => {
-                console.error('Error ==> ', error);
-                showToast('error', 'Something went wrong! Please try again later.');
-            })
-            .finally(() => {
-                setNearbyHotelLoading(false);
-            });
+                .then()
+                .catch((error) => {
+                    console.error('Error ==> ', error);
+                    showToast('error', 'Something went wrong! Please try again later.');
+                })
+                .finally(() => {
+                    setNearbyHotelLoading(false);
+                });
         }
-        
+
     }, [location])
     useEffect(() => {
         getLocation();
@@ -72,7 +72,7 @@ export default function HomePage() {
                 setIsLoading(false);
             });
     }, []);
- 
+
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -81,7 +81,7 @@ export default function HomePage() {
             setRefreshing(false);
         }, 2000); // Adjust the timeout as needed
     };
-    
+
 
     return (
         <>
@@ -105,21 +105,21 @@ export default function HomePage() {
                         </Pressable>
                     </View>
                 </View>
-                {fiveNearbyHotels.length > 0 ? 
+                {fiveNearbyHotels.length > 0 ?
                     (<FlatList
-                      
+
                         keyExtractor={(item) => item._id}
                         ItemSeparatorComponent={ItemSeparator}
                         horizontal
                         data={fiveNearbyHotels}
                         renderItem={({ item }) => (<NearByHotelsScreen hotel={item} />)}
                     />)
-                    
-                
-                    : nearbyHotelLoading === false && fiveNearbyHotels.length === 0?(<Text>No Nearby Hotels Found</Text>)
-                    :( <Loader/>)
+
+
+                    : nearbyHotelLoading === false && fiveNearbyHotels.length === 0 ? (<Text>No Nearby Hotels Found</Text>)
+                        : (<Loader />)
                 }
-                
+
                 <View style={styles.container}>
                     <View style={commonStyles.TitleRow}>
                         <Text style={commonStyles.Title}>Popular Hotels</Text>
@@ -133,10 +133,10 @@ export default function HomePage() {
                 </View>
                 <View style={styles.PopularHotelsRow}>
                     {fivePopularHotels.length > 0 ? fivePopularHotels.map((hotel) => (
-                        <PopularHotelsScreen key={hotel._id} hotel={hotel} />
-                    )):(<Loader/>)
-                }
-                    
+                        <PopularHotelsScreen key={hotel._id} hotel={hotel} screen='(tabs)' />
+                    )) : (<Loader />)
+                    }
+
                     {/* 
                     // <PopularHotelsScreen />
                     // <PopularHotelsScreen />

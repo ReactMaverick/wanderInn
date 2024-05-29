@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
 import { HOTEL } from "@/constants/images";
 
-export default function NotificationScreen() {
+export default function Notification() {
     return (
 
         <View style={styles.notificationBox}>
