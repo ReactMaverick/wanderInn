@@ -7,27 +7,27 @@ import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
 import { commonStyles } from "../../constants/styles";
 import { HOTEL1, } from "@/constants/images";
-import { BlurView } from 'expo-blur';
 import { formatToOneDecimalPlace } from "@/common/common";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
 import { router } from "expo-router";
 
-export default function PopularHotels({hotel}) {
+export default function PopularHotels({ hotel }) {
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const [isFav, setIsFav] = useState(false);
     const dispatch = useDispatch();
     const blinkValue = useRef(new Animated.Value(1)).current;
 
+    // console.log('Navigation From PopularHotels==> ', navigation);
 
-    const checkHotelsInFavList=()=>{
+    const checkHotelsInFavList = () => {
         let isHotelInFavList = false;
-        favouriteHotels.map((favHotel)=>{
-            if(favHotel._id === hotel._id){
+        favouriteHotels.map((favHotel) => {
+            if (favHotel._id === hotel._id) {
                 isHotelInFavList = true;
             }
         })
-       setIsFav(isHotelInFavList)
+        setIsFav(isHotelInFavList)
     }
     useEffect(() => {
         checkHotelsInFavList();
@@ -38,22 +38,27 @@ export default function PopularHotels({hotel}) {
         } else {
             dispatch(removeFromFavorite(hotel._id))
         }
-        
+
         //check if the hotel is already in the favoriteHotels list or not
-        
+
 
         // setIsFav(!isFav);
     }
-    
+
 
     // console.log('Hotel From PopularHotels==> ', hotel._id)
 
     return (
-        <Pressable onPress={() => { 
+        <Pressable onPress={() => {
 
             console.log('Hotel clicked');
-            router.push(`/hotelsDetails/${hotel._id}`);
-            }}>
+            router.push({
+                pathname: '/hotelsDetails/' + hotel._id,
+                params: {
+                    previousScreen: screen
+                }
+            })
+        }}>
             <View style={styles.HotelCard}>
                 <View style={styles.HotelCardImgBox}>
                     <View style={styles.CatagoryBox}>

@@ -133,7 +133,7 @@ export default function HomePage() {
                 </View>
                 <View style={styles.PopularHotelsRow}>
                     {fivePopularHotels.length > 0 ? fivePopularHotels.map((hotel) => (
-                        <PopularHotelsScreen key={hotel._id} hotel={hotel} />
+                        <PopularHotelsScreen key={hotel._id} hotel={hotel} screen='(tabs)' />
                     )) : (<Loader />)
                     }
 

@@ -8,13 +8,14 @@ import { getFavoriteHotels } from '@/redux/reducer/hotelReducer';
 import Loader from '@/components/loader/Loader';
 
 
-export default function FavouritePage() {
+export default function FavouritePage({ navigation }) {
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState(true)
 
     const [refreshing, setRefreshing] = useState(false);
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     console.log('Favourite Hotels From FavouritePage==> ', favouriteHotels)
+
     const getFavouriteHotels = async () => {
         dispatch(getFavoriteHotels())
             .then()
@@ -47,7 +48,7 @@ export default function FavouritePage() {
                         <Loader />
                     ) : (
                         favouriteHotels.map((hotel, index) => (
-                            <PopularHotelsScreen key={index} hotel={hotel} />
+                            <PopularHotelsScreen key={index} hotel={hotel} screen='(tabs)/favourite' />
                         ))
 
                         // <PopularHotelsScreen />

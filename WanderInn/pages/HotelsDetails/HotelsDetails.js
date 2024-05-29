@@ -18,8 +18,6 @@ import { API_URL } from '@/values/api/url';
 import Loader from '@/components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite, removeFromFavorite } from '@/redux/reducer/hotelReducer';
-import { useNavigationState } from '@react-navigation/native';
-
 
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
@@ -30,9 +28,9 @@ export default function BookingDetailsPage() {
 
     const [hotel, setHotel] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
-    const { id } = useLocalSearchParams();
-    const navigationState = useNavigationState(state => state);
-    console.log('navigationState==> ', navigationState)
+    const { id, previousScreen } = useLocalSearchParams();
+
+    // console.log('Previous Screen ==> ', previousScreen);
     // console.log('Hotel From NearByHotels details page==> ', id)
 
     const getHotelDetails = async () => {
@@ -79,7 +77,8 @@ export default function BookingDetailsPage() {
         getHotelDetails()
     }, [])
     const handleBackPress = () => {
-        
+        previousScreen ? router.push(previousScreen) : router.back();
+
     }
     return (
         <>{isLoading === false && !hotel ? (
