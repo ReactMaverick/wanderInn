@@ -32,7 +32,7 @@ export const getFivePopularHotels = createAsyncThunk(
                 { page: "1", limit: "10", search: "" },
                 token
             );
-            console.log("response====> ", response.data);
+            // console.log("response====> ", response.data);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -61,7 +61,7 @@ export const getFiveNearbyHotels = createAsyncThunk(
                 },
                 token
             );
-            console.log(" getFiveNearbyHotels response====> ", response.data.hotels);
+            // console.log(" getFiveNearbyHotels response====> ", response.data.hotels);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -82,7 +82,7 @@ export const addToFavorite = createAsyncThunk(
                 { hotelId },
                 token
             );
-            console.log("addToFavorite response====> ", response.data);
+            // console.log("addToFavorite response====> ", response.data);
             return response.data;
         } catch (error) {
             console.error("Add to favourite response ===> ", error);
@@ -98,7 +98,7 @@ export const getFavoriteHotels = createAsyncThunk(
             console.log('Token ==> ', token);
             console.log('API_URL ==> ', API_URL + "getFavourites");
             const response = await postData(API_URL + "getFavourites", {}, token);
-            console.log("getFavoriteHotels response====> ", response);
+            // console.log("getFavoriteHotels response====> ", response);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -119,13 +119,33 @@ export const removeFromFavorite = createAsyncThunk(
                 { hotelId },
                 token
             );
-            console.log("removeFromFavorite response====> ", response.data);
+            // console.log("removeFromFavorite response====> ", response.data);
             return response.data;
         } catch (error) {
             console.error("Remove from favourite response ===> ", error);
             return rejectWithValue(error.response.data);
         }
     })
+export const getBookingsByUser=createAsyncThunk(
+    'hotel/getBookingsByUser',
+    async()=>{
+        try {
+            const token = await getToken();
+            console.log('Token ==> ', token);
+            console.log('API_URL ==> ', API_URL + "getBookingsByUser");
+            const response = await postData(API_URL + "getBookingsByUser", {
+                "searchQuery": "",
+                "page": 1,
+                "limit": 10
+                }, token);
+            console.log("getBookingsByUser response====> ", response);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 const hotelSlice = createSlice({
     name: 'hotel',
     initialState: {
@@ -133,7 +153,8 @@ const hotelSlice = createSlice({
         selectedHotel: null,
         fivePopularHotels: [],
         fiveNearbyHotels: [],
-        favouriteHotels: []
+        favouriteHotels: [],
+        bookings:[]
     },
     reducers: {
         setHotels: (state, action) => {
@@ -222,6 +243,19 @@ const hotelSlice = createSlice({
             })
             .addCase(removeFromFavorite.rejected, (state, action) => {
                 console.log('action.payload rejected ==> ', action.payload);
+                // state.hotels = action.payload;
+            });
+            builder
+            .addCase(getBookingsByUser.pending, (state, action) => {
+                // console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            })
+            .addCase(getBookingsByUser.fulfilled, (state, action) => {
+                console.log('action.payload bookings==> ', action.payload);
+                state.bookings = action.payload.bookings;
+            })
+            .addCase(getBookingsByUser.rejected, (state, action) => {
+                // console.log('action.payload ==> ', action.payload);
                 // state.hotels = action.payload;
             });
     }

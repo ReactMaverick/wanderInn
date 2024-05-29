@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
 import { router } from "expo-router";
 
-export default function PopularHotels({ hotel }) {
+export default function PopularHotels({ hotel, screen }) {
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const [isFav, setIsFav] = useState(false);
     const dispatch = useDispatch();

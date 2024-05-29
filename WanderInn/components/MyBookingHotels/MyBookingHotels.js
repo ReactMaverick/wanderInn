@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
 import { HOTEL } from "@/constants/images";
 
-export default function MyBookingHotelsScreen() {
+export default function MyBookingHotels() {
     const [isFav, setIsFav] = useState(false);
 
     const animateIcon = () => {

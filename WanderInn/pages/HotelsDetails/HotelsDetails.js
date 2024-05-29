@@ -26,7 +26,7 @@ export default function BookingDetailsPage() {
     const favoriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const ItemSeparator = () => <View style={{ width: 20 }} />;
 
-    const [hotel, setHotel] = useState(null)
+    const [hotel, setHotel] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const { id, previousScreen } = useLocalSearchParams();
 
@@ -78,7 +78,6 @@ export default function BookingDetailsPage() {
     }, [])
     const handleBackPress = () => {
         previousScreen ? router.push(previousScreen) : router.back();
-
     }
     return (
         <>{isLoading === false && !hotel ? (

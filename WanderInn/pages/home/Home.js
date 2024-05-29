@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Pressable, FlatList, RefreshControl } from 'rea
 import { styles } from './Style';
 import HeaderScreen from '@/components/header/Header';
 import LocationSearchInputScreen from '@/components/locationSearchInput/locationSearchInput';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import NearByHotelsScreen from '@/components/nearByHotels/NearByHotels';
 import PopularHotelsScreen from '@/components/popularHotels/PopularHotels';
 import BannerSliderScreen from '@/components/bannerSlider/BannerSlider';
@@ -99,7 +99,8 @@ export default function HomePage() {
                     <View style={commonStyles.TitleRow}>
                         <Text style={commonStyles.Title}>Near by Hotels</Text>
                         <Pressable onPress={() => {
-                            alert('See all Near by Hotels');
+                            // alert('See all Near by Hotels');
+                            router.push('/allHotels');
                         }}>
                             <Text style={commonStyles.ViewAll}>See all</Text>
                         </Pressable>
