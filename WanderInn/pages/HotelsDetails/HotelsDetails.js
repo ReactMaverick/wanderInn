@@ -19,11 +19,11 @@ import Loader from '@/components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite, removeFromFavorite } from '@/redux/reducer/hotelReducer';
 import { useNavigationState } from '@react-navigation/native';
-import useNavigationHistory from '@/common/useNavigationHistory';
+
 
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
-    const { goBack } = useNavigationHistory();
+
     const dispatch = useDispatch()
     const favoriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const ItemSeparator = () => <View style={{ width: 20 }} />;
@@ -79,7 +79,7 @@ export default function BookingDetailsPage() {
         getHotelDetails()
     }, [])
     const handleBackPress = () => {
-        goBack();
+        
     }
     return (
         <>{isLoading === false && !hotel ? (
