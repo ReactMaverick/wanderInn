@@ -4,7 +4,7 @@ import HeaderScreen from '@/components/header/Header';
 import LocationSearchInputScreen from '@/components/locationSearchInput/locationSearchInput';
 import { Link, router } from 'expo-router';
 import NearByHotelsScreen from '@/components/nearByHotels/NearByHotels';
-import PopularHotelsScreen from '@/components/popularHotels/PopularHotels';
+import PopularHotelsScreen from '@/components/nopularHotels/PopularHotels';
 import BannerSliderScreen from '@/components/bannerSlider/BannerSlider';
 import { commonStyles } from '@/constants/styles';
 import { useDispatch, useSelector } from 'react-redux';

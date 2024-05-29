@@ -1,7 +1,7 @@
 import { View, ScrollView, Text, RefreshControl, } from 'react-native';
 import { styles } from './Style';
 import HeaderScreen from '@/components/header/Header';
-import PopularHotelsScreen from '@/components/popularHotels/PopularHotels';
+import PopularHotelsScreen from '@/components/nopularHotels/PopularHotels';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getFavoriteHotels } from '@/redux/reducer/hotelReducer';
