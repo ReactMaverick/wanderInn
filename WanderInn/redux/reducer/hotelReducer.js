@@ -125,7 +125,7 @@ export const removeFromFavorite = createAsyncThunk(
             console.error("Remove from favourite response ===> ", error);
             return rejectWithValue(error.response.data);
         }
-    })
+})
 export const getBookingsByUser=createAsyncThunk(
     'hotel/getBookingsByUser',
     async()=>{
@@ -146,6 +146,7 @@ export const getBookingsByUser=createAsyncThunk(
         }
     }
 )
+
 const hotelSlice = createSlice({
     name: 'hotel',
     initialState: {
