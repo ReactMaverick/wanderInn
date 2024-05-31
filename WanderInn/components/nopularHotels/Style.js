@@ -1,3 +1,4 @@
+//Popular hotel design
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
 import { H4, H5, H6, p, small, smallS } from "@/constants/fontConstants";

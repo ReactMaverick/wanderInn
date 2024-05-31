@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
 import { router } from "expo-router";
 
+
 export default function PopularHotels({ hotel, screen }) {
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const [isFav, setIsFav] = useState(false);
@@ -23,7 +24,7 @@ export default function PopularHotels({ hotel, screen }) {
     const checkHotelsInFavList = () => {
         let isHotelInFavList = false;
         favouriteHotels.map((favHotel) => {
-            if (favHotel._id === hotel._id) {
+            if (favHotel?._id === hotel?._id) {
                 isHotelInFavList = true;
             }
         })
@@ -34,9 +35,9 @@ export default function PopularHotels({ hotel, screen }) {
     }, [favouriteHotels])
     const animateIcon = () => {
         if (!isFav) {
-            dispatch(addToFavorite(hotel._id))
+            dispatch(addToFavorite(hotel?._id))
         } else {
-            dispatch(removeFromFavorite(hotel._id))
+            dispatch(removeFromFavorite(hotel?._id))
         }
 
         //check if the hotel is already in the favoriteHotels list or not

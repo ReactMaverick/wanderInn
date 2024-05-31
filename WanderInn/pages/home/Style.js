@@ -1,3 +1,4 @@
+// Home design
 import { colors } from "@/constants/colors";
 import { deviceHeight, deviceWidth } from "@/constants/constants";
 import { H5, p } from "@/constants/fontConstants";
