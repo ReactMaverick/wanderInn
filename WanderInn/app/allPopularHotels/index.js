@@ -10,7 +10,7 @@ export default function AllPopularHotels() {
     const [loading, setLoading] = useState(true);
     const allPopularHotels = useSelector(state => state.hotel.allPopularHotels);
     // useEffect(() => {
-        console.log('AllPopularHotels from home ==> ', allPopularHotels);
+        console.log('AllPopularHotels ==> ', allPopularHotels);
     // }, [allPopularHotels]);
     useEffect(()=>{
         dispatch(getAllPopularHotels()).then().catch((error) => {}).finally(() => setLoading(false))}
@@ -18,11 +18,14 @@ export default function AllPopularHotels() {
     , [])
     return (
         <>
-        {!loading && allPopularHotels.length>0? (
-                <AllHotelsPage data={allPopularHotels} />
-        ):(
+        {!loading && allPopularHotels.length>0 ? (
+                <AllHotelsPage hotels={allPopularHotels} />
+            ) : !loading?(
             <Loader/>
-        )}
+        ):(
+            <Text> No Data Found </Text>
+        )
+    }
         </>
     )
   
