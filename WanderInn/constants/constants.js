@@ -7,7 +7,7 @@ export const deviceHeight = Dimensions.get('window').height;
 export const platform = Platform.OS;
 
 export const showToast = (type, message) => {
-
+    console.log('Toast Message ==> ', message,type)
     Toast.show({
         type: type,
         text1: message,

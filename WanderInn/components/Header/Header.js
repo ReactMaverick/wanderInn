@@ -30,7 +30,7 @@ export default function HeaderScreen() {
             <View style={styles.LeftBar}>
                 <Image style={styles.UserImg} source={USER} />
                 <View style={styles.LeftBarContent}>
-                    <Text style={styles.UserName}>{user.name}</Text>
+                    <Text style={styles.UserName}>{user?.name}</Text>
                     <Text style={styles.UserLocation}>
                         Where are going today?
                     </Text>

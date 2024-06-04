@@ -17,7 +17,9 @@ import { getData } from '@/values/api/apiprovider';
 import { API_URL } from '@/values/api/url';
 import Loader from '@/components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFavorite, removeFromFavorite } from '@/redux/reducer/hotelReducer';
+import { addToFavorite, bookHotel, removeFromFavorite } from '@/redux/reducer/hotelReducer';
+import { showToast } from '@/constants/constants';
+
 
 export default function BookingDetailsPage() {
     const [isFav, setIsFav] = useState(false);
@@ -32,7 +34,14 @@ export default function BookingDetailsPage() {
 
     // console.log('Previous Screen ==> ', previousScreen);
     // console.log('Hotel From NearByHotels details page==> ', id)
-
+    const bookNowClicked = () => {
+        dispatch(bookHotel({hotelId: hotel._id})).then((e)=>{
+            console.log('Hotel Booked Successfully......' ,e);
+            showToast('success', 'Hotel Booked Successfully');
+        }).catch().finally(() => {
+            router.push('myBooking');
+        }
+        )};
     const getHotelDetails = async () => {
         // get hotel details by id
         try {
@@ -332,10 +341,7 @@ export default function BookingDetailsPage() {
                     </View>
                     {/* book now button  */}
 
-                    <Pressable onPress={() => {
-                        alert('Book Now');
-                        router.push('bookingDetails');
-                    }}
+                    <Pressable onPress={bookNowClicked}
                         style={styles.BookNowBtn}>
                         <Text style={styles.BookNowBtnText}>Book Now</Text>
                     </Pressable>

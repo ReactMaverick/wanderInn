@@ -109,8 +109,8 @@ export default function ProfilePage() {
                             <View style={styles.ProfileBoxTopLeft}>
                                 <Image source={user.image ? user.image : USER} style={styles.ProfileImage} />
                                 <View style={styles.ProfileBoxProfile}>
-                                    <Text style={styles.ProfileName}>{user.name}</Text>
-                                    <Text style={styles.ProfileEmail}>{user.email}</Text>
+                                    <Text style={styles.ProfileName}>{user?.name}</Text>
+                                    <Text style={styles.ProfileEmail}>{user?.email}</Text>
                                 </View>
                             </View>
                             {/* edit icon button  */}

@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react';
 import { getFavoriteHotels, getFiveNearbyHotels, getFivePopularHotels } from '@/redux/reducer/hotelReducer';
 import Loader from '@/components/loader/Loader';
 import * as Location from 'expo-location';
+import { showToast } from '@/constants/constants';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 // import HotelCardSkeleton from './SkeletonLoader';
 
 export default function HomePage() {
@@ -21,6 +23,7 @@ export default function HomePage() {
     const hotels = useSelector(state => state.hotel.hotels);
     const [location, setLocation] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
     const [nearbyHotelLoading, setNearbyHotelLoading] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const fivePopularHotels = useSelector(state => state.hotel.fivePopularHotels);
@@ -33,8 +36,9 @@ export default function HomePage() {
             setErrorMsg('Permission to access location was denied');
             return;
         }
+        console.log("Location From Home==> ",location)
         let location = await Location.getCurrentPositionAsync({});
-        // console.log("Locatiom From Home==> ",location)
+        // console.log("Location From Home==> ",location)
         setLocation(location);
     };
 
@@ -86,14 +90,75 @@ export default function HomePage() {
     return (
         <>
             <HeaderScreen />
+                
+
+               
+                {/* <GooglePlacesAutocomplete
+                    placeholder='Enter your location'
+                    fetchDetails={true}
+                    textInputProps={{
+                        // placeholderTextColor: commonColor.textColorDark,
+                    }}
+
+                    onPress={(data, details = null) => {
+                        // 'details' is provided when fetchDetails = true
+                        console.log('Data ==> ', data);
+                        console.log('Details ==> ', details);
+                        // const updatedErrorMessages = {};
+                        // setErrors(updatedErrorMessages);
+                        // setFormData({
+                        //     ...formData,
+                        //     lat: details.geometry.location.lat,
+                        //     lng: details.geometry.location.lng,
+                        //     location: details.formatted_address,
+                        // });
+                    }}
+                    query={{
+                        key: 'AIzaSyCWtZ3KuXxUu7_mCwL1O2PzotYEpsc4vLU',
+                        language: 'en',
+                    }}
+                    styles={{
+                        textInput: {
+                            // backgroundColor: commonColor.backGroundColor,
+                            // color: commonColor.white,
+                            // fontSize: p,
+                            marginLeft: 10,
+                            width: '90%',
+                        },
+                        row: {
+                            // backgroundColor: commonColor.backGroundColor,
+                        },
+                        description: {
+                            // color: commonColor.text2Color,
+                            // fontSize: p,
+                        },
+                        poweredContainer: {
+                            // backgroundColor: commonColor.text2Color,
+                        },
+                        separator: {
+                            // backgroundColor: commonColor.textColorDark,
+                        },
+                        listView: {
+                            borderBottomWidth: 1,
+                            // borderBottomColor: commonColor.textColorDark,
+                            borderBottomLeftRadius: 10,
+                            borderBottomRightRadius: 10,
+                        },
+
+                    }}
+                // enablePoweredByContainer={false}
+
+                /> */}
+            <LocationSearchInputScreen/>
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
                 }
             >
+                
                 <View style={styles.LocSearchBox}>
                     <View style={styles.LocBoxDevider} />
-                    <LocationSearchInputScreen />
+                    
                 </View>
                 <View style={styles.container}>
                     <View style={commonStyles.TitleRow}>
@@ -106,16 +171,17 @@ export default function HomePage() {
                     </View>
                 </View>
                 {/* nearby hotels part */}
-                {fiveNearbyHotels.length > 0 && nearbyHotelLoading!==true ?
+                {fiveNearbyHotels.length > 0 && nearbyHotelLoading!==true && !errorMsg ?
                     (<FlatList
                         keyExtractor={(item, index) => item._id.toString()}
                         ItemSeparatorComponent={ItemSeparator}
                         horizontal
                         data={fiveNearbyHotels}
                         renderItem={({ item, index }) => (<NearByHotels hotel={item} index={index} />)}
-                    />)
-                    : nearbyHotelLoading === false && fiveNearbyHotels.length === 0 ? (<Text>No Nearby Hotels Found</Text>)
-                        : (<Loader />)
+                    />) : errorMsg ? (<Text>{errorMsg}</Text>)
+                    : nearbyHotelLoading === false && fiveNearbyHotels.length === 0 ? 
+                    (<Text>No Nearby Hotels Found</Text>)
+                    : (<Loader />)
                 }
                 <View style={styles.container}>
                     <View style={commonStyles.TitleRow}>

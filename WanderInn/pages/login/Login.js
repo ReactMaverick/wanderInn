@@ -17,6 +17,7 @@ import { LOGIN_URL } from '@/values/api/url';
 import { postData } from '@/values/api/apiprovider';
 import { StatusBar } from 'expo-status-bar';
 
+
 export default function LoginPage() {
 
     const router = useRouter();
@@ -224,6 +225,7 @@ export default function LoginPage() {
                                         error={errors.password ? true : false}
                                         errorText={errors.password}
                                     />
+                                    
                                     <TouchableOpacity
                                         style={styles.forgotPassword}
                                         onPress={() => router.push('/forgotPassword')}

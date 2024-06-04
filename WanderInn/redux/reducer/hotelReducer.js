@@ -148,7 +148,7 @@ export const getBookingsByUser=createAsyncThunk(
 )
 export const getAllNearbyHotels = createAsyncThunk(
     'hotel/getAllNearbyHotels',
-    async (location) => {
+    async ({location,page,limit}) => {
         try {
             //console.log('Location ====> ', location)
             const token = await getToken();
@@ -162,12 +162,12 @@ export const getAllNearbyHotels = createAsyncThunk(
                     },
                     "radius": 50000, // Radius in meters
                     // "search": "luxury",
-                    "page": 1,
-                    "limit": 10
+                    "page": page,
+                    "limit": limit
                 },
                 token
             );
-            // //console.log(" getFiveNearbyHotels response====> ", response.data.hotels);
+            console.log(" getAllNearbyHotels response====> ", response.data.hotels);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -183,7 +183,7 @@ export const getAllPopularHotels = createAsyncThunk(
             //console.log('API_URL ==> ', API_URL + "popularHotels");
             const response = await postData(
                 API_URL + "popularHotels",
-                { page: "1", limit: "10", search: "" },
+                {search: "" },
                 token
             );
             console.log(" getAllPopularHotels response====> ", response.data);
@@ -194,6 +194,59 @@ export const getAllPopularHotels = createAsyncThunk(
         }
     }
 );
+export const bookHotel = createAsyncThunk(
+    'hotel/bookHotel',
+    async ({hotelId}) => {
+        try {
+            //console.log('Hotel Id ==> ', hotelId);
+            const token = await getToken();
+            // //console.log('Token ==> ', token);
+            // //console.log('API_URL ==> ', API_URL + "addToFavourites");
+            const response = await postData(
+                API_URL + "bookHotel",
+                {
+                    hotelId,
+              
+                    roomId: "66506b14dbd7dfbcef16b8f3",
+                    checkInDate: Date.now(),
+                    checkOutDate: Date.now(),
+                    totalPrice: 500,
+                    transactionId: Date.now() + Math.random(),
+                    bookingDate: "2024-05-17T10:00:00.000Z"
+                },
+                token
+            );
+            console.log("book Hotel response====> ", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Add to favourite response ===> ", error);
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+export const cancelBooking = createAsyncThunk(
+    'hotel/cancelBooking',
+    async ({bookingId}) => {
+        try {
+            console.log('bookingId Id ==> ', bookingId);
+            const token = await getToken();
+
+            const response = await postData(
+                API_URL + "cancelBooking/" + bookingId,
+                {
+
+                },
+                token
+            );
+            console.log("cancelBooking response====> ", response);
+            return response.data;
+        } catch (error) {
+            console.error("cancelBooking response ===> ", error);
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+
 
 const hotelSlice = createSlice({
     name: 'hotel',
@@ -329,12 +382,50 @@ const hotelSlice = createSlice({
             })
             .addCase(getAllPopularHotels.fulfilled, (state, action) => {
                 console.log('getAllPopularHotels action.payload ==> ', action.payload.hotels);
-                state.allPopularHotels = action.payload.hotels;
+
+                    state.allPopularHotels=action.payload.hotels;
+             
+                
             })
             .addCase(getAllPopularHotels.rejected, (state, action) => {
                 // //console.log('action.payload ==> ', action.payload);
                 // state.hotels = action.payload;
             });
+            builder
+            .addCase(bookHotel.pending, (state, action) => {
+                // //console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            })
+            .addCase(bookHotel.fulfilled, (state, action) => {
+                console.log(' bookHotel action.payload ==> ', action.payload);
+                state.bookings.push(action.payload)
+            })
+            .addCase(bookHotel.rejected, (state, action) => {
+                // //console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            });
+            builder
+            .addCase(cancelBooking.pending, (state, action) => {
+                // //console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            })
+            .addCase(cancelBooking.fulfilled, (state, action) => {
+                console.log(' cancelBooking action.payload ==> ', action.payload);
+                state.bookings=state.bookings.map((booking)=>{
+                    if(booking._id!==action.payload._id){
+                        return booking;
+                    }else{
+                        return action.payload;
+                    }
+                }
+            )
+            })
+            .addCase(cancelBooking.rejected, (state, action) => {
+                // //console.log('action.payload ==> ', action.payload);
+                // state.hotels = action.payload;
+            });
+
+
 
     }
 });
