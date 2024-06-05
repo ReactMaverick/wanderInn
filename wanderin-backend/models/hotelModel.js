@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 const hotelSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    image: { 
+        type: String
+    },
     location: {
         type: { type: String, default: "Point" },
         coordinates: {

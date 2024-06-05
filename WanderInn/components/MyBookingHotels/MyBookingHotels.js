@@ -9,10 +9,10 @@ import { useDispatch } from "react-redux";
 import { cancelBooking } from "@/redux/reducer/hotelReducer";
 import { showToast } from "@/constants/constants";
 
-export default function MyBookingHotels({booking}) {
+export default function MyBookingHotels({booking,index}) {
     const [isFav, setIsFav] = useState(false);
     const dispatch = useDispatch();
-    console.log("booking  ",booking)
+    console.log("index ==>> ", index,"booking  ==>> ",booking)
 
     const animateIcon = () => {
         setIsFav(!isFav);
@@ -81,7 +81,7 @@ export default function MyBookingHotels({booking}) {
                         {/* button */}
                         <Pressable
                             onPress={() => { alert('Booked'); }}
-                            style={styles.HotelCardButton}>
+                            style={booking.status === 'confirmed' ? styles.HotelCardButton:styles.HotelCardButtonCancelled}>
                             <Text style={styles.HotelCardButtonText}>{booking.status==='confirmed'? "Booked": "Cancelled"}</Text>
                         </Pressable>
                     </View>

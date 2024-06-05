@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
         padding: deviceWidth / 40,
         borderRadius: deviceHeight / 60,
         position: 'relative',
-        width: deviceWidth / 2.6,
+        width: deviceWidth / 1.1,
     },
 
 

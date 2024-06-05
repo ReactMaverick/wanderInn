@@ -45,6 +45,8 @@ export default function FavouritePage({ navigation }) {
 
     const onRefresh = () => {
         setRefreshing(true);
+        setLoading(true);
+        getFavouriteHotels();
         // Simulate a network request
         setTimeout(() => {
             setRefreshing(false);

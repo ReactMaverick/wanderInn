@@ -89,7 +89,7 @@ export default function NearByHotels({ hotel, index, delay }) {
                                 <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
                             </Animated.View>
                         </Pressable>
-                        <Image style={styles.HotelCardImg} source={HOTEL} />
+                        <Image style={styles.HotelCardImg} source={hotel.image ? hotel.image:HOTEL} />
                         <BlurView intensity={80} tint="dark" style={styles.HotelCardReviewbox}>
                             <View style={styles.HotelCardReview}>
                                 <Text style={styles.HotelCardReviewText}>15k+ People Reviews</Text>

@@ -149,13 +149,15 @@ export default function HomePage() {
                 // enablePoweredByContainer={false}
 
                 /> */}
-            <LocationSearchInputScreen/>
+            
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
                 }
+                // showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
             >
-                
+                <LocationSearchInputScreen />
                 <View style={styles.LocSearchBox}>
                     <View style={styles.LocBoxDevider} />
                     

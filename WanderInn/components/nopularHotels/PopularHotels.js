@@ -11,6 +11,7 @@ import { formatToOneDecimalPlace } from "@/common/common";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer";
 import { router } from "expo-router";
+import { showToast } from "@/constants/constants";
 
 
 export default function PopularHotels({ hotel, screen }) {
@@ -19,7 +20,7 @@ export default function PopularHotels({ hotel, screen }) {
     const dispatch = useDispatch();
     const blinkValue = useRef(new Animated.Value(1)).current;
 
-    // console.log('Navigation From PopularHotels==> ', navigation);
+    console.log('PopularHotels==> ', hotel);
 
     const checkHotelsInFavList = () => {
         let isHotelInFavList = false;
@@ -35,15 +36,18 @@ export default function PopularHotels({ hotel, screen }) {
     }, [favouriteHotels])
     const animateIcon = () => {
         if (!isFav) {
-            dispatch(addToFavorite(hotel?._id))
+            dispatch(addToFavorite(hotel?._id)).then(() => {
+                showToast('success', 'Hotel added to favorite list')
+            }).catch(() => {
+                showToast('error', 'Error adding hotel to favorite list')
+            })
         } else {
-            dispatch(removeFromFavorite(hotel?._id))
+            dispatch(removeFromFavorite(hotel?._id)).then(() => {
+                showToast('success', 'Hotel removed from favorite list')
+            }).catch(() => {
+                showToast('error', 'Error removing hotel from favorite list')
+            })
         }
-
-        //check if the hotel is already in the favoriteHotels list or not
-
-
-        // setIsFav(!isFav);
     }
 
 
@@ -66,7 +70,7 @@ export default function PopularHotels({ hotel, screen }) {
                         <Text style={styles.CatagoryText}>40% Off</Text>
                     </View>
                     <Image style={styles.HotelCardImg}
-                        source={HOTEL1}
+                        source={hotel.image ? { uri: hotel.image } : HOTEL1}
                     />
                 </View>
                 <View style={styles.HotelCardContent}>

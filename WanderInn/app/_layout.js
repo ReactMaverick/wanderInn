@@ -7,7 +7,10 @@ import { Provider } from "react-redux";
 import { normalStore, persistor, store } from "@/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { StatusBar } from "expo-status-bar";
+import Toast from "react-native-toast-message";
+import { LogBox } from "react-native";
 
+LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
 export default function RootLayout() {
 
   const [isAppReady, setIsAppReady] = useState(false);
@@ -35,13 +38,18 @@ export default function RootLayout() {
   }
 
   return (
+    <>
+      
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {/* <Provider store={normalStore}> */}
           <StatusBar style="dark" />
           <Slot />
+          
         {/* </Provider> */}
       </PersistGate>
     </Provider>
+      <Toast />
+      </>
   );
 }

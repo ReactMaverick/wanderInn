@@ -14,10 +14,10 @@ const User = require('../models/userModel');
 exports.bookHotel = async (req, res) => {
     try {
         const { hotelId, roomId, checkInDate, checkOutDate, totalPrice, transactionId } = req.body;
-        const user =await User.findOne({email:req.currentUser.email})
+        const user = await User.findOne({ email: req.currentUser.email })
         const userId = user._id
         // console.log(user._id)
-        console.log(hotelId, roomId, checkInDate, checkOutDate, totalPrice, transactionId, user )
+        console.log(hotelId, roomId, checkInDate, checkOutDate, totalPrice, transactionId, user)
         // Check if hotel and room exist
         const hotel = await Hotel.findById(hotelId);
         if (!hotel) {
@@ -67,7 +67,7 @@ exports.bookHotel = async (req, res) => {
             room: roomId,
             checkInDate,
             checkOutDate,
-            totalPrice:finalPrice,
+            totalPrice: finalPrice,
             transactionId
         });
 
@@ -112,7 +112,7 @@ exports.cancelBooking = async (req, res) => {
         const user = await User.findOne({ email: req.currentUser.email })
         const userId = user._id
         // Find the booking by its ID
-        
+
         const booking = await Booking.findById(bookingId);
         // console.log(booking.user, userId)
         if (!booking) {
@@ -128,8 +128,9 @@ exports.cancelBooking = async (req, res) => {
         booking.status = 'cancelled';
 
         // Save the updated booking
-        const updatedBooking = await booking.save();
-
+        let updatedBooking = await booking.save();
+        updatedBooking =await Booking.findById(updatedBooking._id.toString()).populate('hotel').populate('room');
+        console.log("updatedBooking => ", updatedBooking)
         return res.status(200).json(helper.response(200, true, "Booking cancelled successfully", updatedBooking));
     } catch (error) {
         console.error(error);

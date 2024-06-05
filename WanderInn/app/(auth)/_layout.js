@@ -1,7 +1,7 @@
 import { login, selectIsLoggedIn } from '@/redux/reducer/authReducer';
 import { Redirect, Slot, Stack, router } from 'expo-router';
 import { useEffect } from 'react';
-import Toast from 'react-native-toast-message';
+
 import { useSelector } from 'react-redux';
 
 const AuthStack = () => {
@@ -57,13 +57,13 @@ export default function AuthLayout() {
         return (
             <>
                 <AuthStack />
-                <Toast />
+
             </>
         );
     } else return (
         <>
             <Redirect href='/(tabs)' />
-            <Toast />
+            
         </>
     );
 }

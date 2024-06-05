@@ -38,7 +38,9 @@ export default function BookingDetailsPage() {
         dispatch(bookHotel({hotelId: hotel._id})).then((e)=>{
             console.log('Hotel Booked Successfully......' ,e);
             showToast('success', 'Hotel Booked Successfully');
-        }).catch().finally(() => {
+        }).catch(()=>{
+            showToast('error', 'Error booking hotel');
+        }).finally(() => {
             router.push('myBooking');
         }
         )};
@@ -62,9 +64,17 @@ export default function BookingDetailsPage() {
     const addToFavButtonClicked = () => {
 
         if (!isFav) {
-            dispatch(addToFavorite(hotel._id))
+            dispatch(addToFavorite(hotel._id)).then(() => { 
+                showToast('success', 'Hotel added to favorite list')
+            }).catch(() => {
+                showToast('error', 'Error adding hotel to favorite list')
+             })
         } else {
-            dispatch(removeFromFavorite(hotel._id))
+            dispatch(removeFromFavorite(hotel._id)).then(() => {
+                showToast('success', 'Hotel removed from favorite list')
+            }).catch(() => {
+                showToast('error', 'Error removing hotel from favorite list')
+            })
         }
 
         setIsFav(!isFav);
@@ -96,39 +106,40 @@ export default function BookingDetailsPage() {
 
         ) : isLoading === false && hotel ? (
             <>
-                <ImageBackground source={HOTEL} resizeMode='cover' style={styles.bgImage}>
-                    <View style={styles.CustomHeader}>
-                        {/* backbutton  */}
-                        <Pressable style={styles.backBtn}
-                            onPress={handleBackPress}>
-                            <Ionicons name="chevron-back" style={styles.backBtnIcon} />
-                        </Pressable>
-                        <Pressable
-                            onPress={addToFavButtonClicked}
-                            style={styles.HeartIconBox}>
-                            <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
-                        </Pressable>
-                    </View>
-                    <BlurView
-                        intensity={20}
-                        style={styles.imageRow}>
-                        <Image source={IMG1} style={styles.imageCol} />
-                        <Image source={IMG2} style={styles.imageCol} />
-                        <Image source={IMG3} style={styles.imageCol} />
-                        <Image source={IMG4} style={styles.imageCol} />
-                        <Pressable
-                            onPress={() => {
-                                alert('See all Images');
-                            }}
-                            style={styles.plusImageBox}>
-                            <Image source={IMG5} style={styles.imageCol1} />
-                            <View style={styles.plusImage}>
-                                <Text style={styles.plusImageText}>20+</Text>
-                            </View>
-                        </Pressable>
-                    </BlurView>
-                </ImageBackground>
+                
                 <ScrollView style={{ backgroundColor: colors.screenBg, }}>
+                        <ImageBackground source={HOTEL} resizeMode='cover' style={styles.bgImage}>
+                            <View style={styles.CustomHeader}>
+                                {/* backbutton  */}
+                                <Pressable style={styles.backBtn}
+                                    onPress={handleBackPress}>
+                                    <Ionicons name="chevron-back" style={styles.backBtnIcon} />
+                                </Pressable>
+                                <Pressable
+                                    onPress={addToFavButtonClicked}
+                                    style={styles.HeartIconBox}>
+                                    <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
+                                </Pressable>
+                            </View>
+                            <BlurView
+                                intensity={20}
+                                style={styles.imageRow}>
+                                <Image source={IMG1} style={styles.imageCol} />
+                                <Image source={IMG2} style={styles.imageCol} />
+                                <Image source={IMG3} style={styles.imageCol} />
+                                <Image source={IMG4} style={styles.imageCol} />
+                                <Pressable
+                                    onPress={() => {
+                                        alert('See all Images');
+                                    }}
+                                    style={styles.plusImageBox}>
+                                    <Image source={IMG5} style={styles.imageCol1} />
+                                    <View style={styles.plusImage}>
+                                        <Text style={styles.plusImageText}>20+</Text>
+                                    </View>
+                                </Pressable>
+                            </BlurView>
+                        </ImageBackground>
                     <View style={styles.container}>
                         {/* divider  */}
                         <View style={styles.deviderBox}>
@@ -341,13 +352,14 @@ export default function BookingDetailsPage() {
                     </View>
                     {/* book now button  */}
 
+                   
+
+
+                </ScrollView>
                     <Pressable onPress={bookNowClicked}
                         style={styles.BookNowBtn}>
                         <Text style={styles.BookNowBtnText}>Book Now</Text>
                     </Pressable>
-
-
-                </ScrollView>
             </>
         ) : (
             <Loader />

@@ -187,6 +187,14 @@ export const styles = StyleSheet.create({
         borderRadius: deviceHeight / 50 - 5,
         width: '100%',
     },
+    HotelCardButtonCancelled: {
+        backgroundColor: colors.primary,
+        paddingHorizontal: deviceHeight / 100 - 2,
+        paddingVertical: deviceHeight / 60,
+        borderRadius: deviceHeight / 50 - 5,
+        width: deviceWidth / 1.17,
+        opacity: 0.5
+    },
     HotelCardButtonText: {
         color: colors.white,
         fontSize: H6,
@@ -201,6 +209,7 @@ export const styles = StyleSheet.create({
         borderRadius: deviceHeight / 50 - 5,
         width: '100%',
     },
+    
     HotelCardButton2Text: {
         color: colors.darkColor,
         fontSize: H6,

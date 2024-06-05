@@ -452,6 +452,7 @@ export const styles = StyleSheet.create({
         width: deviceWidth - deviceWidth / 15,
         borderRadius: deviceHeight / 100,
         marginVertical: deviceHeight / 30,
+        
     },
     BookNowBtnText: {
         color: colors.white,
