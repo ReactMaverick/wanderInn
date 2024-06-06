@@ -5,7 +5,7 @@ import { View, TextInput, TouchableWithoutFeedback, TouchableOpacity, Text, Pres
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { commonStyles } from "../../constants/styles";
-import { HOTEL, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
+import { HOTEL, HOTEL1, USER1, USER2, USER3, USER4, USER5 } from "@/constants/images";
 import { BlurView } from 'expo-blur';
 import { useRouter } from "expo-router";
 import { formatToOneDecimalPlace } from "@/common/common";
@@ -13,6 +13,7 @@ import { addToFavorite, removeFromFavorite } from "@/redux/reducer/hotelReducer"
 import { useDispatch, useSelector } from "react-redux";
 
 export default function NearByHotels({ hotel, index, delay }) {
+    
     const router = useRouter();
     const dispatch = useDispatch();
     const blinkValue = useRef(new Animated.Value(1)).current;
@@ -21,7 +22,9 @@ export default function NearByHotels({ hotel, index, delay }) {
 
     const favouriteHotels = useSelector(state => state.hotel.favouriteHotels);
     const [isFav, setIsFav] = useState(false);
-
+    // if(hotel.images){
+    //     console.log("Hotel Images : ",hotel.images)
+    // }
     const animateIcon = () => {
         setIsFav(!isFav);
         Animated.sequence([
@@ -89,7 +92,9 @@ export default function NearByHotels({ hotel, index, delay }) {
                                 <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
                             </Animated.View>
                         </Pressable>
-                        <Image style={styles.HotelCardImg} source={hotel.image ? hotel.image:HOTEL} />
+                        <Image style={styles.HotelCardImg} 
+                        source={hotel.image ? { uri: hotel.image } : HOTEL1} 
+                        />
                         <BlurView intensity={80} tint="dark" style={styles.HotelCardReviewbox}>
                             <View style={styles.HotelCardReview}>
                                 <Text style={styles.HotelCardReviewText}>15k+ People Reviews</Text>

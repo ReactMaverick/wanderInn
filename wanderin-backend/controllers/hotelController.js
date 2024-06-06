@@ -13,12 +13,13 @@ const Deal = require('../models/dealSchema');
 
 exports.addHotel = async (req, res) => {
     try {
-        const { name, location,image, amenities, starRating, rooms, reviews } = req.body;
+        const { name, location,image,images, amenities, starRating, rooms, reviews } = req.body;
 
         // Save hotel details
         const hotel = new Hotel({
             name,
             image,
+            images,
             location,
             amenities,
             starRating,

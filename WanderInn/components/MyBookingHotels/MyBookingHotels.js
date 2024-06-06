@@ -4,7 +4,7 @@ import { View, Text, Pressable, Image, TouchableOpacity, } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 // import { Feather } from '@expo/vector-icons';
-import { HOTEL } from "@/constants/images";
+import { HOTEL, HOTEL1 } from "@/constants/images";
 import { useDispatch } from "react-redux";
 import { cancelBooking } from "@/redux/reducer/hotelReducer";
 import { showToast } from "@/constants/constants";
@@ -34,7 +34,7 @@ export default function MyBookingHotels({booking,index}) {
                         <Text style={styles.CatagoryText}>40% Off</Text>
                     </View>
                     <Image style={styles.HotelCardImg}
-                        source={HOTEL}
+                        source={booking.hotel.image ? { uri: booking.hotel.image } : HOTEL1}
                     />
 
                 </View>

@@ -5,6 +5,7 @@ const hotelSchema = new mongoose.Schema({
     image: { 
         type: String
     },
+    images: [String],
     location: {
         type: { type: String, default: "Point" },
         coordinates: {

@@ -14,7 +14,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wanderinn"
     },
     "web": {
       "bundler": "metro",
@@ -26,6 +27,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3c29812d-1db2-4005-82dd-11a5d5336883"
+      }
     }
   }
 }

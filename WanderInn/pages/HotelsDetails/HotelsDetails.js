@@ -3,7 +3,7 @@ import { styles } from './Style';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { AC, BATH, BED, CALENDER, DINNER, HOTEL, IMG1, IMG2, IMG3, IMG4, IMG5, MAP, USER1, USER2, USER3, USER4, USERSOLID, WIFI } from '@/constants/images';
+import { AC, BATH, BED, CALENDER, DINNER, HOTEL, HOTEL1, IMG1, IMG2, IMG3, IMG4, IMG5, MAP, USER1, USER2, USER3, USER4, USERSOLID, WIFI } from '@/constants/images';
 import { BlurView } from 'expo-blur';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
@@ -21,9 +21,9 @@ import { addToFavorite, bookHotel, removeFromFavorite } from '@/redux/reducer/ho
 import { showToast } from '@/constants/constants';
 
 
-export default function BookingDetailsPage() {
+export default function HotelDetails() {
     const [isFav, setIsFav] = useState(false);
-
+    const [image, setImage] = useState()
     const dispatch = useDispatch()
     const favoriteHotels = useSelector(state => state.hotel.favouriteHotels)
     const ItemSeparator = () => <View style={{ width: 20 }} />;
@@ -31,19 +31,20 @@ export default function BookingDetailsPage() {
     const [hotel, setHotel] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const { id, previousScreen } = useLocalSearchParams();
-
+    // console.log('Hotel Detals ==> ', )
     // console.log('Previous Screen ==> ', previousScreen);
-    // console.log('Hotel From NearByHotels details page==> ', id)
+    console.log('Hotel From NearByHotels details page==> ', id)
     const bookNowClicked = () => {
-        dispatch(bookHotel({hotelId: hotel._id})).then((e)=>{
-            console.log('Hotel Booked Successfully......' ,e);
+        dispatch(bookHotel({ hotelId: hotel._id })).then((e) => {
+            console.log('Hotel Booked Successfully......', e);
             showToast('success', 'Hotel Booked Successfully');
-        }).catch(()=>{
+        }).catch(() => {
             showToast('error', 'Error booking hotel');
         }).finally(() => {
             router.push('myBooking');
         }
-        )};
+        )
+    };
     const getHotelDetails = async () => {
         // get hotel details by id
         try {
@@ -55,6 +56,7 @@ export default function BookingDetailsPage() {
             })
             console.log("response====> ", response);
             setHotel(response.data);
+            setImage(response.data.image)
             return response.data;
         } catch (error) {
             console.error(error);
@@ -64,11 +66,11 @@ export default function BookingDetailsPage() {
     const addToFavButtonClicked = () => {
 
         if (!isFav) {
-            dispatch(addToFavorite(hotel._id)).then(() => { 
+            dispatch(addToFavorite(hotel._id)).then(() => {
                 showToast('success', 'Hotel added to favorite list')
             }).catch(() => {
                 showToast('error', 'Error adding hotel to favorite list')
-             })
+            })
         } else {
             dispatch(removeFromFavorite(hotel._id)).then(() => {
                 showToast('success', 'Hotel removed from favorite list')
@@ -106,40 +108,52 @@ export default function BookingDetailsPage() {
 
         ) : isLoading === false && hotel ? (
             <>
-                
+
                 <ScrollView style={{ backgroundColor: colors.screenBg, }}>
-                        <ImageBackground source={HOTEL} resizeMode='cover' style={styles.bgImage}>
-                            <View style={styles.CustomHeader}>
-                                {/* backbutton  */}
-                                <Pressable style={styles.backBtn}
-                                    onPress={handleBackPress}>
-                                    <Ionicons name="chevron-back" style={styles.backBtnIcon} />
-                                </Pressable>
-                                <Pressable
-                                    onPress={addToFavButtonClicked}
-                                    style={styles.HeartIconBox}>
-                                    <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
-                                </Pressable>
-                            </View>
-                            <BlurView
-                                intensity={20}
-                                style={styles.imageRow}>
-                                <Image source={IMG1} style={styles.imageCol} />
-                                <Image source={IMG2} style={styles.imageCol} />
-                                <Image source={IMG3} style={styles.imageCol} />
-                                <Image source={IMG4} style={styles.imageCol} />
-                                <Pressable
-                                    onPress={() => {
-                                        alert('See all Images');
-                                    }}
-                                    style={styles.plusImageBox}>
-                                    <Image source={IMG5} style={styles.imageCol1} />
-                                    <View style={styles.plusImage}>
-                                        <Text style={styles.plusImageText}>20+</Text>
-                                    </View>
-                                </Pressable>
-                            </BlurView>
-                        </ImageBackground>
+                    <ImageBackground
+                            source={image ? { uri: image } : HOTEL1}
+                        resizeMode='cover' style={styles.bgImage}>
+                        <View style={styles.CustomHeader}>
+                            {/* backbutton  */}
+                            <Pressable style={styles.backBtn}
+                                onPress={handleBackPress}>
+                                <Ionicons name="chevron-back" style={styles.backBtnIcon} />
+                            </Pressable>
+                            <Pressable
+                                onPress={addToFavButtonClicked}
+                                style={styles.HeartIconBox}>
+                                <AntDesign name={isFav ? "heart" : "hearto"} style={styles.HeartIcon} />
+                            </Pressable>
+                        </View>
+                        <BlurView
+                            intensity={20}
+                            style={styles.imageRow}>
+                                {hotel.images?.length > 0 ? hotel.images.map((img, index) => (
+                                    <Pressable
+                                    key={index}
+                                    onPress={()=>setImage(img)}
+                                    >
+                                        <Image  source={{ uri: img }} style={styles.imageCol} />
+                                    </Pressable>
+                                )) : (<>
+                                    <Image source={IMG1} style={styles.imageCol} />
+                                    <Image source={IMG2} style={styles.imageCol} />
+                                    <Image source={IMG3} style={styles.imageCol} />
+                                    <Image source={IMG4} style={styles.imageCol} />
+                                </>)}
+                            
+                            <Pressable
+                                onPress={() => {
+                                    alert('See all Images');
+                                }}
+                                style={styles.plusImageBox}>
+                                <Image source={IMG5} style={styles.imageCol1} />
+                                <View style={styles.plusImage}>
+                                    <Text style={styles.plusImageText}>20+</Text>
+                                </View>
+                            </Pressable>
+                        </BlurView>
+                    </ImageBackground>
                     <View style={styles.container}>
                         {/* divider  */}
                         <View style={styles.deviderBox}>
@@ -352,14 +366,14 @@ export default function BookingDetailsPage() {
                     </View>
                     {/* book now button  */}
 
-                   
+
 
 
                 </ScrollView>
-                    <Pressable onPress={bookNowClicked}
-                        style={styles.BookNowBtn}>
-                        <Text style={styles.BookNowBtnText}>Book Now</Text>
-                    </Pressable>
+                <Pressable onPress={bookNowClicked}
+                    style={styles.BookNowBtn}>
+                    <Text style={styles.BookNowBtnText}>Book Now</Text>
+                </Pressable>
             </>
         ) : (
             <Loader />
