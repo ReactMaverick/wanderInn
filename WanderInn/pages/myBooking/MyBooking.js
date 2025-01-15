@@ -1,8 +1,8 @@
 import { View, Text, ScrollView, Pressable, RefreshControl, } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/header/Header';
+import HeaderScreen from '@/components/Header/Header';
 import { Link } from 'expo-router';
-import MyBookingHotels from '@/components/myBookingHotels/MyBookingHotels';
+import MyBookingHotels from '@/components/MyBookingHotels/MyBookingHotels';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookingsByUser } from '@/redux/reducer/hotelReducer';

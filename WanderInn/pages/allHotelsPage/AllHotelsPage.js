@@ -1,6 +1,6 @@
 import { View, ScrollView, FlatList, } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/header/Header';
+import HeaderScreen from '@/components/Header/Header';
 import PopularHotelsScreen from '@/components/nopularHotels/PopularHotels';
 
 

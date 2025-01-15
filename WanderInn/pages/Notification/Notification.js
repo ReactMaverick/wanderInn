@@ -1,10 +1,10 @@
 import { View, ScrollView, Pressable, Text, Image, Animated, } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/header/Header';
+import HeaderScreen from '@/components/Header/Header';
 import { useState, useEffect, useRef } from 'react';
 import { USER } from '@/constants/images';
-import Notification from '@/components/notification/Notification';
-import MyBookingHotelsScreen from '@/components/myBookingHotels/MyBookingHotels';
+import Notification from '@/components/Notification/Notification';
+import MyBookingHotelsScreen from '@/components/MyBookingHotels/MyBookingHotels';
 
 
 export default function NotificationPage() {

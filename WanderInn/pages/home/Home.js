@@ -1,12 +1,12 @@
 //Home 
 import { View, Text, ScrollView, Pressable, FlatList, RefreshControl } from 'react-native';
 import { styles } from './Style';
-import HeaderScreen from '@/components/header/Header';
+import HeaderScreen from '@/components/Header/Header';
 import LocationSearchInputScreen from '@/components/locationSearchInput/locationSearchInput';
 import { router, useRouter } from 'expo-router';
-import NearByHotels from '@/components/nearByHotels/NearByHotels';  // Ensure the import path is correct
+import NearByHotels from '@/components/NearByHotels/NearByHotels';  // Ensure the import path is correct
 import PopularHotelsScreen from '@/components/nopularHotels/PopularHotels';
-import BannerSliderScreen from '@/components/bannerSlider/BannerSlider';
+import BannerSliderScreen from '@/components/BannerSlider/BannerSlider';
 import { commonStyles } from '@/constants/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
