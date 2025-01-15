@@ -24,6 +24,9 @@ import {platform, showToast} from '../../constants/constants';
 import {commonStyles} from '../../constants/styles';
 import {useState} from 'react';
 import {isValidEmail} from '../../constants/validation';
+import {postData} from '../../values/api/apiprovider';
+import {REGISTER_URL} from '../../values/api/url';
+import Loader from '../../components/Loader/Loader';
 
 export default function RegisterPage({navigation}) {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,7 +100,7 @@ export default function RegisterPage({navigation}) {
         if (response.isSuccess) {
           showToast('success', response.message);
 
-          router.push('/login');
+          navigation.navigate('Login');
 
           setFormData({
             name: '',
