@@ -198,7 +198,7 @@ export default function HomePage({navigation}) {
             horizontal
             data={fiveNearbyHotels}
             renderItem={({item, index}) => (
-              <NearByHotels hotel={item} index={index} />
+              <NearByHotels hotel={item} index={index} navigation={navigation} />
             )}
           />
         ) : errorMsg ? (

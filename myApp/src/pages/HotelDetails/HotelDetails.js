@@ -54,7 +54,7 @@ export default function HotelDetails({navigation, route}) {
   const [hotel, setHotel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const {id} = route.params;
-  console.log('Hotel Detals ==> ');
+  console.log('Hotel Detals ==> ', hotel);
   console.log('Hotel From NearByHotels details page==> ', id);
   const bookNowClicked = () => {
     dispatch(bookHotel({hotelId: hotel._id}))

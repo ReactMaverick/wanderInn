@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BlurView} from '@react-native-community/blur';
 
-export default function NearByHotels({hotel, index, delay}) {
+export default function NearByHotels({hotel, index, delay, navigation}) {
   const dispatch = useDispatch();
   const blinkValue = useRef(new Animated.Value(1)).current;
   const translateX = useRef(new Animated.Value(300)).current; // Initial position
@@ -78,7 +78,8 @@ export default function NearByHotels({hotel, index, delay}) {
     <Pressable
       onPress={() => {
         console.log('Hotel clicked');
-        router.push(`/hotelsDetails/${hotel._id}`);
+        // router.push(`/hotelsDetails/${hotel._id}`);
+        navigation.navigate('HotelDetails', {id: hotel._id});
       }}>
       <Animated.View style={{transform: [{translateX}], opacity}}>
         <View style={styles.HotelCard}>
