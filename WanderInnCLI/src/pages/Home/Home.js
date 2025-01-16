@@ -93,7 +93,7 @@ export default function HomePage({navigation}) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [navigation]);
+  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
