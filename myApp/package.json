@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "debug": "cd android && gradlew assembleRelease"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
@@ -32,7 +33,7 @@
     "react-native-linear-gradient": "^2.8.3",
     "react-native-otp-textinput": "^1.1.6",
     "react-native-progress": "^5.0.1",
-    "react-native-reanimated": "^3.16.6",
+    "react-native-reanimated": "^3.16.7",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-safe-area-context": "^5.1.0",
     "react-native-screens": "^4.4.0",
