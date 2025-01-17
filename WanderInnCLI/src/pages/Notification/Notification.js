@@ -4,7 +4,7 @@ import HeaderScreen from '../../components/Header/Header';
 import Notification from '../../components/Notification/Notification';
 import {styles} from './Style';
 
-export default function NotificationPage() {
+export default function NotificationPage({navigation}) {
   // active color for the tab
   const [activeTab, setActiveTab] = useState('All');
   // fade animation for notification box
@@ -19,7 +19,7 @@ export default function NotificationPage() {
 
   return (
     <>
-      <HeaderScreen />
+      <HeaderScreen navigation={navigation} />
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.CustomTabsBtn}>
