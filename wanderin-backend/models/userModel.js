@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Hotel'
     }],
+    firebaseUID: {
+        type: String
+    },
 })
 
 module.exports = mongoose.model('User', userSchema);
