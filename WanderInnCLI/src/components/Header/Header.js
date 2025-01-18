@@ -41,7 +41,13 @@ export default function HeaderScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.LeftBar}>
-        <Image style={styles.UserImg} source={USER} />
+        <Image
+          style={styles.UserImg}
+          source={USER}
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}
+        />
         <View style={styles.LeftBarContent}>
           <Text style={styles.UserName}>{user?.name}</Text>
           <Text style={styles.UserLocation}>Where are going today?</Text>

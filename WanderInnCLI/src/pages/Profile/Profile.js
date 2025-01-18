@@ -47,6 +47,7 @@ import {colors} from '../../constants/colors';
 import {commonStyles} from '../../constants/styles';
 import SelectDropdown from '../../components/CustomSelectDrondown/SelectDropdown';
 import {getToken} from '../../common/common';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function ProfilePage({navigation}) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -116,6 +117,30 @@ export default function ProfilePage({navigation}) {
 
         setIsLoading(false);
       });
+  };
+
+  const handleDelete = () => {
+    Promise.resolve().then(() => {
+      Alert.alert(
+        'Delete Account',
+        'Are you sure you want to delete your account? This action cannot be undone.',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Delete',
+            onPress: () => {
+              console.log('Delete User Successfully');
+
+              showToast('success', 'User deleted successfully');
+            },
+          },
+        ],
+      );
+    });
   };
 
   if (isLoading) {
@@ -377,6 +402,19 @@ export default function ProfilePage({navigation}) {
               FAQ
             </Text>
           </Pressable>
+
+          <Pressable onPress={() => handleDelete()} style={styles.IconListItem}>
+            <AntDesign
+              name="delete"
+              size={28}
+              color="red"
+              style={[styles.IconListIcon, {tintColor: 'red'}]}
+            />
+            <Text style={[styles.IconListText, {color: 'red'}]}>
+              Delete Account
+            </Text>
+          </Pressable>
+
           <Pressable
             onPress={() => {
               item1(9);

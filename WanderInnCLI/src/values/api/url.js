@@ -9,3 +9,5 @@ export const LOGIN_URL = `${API_URL}login`;
 export const FORGOT_PASSWORD_URL = `${API_URL}forgotPassword`;
 
 export const GET_USER_URL = `${API_URL}getUser`;
+
+export const DELETE_USER_URL = `${API_URL}deleteUser`;

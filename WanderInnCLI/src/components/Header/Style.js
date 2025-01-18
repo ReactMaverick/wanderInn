@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.BGColor,
     // borderBottomEndRadius: deviceHeight / 15,
     // borderBottomStartRadius: deviceHeight / 15,
-    paddingTop: deviceHeight / 30,
+    // paddingTop: deviceHeight / 30,
     paddingHorizontal: deviceWidth / 30,
   },
   LeftBar: {

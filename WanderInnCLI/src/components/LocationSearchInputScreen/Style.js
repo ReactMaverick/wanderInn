@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     },
     shadowRadius: 10,
     elevation: 10,
+    margin: deviceWidth / 35
   },
   CustomInputBox: {
     flexDirection: 'row',
@@ -26,6 +27,7 @@ export const styles = StyleSheet.create({
     padding: deviceWidth / 40,
     borderRadius: deviceHeight / 60,
     position: 'relative',
+    width: '100%',
   },
   CustomSelectDropdown: {
     width: deviceWidth / 2,
@@ -79,6 +81,6 @@ export const styles = StyleSheet.create({
     padding: deviceWidth / 40,
     borderRadius: deviceHeight / 60,
     position: 'relative',
-    width: deviceWidth / 1.1,
+    width: '100%',
   },
 });

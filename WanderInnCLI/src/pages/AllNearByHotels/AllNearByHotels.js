@@ -1,4 +1,4 @@
-import {Text} from 'react-native';
+import {Alert, Text} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import AllHotelsPage from '../../components/AllHotelPage/AllHotelPage';

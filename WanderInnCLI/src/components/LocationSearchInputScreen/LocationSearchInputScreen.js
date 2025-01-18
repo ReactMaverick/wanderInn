@@ -64,7 +64,7 @@ export default function LocationSearchInputScreen({navigation}) {
               borderBottomWidth: 1,
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10,
-            },
+            }
           }}
           enablePoweredByContainer={false}
         />

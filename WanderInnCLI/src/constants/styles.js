@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {colors} from './colors';
 import {deviceHeight, deviceWidth} from './constants';
-import {H3, H5, p} from './fontConstants';
+import {H2, H3, H5, p} from './fontConstants';
 
 export const commonStyles = StyleSheet.create({
   container: {
@@ -48,9 +48,10 @@ export const commonStyles = StyleSheet.create({
     paddingVertical: deviceHeight / 60,
   },
   Title: {
-    fontSize: H5,
+    fontSize: H3,
     fontFamily: 'LatoBold',
     color: colors.blueDarkColor,
+    fontWeight: '600',
   },
   ViewAll: {
     fontSize: p,

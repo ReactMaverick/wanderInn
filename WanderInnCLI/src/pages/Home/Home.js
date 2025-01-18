@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Pressable,
   RefreshControl,
@@ -48,7 +49,7 @@ export default function HomePage({navigation}) {
         setLocation(position);
       },
       error => {
-        console.error(error);
+        // console.log(error);
         Alert.alert('Error', 'Could not fetch location.');
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
@@ -109,63 +110,6 @@ export default function HomePage({navigation}) {
   return (
     <>
       <HeaderScreen navigation={navigation} />
-
-      {/* <GooglePlacesAutocomplete
-                    placeholder='Enter your location'
-                    fetchDetails={true}
-                    textInputProps={{
-                        // placeholderTextColor: commonColor.textColorDark,
-                    }}
-
-                    onPress={(data, details = null) => {
-                        // 'details' is provided when fetchDetails = true
-                        console.log('Data ==> ', data);
-                        console.log('Details ==> ', details);
-                        // const updatedErrorMessages = {};
-                        // setErrors(updatedErrorMessages);
-                        // setFormData({
-                        //     ...formData,
-                        //     lat: details.geometry.location.lat,
-                        //     lng: details.geometry.location.lng,
-                        //     location: details.formatted_address,
-                        // });
-                    }}
-                    query={{
-                        key: 'AIzaSyCWtZ3KuXxUu7_mCwL1O2PzotYEpsc4vLU',
-                        language: 'en',
-                    }}
-                    styles={{
-                        textInput: {
-                            // backgroundColor: commonColor.backGroundColor,
-                            // color: commonColor.white,
-                            // fontSize: p,
-                            marginLeft: 10,
-                            width: '90%',
-                        },
-                        row: {
-                            // backgroundColor: commonColor.backGroundColor,
-                        },
-                        description: {
-                            // color: commonColor.text2Color,
-                            // fontSize: p,
-                        },
-                        poweredContainer: {
-                            // backgroundColor: commonColor.text2Color,
-                        },
-                        separator: {
-                            // backgroundColor: commonColor.textColorDark,
-                        },
-                        listView: {
-                            borderBottomWidth: 1,
-                            // borderBottomColor: commonColor.textColorDark,
-                            borderBottomLeftRadius: 10,
-                            borderBottomRightRadius: 10,
-                        },
-
-                    }}
-                // enablePoweredByContainer={false}
-
-                /> */}
 
       <ScrollView
         refreshControl={

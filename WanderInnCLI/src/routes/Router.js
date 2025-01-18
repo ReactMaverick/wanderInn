@@ -12,12 +12,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FavouritePage from '../pages/Favourite/Favourite';
 import MyBookingPage from '../pages/MyBooking/MyBooking';
 import ProfilePage from '../pages/Profile/Profile';
-import {View} from 'react-native';
-
-
-
-
-
 import AllNearbyHotels from '../pages/AllNearByHotels/AllNearByHotels';
 import AllPopularHotels from '../pages/AllPopulerHotels/AllPopularHotels';
 import NotificationPage from '../pages/Notification/Notification';

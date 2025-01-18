@@ -309,7 +309,7 @@ const hotelSlice = createSlice({
       })
       .addCase(getFiveNearbyHotels.rejected, (state, action) => {
         // //console.log('action.payload ==> ', action.payload);
-        state.hotels = [];
+        // state.hotels = [];
       });
     builder
       .addCase(addToFavorite.pending, (state, action) => {
