@@ -23,6 +23,7 @@ import LocationSearchInputScreen from '../../components/LocationSearchInputScree
 import NearByHotels from '../../components/NearByHotels/NearByHotels';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '../../components/BannerSlider/BannerSlider';
+import {requestLocationAuthorization, requestLocationPermission} from '../../common/common';
 
 export default function HomePage({navigation}) {
   const dispatch = useDispatch();
@@ -38,29 +39,10 @@ export default function HomePage({navigation}) {
 
   // get the location of the user
   const getLocation = async () => {
-    // let {status} = await Location.requestForegroundPermissionsAsync();
-    // if (status !== 'granted') {
-    //   setErrorMsg('Permission to access location was denied');
-    //   return;
-    // }
-    Geolocation.getCurrentPosition(
-      position => {
-        // console.log('Position From Home==> ', position);
-        setLocation(position);
-      },
-      error => {
-        // console.log(error);
-        Alert.alert('Error', 'Could not fetch location.');
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
-    console.log('Location From Home==> ', location);
-    // let location = await Location.getCurrentPositionAsync({});
-    // // console.log("Location From Home==> ",location)
-    // setLocation(location);
+    Geolocation.getCurrentPosition(info => {
+      setLocation(info);
+    });
   };
-
-  console.log('Location is  ', location);
 
   const nearByHotelsFetch = async () => {
     if (location) {
@@ -80,20 +62,26 @@ export default function HomePage({navigation}) {
     nearByHotelsFetch();
   }, [location]);
 
+  console.log('Location home ======> ', location);
+
   useEffect(() => {
-    getLocation();
-    Promise.all([
-      dispatch(getFivePopularHotels()),
-      dispatch(getFavoriteHotels()),
-    ])
-      .then()
-      .catch(error => {
-        console.error(error);
-        setIsLoading(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    const initialize = async () => {
+      requestLocationPermission();
+      // console.log("permissionGranted  ==> ", permissionGranted);
+
+      await getLocation();
+
+      Promise.all([
+        dispatch(getFivePopularHotels()),
+        dispatch(getFavoriteHotels()),
+      ])
+        .catch(error => {
+          console.error('Error fetching hotel data: ', error);
+        })
+        .finally(() => setIsLoading(false));
+    };
+
+    initialize();
   }, []);
 
   const onRefresh = () => {
@@ -162,7 +150,7 @@ export default function HomePage({navigation}) {
             <Pressable
               onPress={() => {
                 // alert('See all Popular Hotels');
-                navigation.navigate('AllPopularHotels');
+                navigation.navigate('Favourite');
               }}>
               <Text style={commonStyles.ViewAll}>See all</Text>
             </Pressable>

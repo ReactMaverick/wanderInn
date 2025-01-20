@@ -11,7 +11,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {formatToOneDecimalPlace, getToken} from '../../common/common';
 import {showToast} from '../../constants/constants';
-import {bookHotel, removeFromFavorite} from '../../redux/reducer/hotelReducer';
+import {addToFavorite, bookHotel, removeFromFavorite} from '../../redux/reducer/hotelReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';

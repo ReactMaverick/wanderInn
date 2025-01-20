@@ -23,13 +23,13 @@ export const getFivePopularHotels = createAsyncThunk(
     try {
       const token = await getToken();
       //console.log('Token ==> ', token);
-      console.log('API_URL ==> ', API_URL + 'popularHotels');
+      // console.log('API_URL ==> ', API_URL + 'popularHotels');
       const response = await postData(
         API_URL + 'popularHotels',
         {page: '1', limit: '10', search: ''},
         token,
       );
-      console.log('hotel/getFivePopularHotels response====> ', response.data);
+      // console.log('hotel/getFivePopularHotels response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -41,15 +41,20 @@ export const getFiveNearbyHotels = createAsyncThunk(
   'hotel/getFiveNearbyHotels',
   async location => {
     try {
-      console.log('Location from Thunk ====> ', location.coords.latitude);
+      // console.log('Location from Thunk ====> ', location.coords.latitude);
       const token = await getToken();
       //console.log('Token ==> ', token);
       //console.log('API_URL ==> ', API_URL + "nearbyHotels");
+      // console.log('Location ===> ', [
+      //   location.coords.latitude,
+      //   location.coords.longitude,
+      // ]);
+
       const response = await postData(
         API_URL + 'nearbyHotels',
         {
           location: {
-            coordinates: [location.coords.latitude, location.coords.longitude],
+            coordinates: [location.coords.longitude, location.coords.latitude],
           },
           radius: 50000, // Radius in meters
           // "search": "luxury",
@@ -58,7 +63,7 @@ export const getFiveNearbyHotels = createAsyncThunk(
         },
         token,
       );
-      console.log(' getFiveNearbyHotels response====> ', response.data);
+      // console.log(' getFiveNearbyHotels response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -92,10 +97,10 @@ export const getFavoriteHotels = createAsyncThunk(
   async () => {
     try {
       const token = await getToken();
-      console.log('Token From getFavoriteHotels ==> ', token);
+      // console.log('Token From getFavoriteHotels ==> ', token);
       //console.log('API_URL ==> ', API_URL + "getFavourites");
       const response = await postData(API_URL + 'getFavourites', {}, token);
-      console.log('getFavoriteHotels response====> ', response);
+      // console.log('getFavoriteHotels response====> ', response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -152,7 +157,7 @@ export const getAllNearbyHotels = createAsyncThunk(
   'hotel/getAllNearbyHotels',
   async ({location, page, limit}) => {
     try {
-      //console.log('Location ====> ', location)
+      console.log('Location hotel/getAllNearbyHotels ====> ', location)
       const token = await getToken();
       //console.log('Token ==> ', token);
       //console.log('API_URL ==> ', API_URL + "nearbyHotels");
@@ -160,7 +165,7 @@ export const getAllNearbyHotels = createAsyncThunk(
         API_URL + 'nearbyHotels',
         {
           location: {
-            coordinates: [location.coords.latitude, location.coords.longitude],
+            coordinates: [location.coords.longitude, location.coords.latitude],
           },
           radius: 50000, // Radius in meters
           // "search": "luxury",
@@ -189,7 +194,7 @@ export const getAllPopularHotels = createAsyncThunk(
         {search: ''},
         token,
       );
-      console.log(' getAllPopularHotels response====> ', response.data);
+      // console.log(' getAllPopularHotels response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -288,10 +293,10 @@ const hotelSlice = createSlice({
         // state.hotels = action.payload;
       })
       .addCase(getFivePopularHotels.fulfilled, (state, action) => {
-        console.log(
-          'getFivePopularHotels, action.payload ==> ',
-          action.payload.hotels,
-        );
+        // console.log(
+        //   'getFivePopularHotels, action.payload ==> ',
+        //   action.payload.hotels,
+        // );
         state.fivePopularHotels = action.payload.hotels;
       })
       .addCase(getFivePopularHotels.rejected, (state, action) => {
@@ -384,10 +389,10 @@ const hotelSlice = createSlice({
         // state.hotels = action.payload;
       })
       .addCase(getAllPopularHotels.fulfilled, (state, action) => {
-        console.log(
-          'getAllPopularHotels action.payload ==> ',
-          action.payload.hotels,
-        );
+        // console.log(
+        //   'getAllPopularHotels action.payload ==> ',
+        //   action.payload.hotels,
+        // );
 
         state.allPopularHotels = action.payload.hotels;
       })

@@ -12,7 +12,7 @@ import {styles} from './Style';
 import {signOut} from 'firebase/auth';
 import {auth} from '../../../firebaseConfig';
 import {deviceHeight, deviceWidth, showToast} from '../../constants/constants';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Loader from '../../components/Loader/Loader';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -48,6 +48,8 @@ import {commonStyles} from '../../constants/styles';
 import SelectDropdown from '../../components/CustomSelectDrondown/SelectDropdown';
 import {getToken} from '../../common/common';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {deleteData} from '../../values/api/apiprovider';
+import {DELETE_USER_URL} from '../../values/api/url';
 
 export default function ProfilePage({navigation}) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -119,28 +121,59 @@ export default function ProfilePage({navigation}) {
       });
   };
 
-  const handleDelete = () => {
-    Promise.resolve().then(() => {
-      Alert.alert(
-        'Delete Account',
-        'Are you sure you want to delete your account? This action cannot be undone.',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {
-            text: 'Delete',
-            onPress: () => {
-              console.log('Delete User Successfully');
+  const handleDelete = async () => {
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete your account? This action cannot be undone.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            console.log('Delete User Initiated');
 
-              showToast('success', 'User deleted successfully');
-            },
+            try {
+              const token = await getToken();
+              // const currectUser = auth.currentUser;
+              // console.log('currectUser ====> ', currectUser);
+
+              if (!token) {
+                console.error('Token not found');
+                showToast('error', 'Error: Authentication token missing');
+                return;
+              }
+
+              const response = await deleteData(DELETE_USER_URL, token);
+              console.log("Response code ===> ", response.code);
+              
+
+              if (response.code === 200) {
+                console.log('User deleted successfully');
+                dispatch(logout());
+                navigation.navigate('Index');
+                showToast('success', 'User deleted successfully');
+              } else {
+                console.error('Failed to delete user:');
+                showToast('error', 'Error deleting user. Please try again.');
+              }
+            } catch (error) {
+              console.error(
+                'An error occurred while deleting the user:',
+                error,
+              );
+              showToast(
+                'error',
+                'Unexpected error occurred. Please try again.',
+              );
+            }
           },
-        ],
-      );
-    });
+        },
+      ],
+    );
   };
 
   if (isLoading) {

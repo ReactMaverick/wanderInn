@@ -157,7 +157,7 @@ const HomeStack = () => {
 const Router = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   // console.log('auth is router ==> ', auth);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   if (!isLoggedIn) {
     return (

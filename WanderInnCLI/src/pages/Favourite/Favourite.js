@@ -33,6 +33,12 @@ export default function FavouritePage({navigation}) {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (refreshing) {
+      resetAnimations();
+    }
+  }, [refreshing]);
+
   const getFavouriteHotels = async () => {
     dispatch(getFavoriteHotels())
       .then()
@@ -49,6 +55,12 @@ export default function FavouritePage({navigation}) {
         useNativeDriver: true,
         easing: Easing.out(Easing.ease),
       }).start();
+    });
+  };
+
+  const resetAnimations = () => {
+    favouriteHotels.forEach((_, index) => {
+      animations[index].setValue(0);
     });
   };
 

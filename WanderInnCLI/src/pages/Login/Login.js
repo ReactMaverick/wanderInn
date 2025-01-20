@@ -71,7 +71,7 @@ const Login = ({navigation}) => {
       updatedErrors.password = 'Password must be at least 8 characters';
       setErrors(updatedErrors);
     } else if (Object.keys(updatedErrors).length === 0) {
-      console.log('Form Data ==> ', formData);
+      // console.log('Form Data ==> ', formData);
 
       // console.log('Auth ==> ', auth);
 
@@ -102,7 +102,7 @@ const Login = ({navigation}) => {
             try {
               const response = await postData(LOGIN_URL, userData);
 
-              console.log('Response ==> ', response);
+              // console.log('Login Response ==> ', response);
 
               if (response.isSuccess) {
                 showToast('success', response.message);

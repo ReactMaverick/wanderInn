@@ -11,11 +11,11 @@ const getHeaders = (token, formData) => {
 
 // Fetch data
 export const getData = async (apiUrl, token) => {
-  console.log('Api Url from api/apiprovider ==> ', apiUrl);
-  console.log('Token from api/apiprovider ==> ', token);
+  // console.log('Api Url from api/apiprovider ==> ', apiUrl);
+  // console.log('Token from api/apiprovider ==> ', token);
 
   const headers = getHeaders(token);
-  console.log('Headers Token from api/apiprovider ==> ', headers);
+  // console.log('Headers Token from api/apiprovider ==> ', headers);
 
   return axios.get(apiUrl, {headers}).then(handleResponse).catch(handleError);
 };
@@ -24,7 +24,7 @@ export const getData = async (apiUrl, token) => {
 export const postData = async (apiUrl, data, token) => {
   const headers = getHeaders(token);
 
-  console.log('Headers in api/provider ==> ', headers);
+  // console.log('Headers in api/provider ==> ', headers);
   // console.log('Api Url ==> ', apiUrl);
   // console.log('Data ==> ', data);
   // console.log('Token ==> ', token);
@@ -41,6 +41,18 @@ export const postFormData = async (apiUrl, data, token) => {
 
   return axios
     .post(apiUrl, data, {headers})
+    .then(handleResponse)
+    .catch(handleError);
+};
+
+export const deleteData = async (apiUrl, token) => {
+  const headers = getHeaders(token);
+
+  console.log('DELETE Request Headers:', headers);
+  console.log('DELETE Request URL:', apiUrl);
+
+  return axios
+    .delete(apiUrl, {headers})
     .then(handleResponse)
     .catch(handleError);
 };

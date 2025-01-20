@@ -30,31 +30,6 @@ export default function AllHotelsPage({
               />
             );
           })}
-          {/* <FlatList
-                        // data={hotels}
-                    //    style={styles.flatListStyle}
-                        // showsVerticalScrollIndicator={false}
-                        // refreshing={refreshing}
-                        // onRefresh={onRefresh}
-                        // onEndReached={loadMoreData}
-                        // onEndReachedThreshold={0.5} 
-                        // ListFooterComponent={renderFooter}
-                        // onScroll={() => {
-                            // setIsThreeDotMenuPressed(false);
-                        // }}
-                        // renderItem={({ item }) => (<PopularHotelsScreen
-                            // hotel={item}
-                            // isListUpdate={isListUpdate}
-                            // setIsListUpdate={setIsListUpdate}
-                            // onRefresh={onRefresh}
-                            // navigation={navigation}
-                            // isLoading={loading}
-                            // setIsLoading={setLoading}
-                            // isThreeDotMenuPressed={isThreeDotMenuPressed}
-                            // setIsThreeDotMenuPressed={setIsThreeDotMenuPressed}
-                        // />)} 
-
-                    // />  */}
         </View>
       </ScrollView>
     </>

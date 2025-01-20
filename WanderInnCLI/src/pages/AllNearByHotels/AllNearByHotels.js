@@ -1,12 +1,18 @@
-import {Alert, Text} from 'react-native';
+import {Alert, ScrollView, Text, View} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import AllHotelsPage from '../../components/AllHotelPage/AllHotelPage';
 import {getAllNearbyHotels} from '../../redux/reducer/hotelReducer';
 import {showToast} from '../../constants/constants';
 import Geolocation from '@react-native-community/geolocation';
+import Loader from '../../components/Loader/Loader';
+import HeaderScreen from '../../components/Header/Header';
+import {styles} from './Style';
+import PopularHotels from '../../components/PopularHotels/PopularHotels';
 
-export default function AllNearbyHotels() {
+export default function AllNearbyHotels({navigation}) {
+  console.log('**************Hello From AllNearByHotels**********************');
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const allNearbyHotels = useSelector(state => state.hotel.allNearbyHotels);
@@ -15,25 +21,15 @@ export default function AllNearbyHotels() {
   // const [limit,setLimit] = useState(2);
   const [location, setLocation] = useState(null);
   const getLocation = async () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        // console.log('Position From Home==> ', position);
-        setLocation(position);
-      },
-      error => {
-        console.error(error);
-        Alert.alert('Error', 'Could not fetch location.');
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
-    console.log('Location From Home==> ', location);
+    Geolocation.getCurrentPosition(info => {
+      setLocation(info);
+    });
   };
+
   const nearByHotelsFetch = async () => {
-    console.log('location ==> ', location);
     if (location) {
-      dispatch(getAllNearbyHotels({location, page, limit: '2'}))
+      dispatch(getAllNearbyHotels({location: location, page, limit: '2'}))
         .then(e => {
-          // console.log('AllNearbyHotels ==> ', e.payload.pagination.totalPages)
           setTotalPages(e.payload.pagination.totalPages);
         })
         .catch(error => {
@@ -50,17 +46,40 @@ export default function AllNearbyHotels() {
     getLocation();
   }, []);
   useEffect(() => {
-    nearByHotelsFetch();
+    if (location) {
+      nearByHotelsFetch();
+    }
   }, [location, page]);
 
-  // console.log('AllNearbyHotels ==> ', allNearbyHotels);
+  console.log('AllNearbyHotels ==> ', allNearbyHotels);
+
+  if (loading) {
+    return <Text>Loading nearby hotels...</Text>;
+  }
   return (
-    <AllHotelsPage
-      hotels={allNearbyHotels}
-      page={page}
-      totalPages={totalPages}
-      setPage={setPage}
-    />
+    <>
+      <HeaderScreen navigation={navigation} />
+      {!loading && allNearbyHotels.length > 0 ? (
+        // <AllHotelsPage hotels={allNearbyHotels} navigation={navigation} />
+        <>
+          <ScrollView>
+            <View style={styles.container}>
+              {allNearbyHotels?.map((hotel, index) => (
+                <PopularHotels
+                  key={index}
+                  hotel={hotel}
+                  navigation={navigation}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        </>
+      ) : !loading ? (
+        <Loader />
+      ) : (
+        <Text>No Data Found</Text>
+      )}
+    </>
     // <Text> All Hotels </Text>
   );
 }

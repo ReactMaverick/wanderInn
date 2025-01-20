@@ -95,7 +95,7 @@ export default function RegisterPage({navigation}) {
       try {
         const response = await postData(REGISTER_URL, formData);
 
-        console.log('Response ==> ', response);
+        // console.log('Response ==> ', response);
 
         if (response.isSuccess) {
           showToast('success', response.message);
