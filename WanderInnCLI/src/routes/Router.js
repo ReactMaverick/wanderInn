@@ -18,15 +18,20 @@ import NotificationPage from '../pages/Notification/Notification';
 import HotelDetails from '../pages/HotelDetails/HotelDetails';
 import ReviewsPage from '../pages/Reviews/Reviews';
 import VerifyOTPPage from '../pages/VerifyOTP/VerifyOTP';
+import {useEffect} from 'react';
+import GetLocation from 'react-native-get-location';
+import {requestLocationPermission} from '../common/common';
+import {setLocation} from '../redux/reducer/hotelReducer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
-        name="Index"
+        name="Home"
         component={HomePage}
         options={{
           title: 'Home',
@@ -89,7 +94,7 @@ const LoginStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Index"
+        name="LandingPage"
         component={LandingPage}
         options={{headerShown: false}}
       />
@@ -118,6 +123,24 @@ const LoginStack = () => {
 };
 
 const HomeStack = () => {
+  const dispatch = useDispatch();
+  const location = useSelector(state => state.hotel.location);
+  // console.log('auth is router ==> ', auth);
+
+  /* useEffect(() => {
+    requestLocationPermission();
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 60000,
+    })
+      .then(location => {
+        console.log('location ==> ', location);
+        dispatch(setLocation(location));
+      })
+      .catch(error => {
+        console.log('error ==> ', error);
+      });
+  }, []); */
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -156,8 +179,6 @@ const HomeStack = () => {
 
 const Router = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  // console.log('auth is router ==> ', auth);
-  // const dispatch = useDispatch();
 
   if (!isLoggedIn) {
     return (

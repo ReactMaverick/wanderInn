@@ -54,7 +54,7 @@ export const getFiveNearbyHotels = createAsyncThunk(
         API_URL + 'nearbyHotels',
         {
           location: {
-            coordinates: [location.coords.longitude, location.coords.latitude],
+            coordinates: [location.longitude, location.latitude],
           },
           radius: 50000, // Radius in meters
           // "search": "luxury",
@@ -84,7 +84,7 @@ export const addToFavorite = createAsyncThunk(
         {hotelId},
         token,
       );
-      // //console.log("addToFavorite response====> ", response.data);
+      console.log("addToFavorite response====> ", response.data);
       return response.data;
     } catch (error) {
       console.error('Add to favourite response ===> ', error);
@@ -157,7 +157,7 @@ export const getAllNearbyHotels = createAsyncThunk(
   'hotel/getAllNearbyHotels',
   async ({location, page, limit}) => {
     try {
-      console.log('Location hotel/getAllNearbyHotels ====> ', location)
+      console.log('Location hotel/getAllNearbyHotels ====> ', location);
       const token = await getToken();
       //console.log('Token ==> ', token);
       //console.log('API_URL ==> ', API_URL + "nearbyHotels");
@@ -165,7 +165,7 @@ export const getAllNearbyHotels = createAsyncThunk(
         API_URL + 'nearbyHotels',
         {
           location: {
-            coordinates: [location.coords.longitude, location.coords.latitude],
+            coordinates: [location.longitude, location.latitude],
           },
           radius: 50000, // Radius in meters
           // "search": "luxury",
@@ -174,7 +174,7 @@ export const getAllNearbyHotels = createAsyncThunk(
         },
         token,
       );
-      console.log(' getAllNearbyHotels response====> ', response.data.hotels);
+      console.log(' getAllNearbyHotels response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -264,6 +264,7 @@ const hotelSlice = createSlice({
     bookings: [],
     allNearbyHotels: [],
     allPopularHotels: [],
+    location: null,
   },
   reducers: {
     setHotels: (state, action) => {
@@ -434,5 +435,5 @@ const hotelSlice = createSlice({
       });
   },
 });
-export const {setHotels, setSelectedHotel} = hotelSlice.actions;
+export const {setHotels, setSelectedHotel, setLocation} = hotelSlice.actions;
 export default hotelSlice.reducer;

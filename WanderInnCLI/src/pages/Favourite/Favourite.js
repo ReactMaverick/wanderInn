@@ -87,22 +87,23 @@ export default function FavouritePage({navigation}) {
           ) : favouriteHotels.length === 0 ? (
             <Text>No Favourite Hotels</Text>
           ) : (
-            favouriteHotels.map((hotel, index) => (
-              <Animated.View
+            favouriteHotels?.map((hotel, index) => (
+              <View
                 key={index}
-                style={{
-                  opacity: animations[index],
-                  transform: [
-                    {
-                      translateY: animations[index].interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [20, 0], // Adjust the vertical movement
-                      }),
-                    },
-                  ],
-                }}>
+                // style={{
+                //   opacity: animations[index],
+                //   transform: [
+                //     {
+                //       translateY: animations[index].interpolate({
+                //         inputRange: [0, 1],
+                //         outputRange: [20, 0], // Adjust the vertical movement
+                //       }),
+                //     },
+                //   ],
+                // }}
+                >
                 <PopularHotels hotel={hotel} navigation={navigation} />
-              </Animated.View>
+              </View>
             ))
           )}
         </View>

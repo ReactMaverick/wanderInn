@@ -14,22 +14,26 @@ import {
   getFavoriteHotels,
   getFiveNearbyHotels,
   getFivePopularHotels,
+  setLocation,
 } from '../../redux/reducer/hotelReducer';
 import {useDispatch, useSelector} from 'react-redux';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
 import {styles} from './Style';
 import {commonStyles} from '../../constants/styles';
 import LocationSearchInputScreen from '../../components/LocationSearchInputScreen/LocationSearchInputScreen';
 import NearByHotels from '../../components/NearByHotels/NearByHotels';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '../../components/BannerSlider/BannerSlider';
-import {requestLocationAuthorization, requestLocationPermission} from '../../common/common';
+import {requestLocationPermission} from '../../common/common';
+// import GetLocation from 'react-native-get-location';
+import Geolocation from '@react-native-community/geolocation';
 
 export default function HomePage({navigation}) {
   const dispatch = useDispatch();
   const ItemSeparator = () => <View style={{width: 20}} />;
   const hotels = useSelector(state => state.hotel.hotels);
   const [location, setLocation] = useState(null);
+  // const location = useSelector(state => state.hotel.location);
   const [refreshing, setRefreshing] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyHotelLoading, setNearbyHotelLoading] = useState(true);
@@ -40,7 +44,7 @@ export default function HomePage({navigation}) {
   // get the location of the user
   const getLocation = async () => {
     Geolocation.getCurrentPosition(info => {
-      setLocation(info);
+      setLocation(info.coords);
     });
   };
 
@@ -59,18 +63,17 @@ export default function HomePage({navigation}) {
   };
 
   useEffect(() => {
+    // console.log('Location from Home Page ====> ', location);
     nearByHotelsFetch();
   }, [location]);
 
-  console.log('Location home ======> ', location);
+  // console.log('Location home ======> ', location);
 
   useEffect(() => {
     const initialize = async () => {
-      requestLocationPermission();
-      // console.log("permissionGranted  ==> ", permissionGranted);
-
-      await getLocation();
-
+      // requestLocationPermission();
+      // await getLocation();
+      // // console.log("permissionGranted  ==> ", permissionGranted);
       Promise.all([
         dispatch(getFivePopularHotels()),
         dispatch(getFavoriteHotels()),
@@ -98,7 +101,6 @@ export default function HomePage({navigation}) {
   return (
     <>
       <HeaderScreen navigation={navigation} />
-
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -106,9 +108,9 @@ export default function HomePage({navigation}) {
         // showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
         <LocationSearchInputScreen navigation={navigation} />
-        <View style={styles.LocSearchBox}>
+        {/* <View style={styles.LocSearchBox}>
           <View style={styles.LocBoxDevider} />
-        </View>
+        </View> */}
         <View style={styles.container}>
           <View style={commonStyles.TitleRow}>
             <Text style={commonStyles.Title}>Near by Hotels</Text>
@@ -129,6 +131,7 @@ export default function HomePage({navigation}) {
             ItemSeparatorComponent={ItemSeparator}
             horizontal={true}
             data={fiveNearbyHotels}
+            showsHorizontalScrollIndicator={false}
             renderItem={({item, index}) => (
               <NearByHotels
                 hotel={item}
@@ -150,7 +153,8 @@ export default function HomePage({navigation}) {
             <Pressable
               onPress={() => {
                 // alert('See all Popular Hotels');
-                navigation.navigate('Favourite');
+                // navigation.navigate('Favourite');
+                navigation.navigate('AllPopularHotels');
               }}>
               <Text style={commonStyles.ViewAll}>See all</Text>
             </Pressable>

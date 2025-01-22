@@ -1,14 +1,16 @@
-import {Alert, ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import AllHotelsPage from '../../components/AllHotelPage/AllHotelPage';
 import {getAllNearbyHotels} from '../../redux/reducer/hotelReducer';
 import {showToast} from '../../constants/constants';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
 import Loader from '../../components/Loader/Loader';
 import HeaderScreen from '../../components/Header/Header';
 import {styles} from './Style';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
+// import GetLocation from 'react-native-get-location';
+import Geolocation from '@react-native-community/geolocation';
 
 export default function AllNearbyHotels({navigation}) {
   console.log('**************Hello From AllNearByHotels**********************');
@@ -18,13 +20,24 @@ export default function AllNearbyHotels({navigation}) {
   const allNearbyHotels = useSelector(state => state.hotel.allNearbyHotels);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  // const location = useSelector(state => state.hotel.location);
   // const [limit,setLimit] = useState(2);
   const [location, setLocation] = useState(null);
   const getLocation = async () => {
     Geolocation.getCurrentPosition(info => {
-      setLocation(info);
+      setLocation(info.coords);
     });
   };
+
+  // const getLocation = () => {
+  //   GetLocation.getCurrentPosition({
+  //     enableHighAccuracy: true,
+  //     timeout: 15000,
+  //   }).then(location => {
+  //     setLocation(location);
+  //     console.log('location ==> ', location);
+  //   })
+  // }
 
   const nearByHotelsFetch = async () => {
     if (location) {
@@ -44,6 +57,15 @@ export default function AllNearbyHotels({navigation}) {
 
   useEffect(() => {
     getLocation();
+    // GetLocation.getCurrentPosition({
+    //   enableHighAccuracy: true,
+    //   timeout: 15000,
+    // }).then(location => {
+    //   setLocation(location);
+    // }).catch(error => {
+    //   const { code, message } = error;
+    //   console.warn(code, message);
+    // })
   }, []);
   useEffect(() => {
     if (location) {
@@ -53,9 +75,9 @@ export default function AllNearbyHotels({navigation}) {
 
   console.log('AllNearbyHotels ==> ', allNearbyHotels);
 
-  if (loading) {
-    return <Text>Loading nearby hotels...</Text>;
-  }
+  // if (loading) {
+  //   return <Text>Loading nearby hotels...</Text>;
+  // }
   return (
     <>
       <HeaderScreen navigation={navigation} />

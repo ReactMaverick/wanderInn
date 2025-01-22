@@ -81,12 +81,8 @@ const Login = ({navigation}) => {
         .then(async userCredential => {
           // Signed in
           const user = userCredential.user;
-          // ...
-
-          console.log('User ==> ', user);
-
+          console.log('User from login ==> ', user);
           // console.log('User ==> ', user);
-
           setIsLoggedIn(true);
 
           if (user.emailVerified) {
@@ -96,9 +92,7 @@ const Login = ({navigation}) => {
               email: user.email,
               uid: user.uid,
             };
-
             // console.log('User Data ==> ', userData);
-
             try {
               const response = await postData(LOGIN_URL, userData);
 
@@ -118,7 +112,6 @@ const Login = ({navigation}) => {
             }
           } else {
             showToast('error', 'Please verify your email');
-
             setIsUserVerified(false);
           }
         })
@@ -127,7 +120,6 @@ const Login = ({navigation}) => {
           const errorMessage = error.message;
 
           console.log('Error ==> ', errorCode, errorMessage);
-
           showToast('error', errorMessage);
         })
         .finally(() => {
@@ -151,6 +143,7 @@ const Login = ({navigation}) => {
     setIsLoading(true);
 
     const user = auth.currentUser;
+    console.log("auth.current user ====> ", user);
 
     sendEmailVerification(user)
       .then(() => {

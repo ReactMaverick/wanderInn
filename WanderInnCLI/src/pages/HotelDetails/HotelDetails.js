@@ -11,7 +11,11 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {formatToOneDecimalPlace, getToken} from '../../common/common';
 import {showToast} from '../../constants/constants';
-import {addToFavorite, bookHotel, removeFromFavorite} from '../../redux/reducer/hotelReducer';
+import {
+  addToFavorite,
+  bookHotel,
+  removeFromFavorite,
+} from '../../redux/reducer/hotelReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
@@ -156,7 +160,7 @@ export default function HotelDetails({navigation, route}) {
                   />
                 </Pressable>
               </View>
-              <BlurView intensity={20} style={styles.imageRow}>
+              <View intensity={20} style={styles.imageRow}>
                 {hotel.images?.length > 0 ? (
                   hotel.images.map((img, index) => (
                     <Pressable key={index} onPress={() => setImage(img)}>
@@ -182,7 +186,7 @@ export default function HotelDetails({navigation, route}) {
                     <Text style={styles.plusImageText}>20+</Text>
                   </View>
                 </Pressable>
-              </BlurView>
+              </View>
             </ImageBackground>
             <View style={styles.container}>
               {/* divider  */}
@@ -226,7 +230,6 @@ export default function HotelDetails({navigation, route}) {
                       <View style={styles.UsersGroupImgs}>
                         <Image style={styles.UsersGroupImg} source={USER1} />
                         <Image style={styles.UsersGroupImg} source={USER2} />
-
                         <Image style={styles.UsersGroupImg} source={USER3} />
                         <Image style={styles.UsersGroupImg} source={USER4} />
                       </View>
@@ -236,7 +239,7 @@ export default function HotelDetails({navigation, route}) {
                   <Pressable
                     onPress={() => {
                       console.log('Hotel clicked');
-                      navigation.navigate('HotelReviews');
+                      navigation.navigate('ReviewsPage');
                     }}
                     style={styles.seeAllBtn}>
                     <Text style={styles.seeAllBtnText}>See All</Text>
@@ -376,6 +379,7 @@ export default function HotelDetails({navigation, route}) {
             <View style={styles.SimilarHotelsList}>
               <FlatList
                 // ItemSeparatorComponent={ItemSeparator}
+                showsHorizontalScrollIndicator={false}
                 horizontal
                 data={[
                   {key: 'a'},

@@ -1,14 +1,14 @@
 import {useState} from 'react';
-import {FlatList, Pressable, ScrollView, Text, View} from 'react-native';
+import {FlatList, Image, Pressable, ScrollView, Text, View} from 'react-native';
 import {colors} from '../../constants/colors';
 import {deviceHeight} from '../../constants/constants';
 import {styles} from './Style';
 import * as Progress from 'react-native-progress';
-import { HOTEL, HOTEL1 } from '../../constants/images';
+import {HOTEL, HOTEL1, USER3, USER4} from '../../constants/images';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function ReviewsPage() {
+export default function ReviewsPage({navigation}) {
   const [isLIke, setIsLIke] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
@@ -26,6 +26,7 @@ export default function ReviewsPage() {
               style={styles.backBtn}
               onPress={() => {
                 console.log('back');
+                navigation.goBack();
               }}>
               <Icon name="chevron-back" style={styles.backBtnIcon} />
             </Pressable>
@@ -141,6 +142,7 @@ export default function ReviewsPage() {
         {/* catagorys of reviews */}
         <FlatList
           horizontal
+          showsHorizontalScrollIndicator={false}
           data={[
             {key: '1', title: 'All Guest'},
             {key: '2', title: 'Family'},
@@ -173,7 +175,7 @@ export default function ReviewsPage() {
                 </View>
                 <View style={styles.ReviewStarBox}>
                   <Text style={styles.ReviewStarText}>4.5</Text>
-                  <Ionicons name="star" style={styles.ReviewStar} />
+                  <Icon name="star" style={styles.ReviewStar} />
                 </View>
               </View>
               <View style={styles.ReviewDetailsBox}>

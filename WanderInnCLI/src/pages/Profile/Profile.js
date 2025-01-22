@@ -106,7 +106,7 @@ export default function ProfilePage({navigation}) {
 
         dispatch(logout());
 
-        navigation.navigate('Index');
+        navigation.navigate('LandingPage');
 
         setIsLoading(false);
 
@@ -154,7 +154,7 @@ export default function ProfilePage({navigation}) {
               if (response.code === 200) {
                 console.log('User deleted successfully');
                 dispatch(logout());
-                navigation.navigate('Index');
+                navigation.navigate('LandingPage');
                 showToast('success', 'User deleted successfully');
               } else {
                 console.error('Failed to delete user:');
@@ -440,10 +440,10 @@ export default function ProfilePage({navigation}) {
             <AntDesign
               name="delete"
               size={28}
-              color="red"
-              style={[styles.IconListIcon, {tintColor: 'red'}]}
+              color="#D84040"
+              style={[styles.IconListIcon, {tintColor: '#D84040'}]}
             />
-            <Text style={[styles.IconListText, {color: 'red'}]}>
+            <Text style={[styles.IconListText, {color: '#D84040'}]}>
               Delete Account
             </Text>
           </Pressable>

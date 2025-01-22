@@ -392,6 +392,7 @@ export const styles = StyleSheet.create({
   MainTitle: {
     paddingVertical: deviceHeight / 50,
     position: 'relative',
+    marginVertical: deviceHeight / 50,
   },
   readMoreBtn: {
     position: 'absolute',

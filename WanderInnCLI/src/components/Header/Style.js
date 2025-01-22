@@ -9,9 +9,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: colors.BGColor,
-    // borderBottomEndRadius: deviceHeight / 15,
-    // borderBottomStartRadius: deviceHeight / 15,
-    // paddingTop: deviceHeight / 30,
     paddingHorizontal: deviceWidth / 30,
   },
   LeftBar: {
@@ -24,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   UserName: {
     color: colors.blueDarkColor,
-    fontSize: deviceHeight / 40,
+    fontSize: deviceHeight / 35,
     fontFamily: 'LatoBold',
     lineHeight: deviceHeight / 35,
   },

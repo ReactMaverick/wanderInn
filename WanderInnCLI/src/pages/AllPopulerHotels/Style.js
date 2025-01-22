@@ -7,5 +7,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     // paddingHorizontal: deviceWidth / 30,
+    backgroundColor: "#F3F3F3",
   },
 });

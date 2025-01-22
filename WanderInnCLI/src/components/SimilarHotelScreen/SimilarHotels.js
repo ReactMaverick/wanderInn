@@ -8,9 +8,9 @@ import { useState } from 'react';
 export default function SimilarHotelsScreen() {
   const [isFav, setIsFav] = useState(false);
 
-  const animateIcon = () => {
-    setIsFav(!isFav);
-  };
+  // const animateIcon = () => {
+  //   setIsFav(!isFav);
+  // };
   return (
     <View style={styles.HotelCard}>
       <Pressable

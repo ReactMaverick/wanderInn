@@ -1,7 +1,7 @@
-import {LOGO, USER} from '../../constants/images';
+import {USER} from '../../constants/images';
 import {styles} from './Style';
 import React, {useRef} from 'react';
-import {StyleSheet, Text, View, Animated, Pressable, Image} from 'react-native';
+import {Text, View, Animated, Pressable, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {selectUser} from '../../redux/reducer/authReducer';
@@ -41,13 +41,7 @@ export default function HeaderScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.LeftBar}>
-        <Image
-          style={styles.UserImg}
-          source={USER}
-          onPress={() => {
-            navigation.navigate('Profile');
-          }}
-        />
+        <Image style={styles.UserImg} source={USER} />
         <View style={styles.LeftBarContent}>
           <Text style={styles.UserName}>{user?.name}</Text>
           <Text style={styles.UserLocation}>Where are going today?</Text>

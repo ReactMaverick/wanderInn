@@ -1,5 +1,5 @@
 import './gesture-handler.native.js';
-import {LogBox, StyleSheet} from 'react-native';
+import {LogBox} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Provider} from 'react-redux';
 import CustomSplashScreen from './src/components/Splash/Splash';
@@ -34,5 +34,3 @@ const App = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({});

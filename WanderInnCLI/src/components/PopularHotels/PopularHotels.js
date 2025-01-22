@@ -18,8 +18,6 @@ export default function PopularHotels({hotel, screen, navigation}) {
   const dispatch = useDispatch();
   const blinkValue = useRef(new Animated.Value(1)).current;
   // console.log('PopularHotels component ==> ', hotel);
-  
-
   // console.log('PopularHotels==> ', hotel);
 
   const checkHotelsInFavList = () => {

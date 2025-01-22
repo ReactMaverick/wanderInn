@@ -17,6 +17,8 @@ import {auth} from '../../../firebaseConfig';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signInWithRedirect,
 } from 'firebase/auth';
@@ -95,10 +97,20 @@ export default function RegisterPage({navigation}) {
       try {
         const response = await postData(REGISTER_URL, formData);
 
-        // console.log('Response ==> ', response);
+        console.log('Register Response ==> ', response);
 
         if (response.isSuccess) {
-          showToast('success', response.message);
+
+          await signInWithEmailAndPassword(
+            auth,
+            formData.email,
+            formData.password,
+          ).then(() => {
+            sendEmailVerification(auth.currentUser);
+            console.log('Email verification sent');
+          });
+
+          showToast('success', 'Verification email sent');
 
           navigation.navigate('Login');
 
