@@ -57,7 +57,7 @@ export default function PopularHotels({hotel, screen, navigation}) {
   return (
     <Pressable
       onPress={() => {
-        console.log('Hotel clicked');
+        // console.log('Hotel clicked');
 
         navigation.navigate('HotelDetails', {id: hotel._id});
 

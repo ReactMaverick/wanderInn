@@ -97,7 +97,7 @@ export default function RegisterPage({navigation}) {
       try {
         const response = await postData(REGISTER_URL, formData);
 
-        console.log('Register Response ==> ', response);
+        // console.log('Register Response ==> ', response);
 
         if (response.isSuccess) {
 
@@ -107,7 +107,7 @@ export default function RegisterPage({navigation}) {
             formData.password,
           ).then(() => {
             sendEmailVerification(auth.currentUser);
-            console.log('Email verification sent');
+            // console.log('Email verification sent');
           });
 
           showToast('success', 'Verification email sent');
@@ -124,7 +124,7 @@ export default function RegisterPage({navigation}) {
           showToast('error', response.message);
         }
       } catch (error) {
-        console.log('Error ==> ', error);
+        // console.log('Error ==> ', error);
         showToast('error', 'Something went wrong');
       } finally {
         setIsLoading(false);

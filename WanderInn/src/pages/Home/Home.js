@@ -53,7 +53,7 @@ export default function HomePage({navigation}) {
       dispatch(getFiveNearbyHotels(location))
         .then()
         .catch(error => {
-          console.log('Error ==> ', error);
+          // console.log('Error ==> ', error);
           showToast('error', 'Something went wrong! Please try again later.');
         })
         .finally(() => {
@@ -72,11 +72,11 @@ export default function HomePage({navigation}) {
   useEffect(() => {
     const initialize = async () => {
       // requestLocationPermission();
-      // await getLocation();
+      await getLocation();
       // // console.log("permissionGranted  ==> ", permissionGranted);
       Promise.all([
-        dispatch(getFivePopularHotels()),
-        dispatch(getFavoriteHotels()),
+        dispatch(getFivePopularHotels({})),
+        dispatch(getFavoriteHotels({})),
       ])
         .catch(error => {
           console.error('Error fetching hotel data: ', error);

@@ -12,7 +12,7 @@ import { showToast } from '../../constants/constants';
 export default function MyBookingHotels({booking, index}) {
   const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
-  console.log('index ==>> ', index, 'booking  ==>> ', booking);
+  // console.log('index ==>> ', index, 'booking  ==>> ', booking);
 
   const animateIcon = () => {
     setIsFav(!isFav);

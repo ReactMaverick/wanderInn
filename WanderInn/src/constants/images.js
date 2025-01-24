@@ -58,3 +58,4 @@ export const CALENDER = require('../assets/images/icons/calendar.png');
 export const USERSOLID = require('../assets/images/icons/mdi_users.png');
 export const CHECKED = require('../assets/images/checked.png');
 export const UNCHECKED = require('../assets/images/unchecked.png');
+export const BLURBG = require('../assets/images/blurBG.png');

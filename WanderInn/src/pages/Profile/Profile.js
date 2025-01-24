@@ -54,10 +54,10 @@ import {DELETE_USER_URL} from '../../values/api/url';
 export default function ProfilePage({navigation}) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  console.log('isLoggedIn in tabLayout ==> ', isLoggedIn);
+  // console.log('isLoggedIn in tabLayout ==> ', isLoggedIn);
 
   const user = useSelector(selectUser);
-  console.log('user in tabLayout ==> ', user);
+  // console.log('user in tabLayout ==> ', user);
   const [selected, setSelected] = useState(null);
 
   const data = [
@@ -102,7 +102,7 @@ export default function ProfilePage({navigation}) {
     setIsLoading(true);
     signOut(auth)
       .then(() => {
-        console.log('User logged out');
+        // console.log('User logged out');
 
         dispatch(logout());
 
@@ -128,13 +128,13 @@ export default function ProfilePage({navigation}) {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          // onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {
           text: 'Delete',
           onPress: async () => {
-            console.log('Delete User Initiated');
+            // console.log('Delete User Initiated');
 
             try {
               const token = await getToken();
@@ -148,16 +148,16 @@ export default function ProfilePage({navigation}) {
               }
 
               const response = await deleteData(DELETE_USER_URL, token);
-              console.log("Response code ===> ", response.code);
+              // console.log("Response code ===> ", response.code);
               
 
               if (response.code === 200) {
-                console.log('User deleted successfully');
+                // console.log('User deleted successfully');
                 dispatch(logout());
                 navigation.navigate('LandingPage');
                 showToast('success', 'User deleted successfully');
               } else {
-                console.error('Failed to delete user:');
+                // console.error('Failed to delete user:');
                 showToast('error', 'Error deleting user. Please try again.');
               }
             } catch (error) {
@@ -209,12 +209,12 @@ export default function ProfilePage({navigation}) {
                     [
                       {
                         text: 'Cancel',
-                        onPress: () => console.log('Cancel Pressed'),
+                        // onPress: () => console.log('Cancel Pressed'),
                         style: 'cancel',
                       },
                       {
                         text: 'Edit',
-                        onPress: () => console.log('Edit Pressed'),
+                        // onPress: () => console.log('Edit Pressed'),
                       },
                     ],
                   );

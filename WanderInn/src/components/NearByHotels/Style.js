@@ -72,16 +72,27 @@ export const styles = StyleSheet.create({
   },
 
   HotelCardReviewbox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     position: 'absolute',
     bottom: 0,
     left: 0,
     zIndex: 1,
-    backgroundColor: colors.boxBG,
+    // backgroundColor: 'yellow',
+    width: '100%',
+  },
+  HotelCardReviewInner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
     paddingHorizontal: deviceWidth / 50,
     paddingVertical: deviceHeight / 70,
-    width: '100%',
+    // backgroundColor: 'red',
+    position: 'relative',
+  },
+  HotelCardReviewImg: {
+    width: deviceWidth,
+    position: 'absolute',
+    opacity: 0.9,
+    // backgroundColor: 'red',
   },
   HotelCardReview: {
     flexDirection: 'row',

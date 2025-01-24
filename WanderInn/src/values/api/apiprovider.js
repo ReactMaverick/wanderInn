@@ -48,8 +48,8 @@ export const postFormData = async (apiUrl, data, token) => {
 export const deleteData = async (apiUrl, token) => {
   const headers = getHeaders(token);
 
-  console.log('DELETE Request Headers:', headers);
-  console.log('DELETE Request URL:', apiUrl);
+  // console.log('DELETE Request Headers:', headers);
+  // console.log('DELETE Request URL:', apiUrl);
 
   return axios
     .delete(apiUrl, {headers})

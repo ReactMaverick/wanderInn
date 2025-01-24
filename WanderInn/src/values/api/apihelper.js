@@ -12,7 +12,7 @@ export const handleResponse = response => {
 };
 
 export const handleError = (error) => {
-    console.log('Error ==> ', error);
+    // console.log('Error ==> ', error);
     if (error?.response?.data?.code === ERROR_CODE || error?.response?.data?.code === UNAUTHORIZED_ERROR_CODE || error?.response?.data?.code === CONFLICT_CODE) {
         return error.response.data;
     } else {

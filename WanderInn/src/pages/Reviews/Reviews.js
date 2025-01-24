@@ -25,7 +25,7 @@ export default function ReviewsPage({navigation}) {
             <Pressable
               style={styles.backBtn}
               onPress={() => {
-                console.log('back');
+                // console.log('back');
                 navigation.goBack();
               }}>
               <Icon name="chevron-back" style={styles.backBtnIcon} />

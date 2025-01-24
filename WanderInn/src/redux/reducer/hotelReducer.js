@@ -4,7 +4,7 @@ import {API_URL} from '../../values/api/url';
 import {getToken} from '../../common/common';
 import {getData, postData} from '../../values/api/apiprovider';
 
-export const getHotels = createAsyncThunk('hotel/getHotels', async () => {
+export const getHotels = createAsyncThunk('hotel/getHotels', async ({}, {rejectWithValue}) => {
   try {
     const token = await getToken();
     //console.log('Token ==> ', token);
@@ -19,7 +19,7 @@ export const getHotels = createAsyncThunk('hotel/getHotels', async () => {
 });
 export const getFivePopularHotels = createAsyncThunk(
   'hotel/getFivePopularHotels',
-  async () => {
+  async ({}, {rejectWithValue}) => {
     try {
       const token = await getToken();
       //console.log('Token ==> ', token);
@@ -39,7 +39,7 @@ export const getFivePopularHotels = createAsyncThunk(
 );
 export const getFiveNearbyHotels = createAsyncThunk(
   'hotel/getFiveNearbyHotels',
-  async location => {
+  async (location, {rejectWithValue}) => {
     try {
       // console.log('Location from Thunk ====> ', location.coords.latitude);
       const token = await getToken();
@@ -73,7 +73,7 @@ export const getFiveNearbyHotels = createAsyncThunk(
 );
 export const addToFavorite = createAsyncThunk(
   'hotel/addToFavorite',
-  async hotelId => {
+  async (hotelId, {rejectWithValue}) => {
     try {
       //console.log('Hotel Id ==> ', hotelId);
       const token = await getToken();
@@ -84,17 +84,17 @@ export const addToFavorite = createAsyncThunk(
         {hotelId},
         token,
       );
-      console.log("addToFavorite response====> ", response.data);
+      // console.log("addToFavorite response====> ", response.data);
       return response.data;
     } catch (error) {
-      console.error('Add to favourite response ===> ', error);
+      // console.error('Add to favourite response ===> ', error);
       return rejectWithValue(error.response.data);
     }
   },
 );
 export const getFavoriteHotels = createAsyncThunk(
   'hotel/getFavoriteHotels',
-  async () => {
+  async ({}, {rejectWithValue}) => {
     try {
       const token = await getToken();
       // console.log('Token From getFavoriteHotels ==> ', token);
@@ -110,7 +110,7 @@ export const getFavoriteHotels = createAsyncThunk(
 );
 export const removeFromFavorite = createAsyncThunk(
   'hotel/removeFromFavorite',
-  async hotelId => {
+  async (hotelId, {rejectWithValue}) => {
     try {
       //console.log('Hotel Id ==> ', hotelId);
       const token = await getToken();
@@ -131,7 +131,7 @@ export const removeFromFavorite = createAsyncThunk(
 );
 export const getBookingsByUser = createAsyncThunk(
   'hotel/getBookingsByUser',
-  async () => {
+  async ({}, {rejectWithValue}) => {
     try {
       const token = await getToken();
       //console.log('Token ==> ', token);
@@ -155,9 +155,9 @@ export const getBookingsByUser = createAsyncThunk(
 );
 export const getAllNearbyHotels = createAsyncThunk(
   'hotel/getAllNearbyHotels',
-  async ({location, page, limit}) => {
+  async ({location, page, limit}, {rejectWithValue}) => {
     try {
-      console.log('Location hotel/getAllNearbyHotels ====> ', location);
+      // console.log('Location hotel/getAllNearbyHotels ====> ', location);
       const token = await getToken();
       //console.log('Token ==> ', token);
       //console.log('API_URL ==> ', API_URL + "nearbyHotels");
@@ -174,7 +174,7 @@ export const getAllNearbyHotels = createAsyncThunk(
         },
         token,
       );
-      console.log(' getAllNearbyHotels response====> ', response.data);
+      // console.log(' getAllNearbyHotels response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -184,7 +184,7 @@ export const getAllNearbyHotels = createAsyncThunk(
 );
 export const getAllPopularHotels = createAsyncThunk(
   'hotel/getAllPopularHotels',
-  async () => {
+  async ({}, {rejectWithValue}) => {
     try {
       const token = await getToken();
       //console.log('Token ==> ', token);
@@ -204,7 +204,7 @@ export const getAllPopularHotels = createAsyncThunk(
 );
 export const bookHotel = createAsyncThunk(
   'hotel/bookHotel',
-  async ({hotelId}) => {
+  async ({hotelId}, {rejectWithValue}) => {
     try {
       //console.log('Hotel Id ==> ', hotelId);
       const token = await getToken();
@@ -224,7 +224,7 @@ export const bookHotel = createAsyncThunk(
         },
         token,
       );
-      console.log('book Hotel response====> ', response.data);
+      // console.log('book Hotel response====> ', response.data);
       return response.data;
     } catch (error) {
       console.error('Add to favourite response ===> ', error);
@@ -234,9 +234,9 @@ export const bookHotel = createAsyncThunk(
 );
 export const cancelBooking = createAsyncThunk(
   'hotel/cancelBooking',
-  async ({bookingId}) => {
+  async ({bookingId}, {rejectWithValue}) => {
     try {
-      console.log('bookingId Id ==> ', bookingId);
+      // console.log('bookingId Id ==> ', bookingId);
       const token = await getToken();
 
       const response = await postData(
@@ -244,10 +244,10 @@ export const cancelBooking = createAsyncThunk(
         {},
         token,
       );
-      console.log('cancelBooking response====> ', response);
+      // console.log('cancelBooking response====> ', response);
       return response.data;
     } catch (error) {
-      console.error('cancelBooking response ===> ', error);
+      // console.error('cancelBooking response ===> ', error);
       return rejectWithValue(error.response.data);
     }
   },
@@ -407,7 +407,7 @@ const hotelSlice = createSlice({
         // state.hotels = action.payload;
       })
       .addCase(bookHotel.fulfilled, (state, action) => {
-        console.log(' bookHotel action.payload ==> ', action.payload);
+        // console.log(' bookHotel action.payload ==> ', action.payload);
         state.bookings.push(action.payload);
       })
       .addCase(bookHotel.rejected, (state, action) => {
@@ -420,7 +420,7 @@ const hotelSlice = createSlice({
         // state.hotels = action.payload;
       })
       .addCase(cancelBooking.fulfilled, (state, action) => {
-        console.log(' cancelBooking action.payload ==> ', action.payload);
+        // console.log(' cancelBooking action.payload ==> ', action.payload);
         state.bookings = state.bookings.map(booking => {
           if (booking._id !== action.payload._id) {
             return booking;

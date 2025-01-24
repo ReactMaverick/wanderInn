@@ -10,7 +10,7 @@ export default function AllHotelsPage({
   totalPages,
   navigation,
 }) {
-  console.log('AllHotelsPage hotels==> ', hotels);
+  // console.log('AllHotelsPage hotels==> ', hotels);
   const loadMoreData = () => {
     if (page < totalPages) {
       setPage(page + 1);

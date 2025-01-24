@@ -1,19 +1,19 @@
-import {ScrollView, Text, View} from 'react-native';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { ScrollView, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AllHotelsPage from '../../components/AllHotelPage/AllHotelPage';
-import {getAllNearbyHotels} from '../../redux/reducer/hotelReducer';
-import {showToast} from '../../constants/constants';
+import { getAllNearbyHotels } from '../../redux/reducer/hotelReducer';
+import { showToast } from '../../constants/constants';
 // import Geolocation from '@react-native-community/geolocation';
 import Loader from '../../components/Loader/Loader';
 import HeaderScreen from '../../components/Header/Header';
-import {styles} from './Style';
+import { styles } from './Style';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 // import GetLocation from 'react-native-get-location';
 import Geolocation from '@react-native-community/geolocation';
 
-export default function AllNearbyHotels({navigation}) {
-  console.log('**************Hello From AllNearByHotels**********************');
+export default function AllNearbyHotels({ navigation }) {
+  // console.log('**************Hello From AllNearByHotels**********************');
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export default function AllNearbyHotels({navigation}) {
 
   const nearByHotelsFetch = async () => {
     if (location) {
-      dispatch(getAllNearbyHotels({location: location, page, limit: '2'}))
+      dispatch(getAllNearbyHotels({ location: location, page, limit: '2' }))
         .then(e => {
           setTotalPages(e.payload.pagination.totalPages);
         })
@@ -73,7 +73,7 @@ export default function AllNearbyHotels({navigation}) {
     }
   }, [location, page]);
 
-  console.log('AllNearbyHotels ==> ', allNearbyHotels);
+  // console.log('AllNearbyHotels ==> ', allNearbyHotels);
 
   // if (loading) {
   //   return <Text>Loading nearby hotels...</Text>;
@@ -81,25 +81,24 @@ export default function AllNearbyHotels({navigation}) {
   return (
     <>
       <HeaderScreen navigation={navigation} />
-      {!loading && allNearbyHotels.length > 0 ? (
-        // <AllHotelsPage hotels={allNearbyHotels} navigation={navigation} />
-        <>
-          <ScrollView>
-            <View style={styles.container}>
-              {allNearbyHotels?.map((hotel, index) => (
-                <PopularHotels
-                  key={index}
-                  hotel={hotel}
-                  navigation={navigation}
-                />
-              ))}
-            </View>
-          </ScrollView>
-        </>
-      ) : !loading ? (
+      {loading ? (
         <Loader />
+      ) : allNearbyHotels.length > 0 ? (
+        <ScrollView>
+          <View style={styles.container}>
+            {allNearbyHotels?.map((hotel, index) => (
+              <PopularHotels
+                key={index}
+                hotel={hotel}
+                navigation={navigation}
+              />
+            ))}
+          </View>
+        </ScrollView>
       ) : (
-        <Text>No Data Found</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>No Data Found</Text>
+        </View>
       )}
     </>
     // <Text> All Hotels </Text>

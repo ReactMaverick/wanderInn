@@ -1,18 +1,18 @@
-import {Animated, Image, Pressable, Text, View} from 'react-native';
-import {HOTEL1, USER1, USER2, USER4, USER5} from '../../constants/images';
-import {styles} from './Style';
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useRef, useState} from 'react';
-import {formatToOneDecimalPlace} from '../../common/common';
+import { Animated, Image, Pressable, Text, View } from 'react-native';
+import { BLURBG, HOTEL1, SlIDERBG1, USER1, USER2, USER4, USER5 } from '../../constants/images';
+import { styles } from './Style';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { formatToOneDecimalPlace } from '../../common/common';
 import {
   addToFavorite,
   removeFromFavorite,
 } from '../../redux/reducer/hotelReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {BlurView} from '@react-native-community/blur';
+// import {BlurView} from '@react-native-community/blur';
 
-export default function NearByHotels({hotel, index, delay, navigation}) {
+export default function NearByHotels({ hotel, index, delay, navigation }) {
   const dispatch = useDispatch();
   const blinkValue = useRef(new Animated.Value(1)).current;
   const translateX = useRef(new Animated.Value(300)).current; // Initial position
@@ -77,17 +77,17 @@ export default function NearByHotels({hotel, index, delay, navigation}) {
   return (
     <Pressable
       onPress={() => {
-        console.log('Hotel clicked');
-        navigation.navigate('HotelDetails', {id: hotel._id});
+        // console.log('Hotel clicked');
+        navigation.navigate('HotelDetails', { id: hotel._id });
       }}>
-      <Animated.View style={{transform: [{translateX}], opacity}}>
+      <Animated.View style={{ transform: [{ translateX }], opacity }}>
         <View style={styles.HotelCard}>
           <View style={styles.HotelCardImgBox}>
             <View style={styles.CatagoryBox}>
               <Text style={styles.CatagoryText}>Trending</Text>
             </View>
             <Pressable onPress={animateIcon} style={styles.HeartIconBox}>
-              <Animated.View style={{opacity: blinkValue}}>
+              <Animated.View style={{ opacity: blinkValue }}>
                 <AntDesign
                   name={isFav ? 'heart' : 'hearto'}
                   style={styles.HeartIcon}
@@ -96,35 +96,43 @@ export default function NearByHotels({hotel, index, delay, navigation}) {
             </Pressable>
             <Image
               style={styles.HotelCardImg}
-              source={hotel.image ? {uri: hotel.image} : HOTEL1}
+              source={hotel.image ? { uri: hotel.image } : HOTEL1}
             />
-            <BlurView
-              blurAmount={80}
-              blurType="dark"
-              style={styles.HotelCardReviewbox}>
-              <View style={styles.HotelCardReview}>
-                <Text style={styles.HotelCardReviewText}>
-                  15k+ People Reviews
-                </Text>
-                <View style={styles.UsersGroupImgs}>
-                  <Image style={styles.UsersGroupImg} source={USER1} />
-                  <Image style={styles.UsersGroupImg} source={USER2} />
-                  <Image style={styles.UsersGroupImg} source={USER4} />
-                  <View style={styles.UsersGroupImgPlusBox}>
-                    <Image style={styles.UsersGroupImgPlus} source={USER5} />
-                    <View style={styles.UsersOverlay}>
-                      <Text style={styles.UsersGroupImgText}>+</Text>
+            <View
+              style={styles.HotelCardReviewbox}
+            >
+              <View style={styles.HotelCardReviewInner}>
+
+                <Image
+                  style={styles.HotelCardReviewImg}
+                  source={BLURBG}
+                  blurRadius={20}
+                />
+
+                <View style={styles.HotelCardReview}>
+                  <Text style={styles.HotelCardReviewText}>
+                    15k+ People Reviews
+                  </Text>
+                  <View style={styles.UsersGroupImgs}>
+                    <Image style={styles.UsersGroupImg} source={USER1} />
+                    <Image style={styles.UsersGroupImg} source={USER2} />
+                    <Image style={styles.UsersGroupImg} source={USER4} />
+                    <View style={styles.UsersGroupImgPlusBox}>
+                      <Image style={styles.UsersGroupImgPlus} source={USER5} />
+                      <View style={styles.UsersOverlay}>
+                        <Text style={styles.UsersGroupImgText}>+</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
+                <View style={styles.ReviewBox}>
+                  <Text style={styles.ReviewText}>
+                    {formatToOneDecimalPlace(hotel.starRating)}
+                  </Text>
+                  <Icon name="star" style={styles.ReviewStar} />
+                </View>
               </View>
-              <View style={styles.ReviewBox}>
-                <Text style={styles.ReviewText}>
-                  {formatToOneDecimalPlace(hotel.starRating)}
-                </Text>
-                <Icon name="star" style={styles.ReviewStar} />
-              </View>
-            </BlurView>
+            </View>
           </View>
           <View style={styles.HotelCardContent}>
             <View style={styles.HotelCardContentInner}>

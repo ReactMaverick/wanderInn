@@ -7,6 +7,7 @@ import {store, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import Router from './src/routes/Router';
+import 'react-native-get-random-values';
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 

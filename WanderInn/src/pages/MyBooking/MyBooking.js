@@ -1,22 +1,22 @@
-import {View, Text, ScrollView, Pressable, RefreshControl} from 'react-native';
-import {styles} from './Style';
+import { View, Text, ScrollView, Pressable, RefreshControl } from 'react-native';
+import { styles } from './Style';
 import HeaderScreen from '../../components/Header/Header';
 import MyBookingHotels from '../../components/MyBookingHotels/MyBookingHotels';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getBookingsByUser} from '../../redux/reducer/hotelReducer';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookingsByUser } from '../../redux/reducer/hotelReducer';
 import Loader from '../../components/Loader/Loader';
 
-export default function MyBookingPage({navigation}) {
+export default function MyBookingPage({ navigation }) {
   const dispatch = useDispatch();
   const bookings = useSelector(state => state.hotel.bookings);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  console.log('Booking : ', bookings);
+  // console.log('Booking : ', bookings);
   const bookingsByUserFetch = () => {
-    dispatch(getBookingsByUser())
-      .then(result => {})
-      .catch(err => {})
+    dispatch(getBookingsByUser({}))
+      .then(result => { })
+      .catch(err => { })
       .finally(() => {
         setIsLoading(false);
       });
@@ -54,7 +54,9 @@ export default function MyBookingPage({navigation}) {
           ) : isLoading ? (
             <Loader />
           ) : !isLoading && bookings.length === 0 ? (
-            <Text>No Booking Found</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text>No Booking Found</Text>
+            </View>
           ) : null}
         </View>
       </ScrollView>

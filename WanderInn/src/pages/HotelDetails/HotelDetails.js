@@ -19,7 +19,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import {BlurView} from '@react-native-community/blur';
+// import {BlurView} from '@react-native-community/blur';
 import {
   AC,
   BATH,
@@ -58,12 +58,12 @@ export default function HotelDetails({navigation, route}) {
   const [hotel, setHotel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const {id} = route.params;
-  console.log('Hotel Detals ==> ', hotel);
-  console.log('Hotel From NearByHotels details page==> ', id);
+  // console.log('Hotel Detals ==> ', hotel);
+  // console.log('Hotel From NearByHotels details page==> ', id);
   const bookNowClicked = () => {
     dispatch(bookHotel({hotelId: hotel._id}))
       .then(e => {
-        console.log('Hotel Booked Successfully......', e);
+        // console.log('Hotel Booked Successfully......', e);
         showToast('success', 'Hotel Booked Successfully');
       })
       .catch(() => {
@@ -85,7 +85,7 @@ export default function HotelDetails({navigation, route}) {
         .finally(() => {
           setIsLoading(false);
         });
-      console.log('response====> ', response);
+      // console.log('response====> ', response);
       setHotel(response.data);
       setImage(response.data.image);
       return response.data;
@@ -238,7 +238,7 @@ export default function HotelDetails({navigation, route}) {
                   {/* see all button with icon  */}
                   <Pressable
                     onPress={() => {
-                      console.log('Hotel clicked');
+                      // console.log('Hotel clicked');
                       navigation.navigate('ReviewsPage');
                     }}
                     style={styles.seeAllBtn}>

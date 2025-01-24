@@ -81,7 +81,7 @@ const Login = ({navigation}) => {
         .then(async userCredential => {
           // Signed in
           const user = userCredential.user;
-          console.log('User from login ==> ', user);
+          // console.log('User from login ==> ', user);
           // console.log('User ==> ', user);
           setIsLoggedIn(true);
 
@@ -103,11 +103,11 @@ const Login = ({navigation}) => {
 
                 dispatch(login(response.data));
               } else {
-                console.log('Error ==> ', response.message);
+                // console.log('Error ==> ', response.message);
                 showToast('error', response.message);
               }
             } catch (error) {
-              console.log('Error ==> ', error);
+              // console.log('Error ==> ', error);
               showToast('error', 'Something went wrong');
             }
           } else {
@@ -119,11 +119,11 @@ const Login = ({navigation}) => {
           const errorCode = error.code;
           const errorMessage = error.message;
 
-          console.log('Error ==> ', errorCode, errorMessage);
+          // console.log('Error ==> ', errorCode, errorMessage);
           showToast('error', errorMessage);
         })
         .finally(() => {
-          console.log('Finally block');
+          // console.log('Finally block');
 
           setIsEmailValid(false);
 
@@ -143,16 +143,16 @@ const Login = ({navigation}) => {
     setIsLoading(true);
 
     const user = auth.currentUser;
-    console.log("auth.current user ====> ", user);
+    // console.log("auth.current user ====> ", user);
 
     sendEmailVerification(user)
       .then(() => {
-        console.log('Verification email sent');
+        // console.log('Verification email sent');
 
         showToast('success', 'Verification email sent');
       })
       .catch(error => {
-        console.log('Error ==> ', error);
+        // console.log('Error ==> ', error);
       })
       .finally(() => {
         setIsLoading(false);

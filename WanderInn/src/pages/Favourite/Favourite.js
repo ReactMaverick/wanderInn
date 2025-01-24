@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   ScrollView,
@@ -7,14 +7,14 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import {styles} from './Style';
+import { styles } from './Style';
 import HeaderScreen from '../../components/Header/Header';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
-import {useDispatch, useSelector} from 'react-redux';
-import {getFavoriteHotels} from '../../redux/reducer/hotelReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFavoriteHotels } from '../../redux/reducer/hotelReducer';
 import Loader from '../../components/Loader/Loader';
 
-export default function FavouritePage({navigation}) {
+export default function FavouritePage({ navigation }) {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -40,7 +40,7 @@ export default function FavouritePage({navigation}) {
   }, [refreshing]);
 
   const getFavouriteHotels = async () => {
-    dispatch(getFavoriteHotels())
+    dispatch(getFavoriteHotels({}))
       .then()
       .catch()
       .finally(() => setLoading(false));
@@ -85,23 +85,25 @@ export default function FavouritePage({navigation}) {
           {isLoading ? (
             <Loader />
           ) : favouriteHotels.length === 0 ? (
-            <Text>No Favourite Hotels</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text>No Favourite Hotels</Text>
+            </View>
           ) : (
             favouriteHotels?.map((hotel, index) => (
               <View
                 key={index}
-                // style={{
-                //   opacity: animations[index],
-                //   transform: [
-                //     {
-                //       translateY: animations[index].interpolate({
-                //         inputRange: [0, 1],
-                //         outputRange: [20, 0], // Adjust the vertical movement
-                //       }),
-                //     },
-                //   ],
-                // }}
-                >
+              // style={{
+              //   opacity: animations[index],
+              //   transform: [
+              //     {
+              //       translateY: animations[index].interpolate({
+              //         inputRange: [0, 1],
+              //         outputRange: [20, 0], // Adjust the vertical movement
+              //       }),
+              //     },
+              //   ],
+              // }}
+              >
                 <PopularHotels hotel={hotel} navigation={navigation} />
               </View>
             ))

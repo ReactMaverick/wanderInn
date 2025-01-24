@@ -46,9 +46,9 @@ export default function LocationSearchInputScreen({navigation}) {
             onChangeText: text => setSearch(text),
           }}
           onPress={(data, details = null) => {
-            console.log('onPress ==> ');
-            console.log('Data ==> ', data);
-            console.log('Details ==> ', details);
+            // console.log('onPress ==> ');
+            // console.log('Data ==> ', data);
+            // console.log('Details ==> ', details);
             setSearch(data.description); // Update the search state with the selected place description
           }}
           query={{
