@@ -1,6 +1,6 @@
-// export const API_URL = 'http://192.168.29.198:4006/wanderInn/api/v1/'; //Localhost IP Priyam
+export const API_URL = 'http://192.168.29.198:4006/wanderInn/api/v1/'; //Localhost IP Priyam
 // export const API_URL = 'http://192.168.29.39:4006/wanderInn/api/v1/'; //Localhost IP Saikat
-export const API_URL = 'http://194.163.131.163:4006/wanderInn/api/v1/'; //Server IP
+// export const API_URL = 'http://194.163.131.163:4006/wanderInn/api/v1/'; //Server IP
 
 export const REGISTER_URL = `${API_URL}register`;
 

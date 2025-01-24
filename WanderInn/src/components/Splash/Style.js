@@ -6,10 +6,10 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        // backgroundColor: "red",
     },
 
     LogoImg: {
-        position: 'absolute',
         height: deviceHeight / 4,
         width: deviceWidth / 3 * 2,
         resizeMode: 'contain',

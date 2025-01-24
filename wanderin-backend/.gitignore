@@ -38,3 +38,6 @@ uploads/
 # serviceAccount/
 
 *.zip
+
+# Firebase Service Account (/serviceAccount)
+serviceAccount/

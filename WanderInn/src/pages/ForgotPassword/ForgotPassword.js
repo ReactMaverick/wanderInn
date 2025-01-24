@@ -9,20 +9,20 @@ import {
   View,
 } from 'react-native';
 import Loader from '../../components/Loader/Loader';
-import {colors} from '../../constants/colors';
-import {useDispatch} from 'react-redux';
-import {useState} from 'react';
-import {postData} from '../../values/api/apiprovider';
-import {FORGOT_PASSWORD_URL} from '../../values/api/url';
-import {sendPasswordResetEmail} from 'firebase/auth';
-import {showToast, platform} from '../../constants/constants';
+import { colors } from '../../constants/colors';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { postData } from '../../values/api/apiprovider';
+import { FORGOT_PASSWORD_URL } from '../../values/api/url';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { showToast, platform } from '../../constants/constants';
 import CustomInput from '../../components/CustomInput/CustomInput';
-import {commonStyles} from '../../constants/styles';
-import {styles} from './Style';
-import {isValidEmail} from '../../constants/validation';
-import {auth} from '../../../firebaseConfig';
+import { commonStyles } from '../../constants/styles';
+import { styles } from './Style';
+import { isValidEmail } from '../../constants/validation';
+import { auth } from '../../../firebaseConfig';
 
-export default function ForgotPassword({navigation}) {
+export default function ForgotPassword({ navigation }) {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ export default function ForgotPassword({navigation}) {
     } else if (Object.keys(updatedErrors).length === 0) {
       // console.log('Form Data ==> ', formData);
 
-      const {email} = formData;
+      const { email } = formData;
 
       // console.log('Auth ==> ', auth);
 
@@ -67,7 +67,7 @@ export default function ForgotPassword({navigation}) {
 
       const checkUserAndSendEmail = async () => {
         try {
-          const response = await postData(FORGOT_PASSWORD_URL, {email});
+          const response = await postData(FORGOT_PASSWORD_URL, { email });
 
           if (response.isSuccess) {
             // console.log('Success Response ==> ', response);
@@ -149,7 +149,7 @@ export default function ForgotPassword({navigation}) {
                   />
 
                   <TouchableOpacity
-                    style={[commonStyles.btn, {marginTop: 27}]}
+                    style={[commonStyles.btn, { marginTop: 27 }]}
                     onPress={handleSendEmail}>
                     <Text style={commonStyles.btnText}>Send Email</Text>
                   </TouchableOpacity>

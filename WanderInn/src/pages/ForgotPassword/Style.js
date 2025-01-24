@@ -91,12 +91,13 @@ export const styles = StyleSheet.create({
   },
   loginLinkContainer: {
     marginTop: 20,
+    // backgroundColor: 'red'
   },
   loginLink: {
     color: colors.primary,
     fontSize: H6,
     fontFamily: 'LatoRegular',
-    lineHeight: 20.32,
+    // lineHeight: 20.32,
     textDecorationColor: colors.primary,
     textDecorationLine: 'underline',
   },
