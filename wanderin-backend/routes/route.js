@@ -20,6 +20,9 @@ router.post('/forgotPassword', userController.forgotPassword);
 // Delete user
 router.delete('/deleteUser', authMiddleware.isAuth, userController.deleteUser);
 
+// Delete user from url
+router.post('/deleteUserURL', userController.deleteUserURL);
+
 // User APIs
 router.get('/getUser', authMiddleware.isAuth, userController.getUser);
 router.post('/updateUser', authMiddleware.isAuth, userController.updateUser);

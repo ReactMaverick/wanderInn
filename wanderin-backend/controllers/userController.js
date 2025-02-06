@@ -398,3 +398,59 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json(helper.response(500, false, "Something went wrong!"));
     }
 }
+
+// Delete user from URL
+exports.deleteUserURL = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // check if the email and password are provided and valid using firebase
+        const userRecord = await admin.auth().getUserByEmail(email);
+
+        // console.log("User Record ==> ", userRecord);
+
+        // Sign in the user using the Firebase Authentication REST API
+
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebase_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                returnSecureToken: true,
+            }),
+        });
+        
+
+        const data = await response.json();        
+
+        // console.log('Response ==> ', data);
+
+        if (!response.ok) {
+            return res.status(400).json(helper.response(400, false, data.error.message));
+        }
+
+        const idToken = data.idToken;
+
+        // console.log('Id token:', idToken);
+
+        // Delete the user from Firebase
+        await admin.auth().deleteUser(userRecord.uid);
+
+        // Delete the user from the database
+        await User.findOneAndDelete({ email });
+        
+        return res.status(200).json(helper.response(200, true, "User deleted successfully!"));
+    } catch (error) {
+        // console.error('Error deleting user:', error);
+
+        if (error.code === 'auth/user-not-found') {
+            // User not found
+            return res.status(400).json(helper.response(400, false, "User not found!"));
+        }
+
+        return res.status(500).json(helper.response(500, false, "something went wrong in deleting user!"));
+    }
+}

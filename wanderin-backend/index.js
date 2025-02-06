@@ -56,6 +56,11 @@ app.get('/terms-and-conditions', (req, res) => {
     res.render('termsAndConditions');
 });
 
+// User Delete Route
+app.get('/delete-user', (req, res) => {
+    res.render('deleteUser');
+});
+
 const port = process.env.PORT || 4006;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
