@@ -1,19 +1,15 @@
 import React from 'react';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import {
-  KeyboardAvoidingView,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
+  Linking,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './Style';
-import {colors} from '../../constants/colors';
+import { styles } from './Style';
+import { colors } from '../../constants/colors';
 // import {Link, useRoute} from '@react-navigation/native';
-import {auth} from '../../../firebaseConfig';
+import { auth } from '../../../firebaseConfig';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -22,15 +18,16 @@ import {
   signInWithPopup,
   signInWithRedirect,
 } from 'firebase/auth';
-import {platform, showToast} from '../../constants/constants';
-import {commonStyles} from '../../constants/styles';
-import {useState} from 'react';
-import {isValidEmail} from '../../constants/validation';
-import {postData} from '../../values/api/apiprovider';
-import {REGISTER_URL} from '../../values/api/url';
+import { platform, showToast } from '../../constants/constants';
+import { commonStyles } from '../../constants/styles';
+import { useState } from 'react';
+import { isValidEmail } from '../../constants/validation';
+import { postData } from '../../values/api/apiprovider';
+import { PRIVACY_POLICY_URL, REGISTER_URL, TERMS_AND_CONDITIONS_URL } from '../../values/api/url';
 import Loader from '../../components/Loader/Loader';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
-export default function RegisterPage({navigation}) {
+export default function RegisterPage({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -137,88 +134,81 @@ export default function RegisterPage({navigation}) {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={platform === 'ios' ? 'padding' : 'height'}
-      style={commonStyles.keyboardAvoidingView}>
-      <SafeAreaView>
-        <ScrollView
-          style={commonStyles.bg}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled">
-          <View style={styles.container}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.headerText}>Create Account</Text>
-              <Text style={styles.headerSubText}>
-                Fill Your Information below or register with your account
-              </Text>
-            </View>
-            <View style={styles.InputContainer}>
-              <View style={styles.formContainer}>
-                <CustomInput
-                  label="Name"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChangeText={text => handleTextChange(text, 'name')}
-                  required={true}
-                  error={errors.name ? true : false}
-                  errorText={errors.name}
-                />
-                <CustomInput
-                  label="Email"
-                  placeholder="Enter your email"
-                  keyboardType={'email-address'}
-                  value={formData.email}
-                  rightIcon={isEmailValid ? 'checkmark-circle' : false}
-                  iconColor={colors.checkIconColor}
-                  onChangeText={text => handleTextChange(text, 'email')}
-                  required={true}
-                  error={errors.email ? true : false}
-                  errorText={errors.email}
-                />
-                <CustomInput
-                  label="Password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  secureTextEntry={!isPasswordVisible}
-                  rightIcon={
-                    isPasswordVisible ? 'eye-outline' : 'eye-off-outline'
-                  }
-                  iconColor={colors.gray}
-                  onIconPress={() => {
-                    setIsPasswordVisible(!isPasswordVisible);
-                  }}
-                  onChangeText={text => handleTextChange(text, 'password')}
-                  required={true}
-                  error={errors.password ? true : false}
-                  errorText={errors.password}
-                />
-                <CustomInput
-                  label="Confirm Password"
-                  placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  secureTextEntry={!isConfirmPasswordVisible}
-                  rightIcon={
-                    isConfirmPasswordVisible ? 'eye-outline' : 'eye-off-outline'
-                  }
-                  iconColor={colors.gray}
-                  onIconPress={() => {
-                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
-                  }}
-                  onChangeText={text =>
-                    handleTextChange(text, 'confirmPassword')
-                  }
-                  required={true}
-                  error={errors.confirmPassword ? true : false}
-                  errorText={errors.confirmPassword}
-                />
-                <TouchableOpacity
-                  style={[commonStyles.btn, {marginTop: 27}]}
-                  onPress={handleSignUp}>
-                  <Text style={commonStyles.btnText}>Sign Up</Text>
-                </TouchableOpacity>
-              </View>
+    <KeyboardSafeScroll>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.headerText}>Create Account</Text>
+          <Text style={styles.headerSubText}>
+            Fill Your Information below or register with your account
+          </Text>
+        </View>
+        <View style={styles.InputContainer}>
+          <View style={styles.formContainer}>
+            <CustomInput
+              label="Name"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChangeText={text => handleTextChange(text, 'name')}
+              required={true}
+              error={errors.name ? true : false}
+              errorText={errors.name}
+            />
+            <CustomInput
+              label="Email"
+              placeholder="Enter your email"
+              keyboardType={'email-address'}
+              value={formData.email}
+              rightIcon={isEmailValid ? 'checkmark-circle' : false}
+              iconColor={colors.checkIconColor}
+              onChangeText={text => handleTextChange(text, 'email')}
+              required={true}
+              error={errors.email ? true : false}
+              errorText={errors.email}
+            />
+            <CustomInput
+              label="Password"
+              placeholder="Enter your password"
+              value={formData.password}
+              secureTextEntry={!isPasswordVisible}
+              rightIcon={
+                isPasswordVisible ? 'eye-outline' : 'eye-off-outline'
+              }
+              iconColor={colors.gray}
+              onIconPress={() => {
+                setIsPasswordVisible(!isPasswordVisible);
+              }}
+              onChangeText={text => handleTextChange(text, 'password')}
+              required={true}
+              error={errors.password ? true : false}
+              errorText={errors.password}
+            />
+            <CustomInput
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
+              secureTextEntry={!isConfirmPasswordVisible}
+              rightIcon={
+                isConfirmPasswordVisible ? 'eye-outline' : 'eye-off-outline'
+              }
+              iconColor={colors.gray}
+              onIconPress={() => {
+                setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+              }}
+              onChangeText={text =>
+                handleTextChange(text, 'confirmPassword')
+              }
+              required={true}
+              error={errors.confirmPassword ? true : false}
+              errorText={errors.confirmPassword}
+            />
+            <TouchableOpacity
+              style={[commonStyles.btn, { marginTop: 27 }]}
+              onPress={handleSignUp}>
+              <Text style={commonStyles.btnText}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
 
-              {/* <View style={styles.orLoginWith}>
+          {/* <View style={styles.orLoginWith}>
                                 <View style={styles.orLoginWithLine} />
                                 <Text style={styles.orLoginWithText}>Or login with</Text>
                                 <View style={styles.orLoginWithLine} />
@@ -237,19 +227,43 @@ export default function RegisterPage({navigation}) {
                                     <Image source={GOOGLE} style={styles.socialMediaIcon} />
                                 </TouchableOpacity>
                             </View> */}
-            </View>
+        </View>
 
-            <View style={styles.loginLinkContainer}>
-              <Text style={styles.orLoginWithText}>
-                Already have an account?{' '}
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                  <Text style={styles.loginLink}>Login</Text>
-                </TouchableOpacity>
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+        {/* <View style={styles.loginLinkContainer}>
+          <Text style={styles.orLoginWithText}>
+            Already have an account?{' '}
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.loginLink}>Login</Text>
+            </TouchableOpacity>
+          </Text>
+        </View> */}
+
+        <View style={styles.loginLinkContainer}>
+          <Text style={styles.orLoginWithText}>
+            Already have an account?{' '}
+          </Text>
+          <Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.loginLink}>Login</Text>
+            </TouchableOpacity>
+          </Text>
+        </View>
+
+        {/* Add privacy policy and terms and conditions links */}
+        <View style={styles.privacyPolicyContainer}>
+          <Text style={styles.privacyPolicyText}>
+            By signing up, you agree to our{' '}
+            <Text style={styles.privacyPolicyLink}
+              onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+            >Privacy Policy</Text> and{' '}
+            <Text style={styles.privacyPolicyLink}
+              onPress={() => Linking.openURL(TERMS_AND_CONDITIONS_URL)}
+            >Terms & Conditions</Text>
+          </Text>
+        </View>
+
+      </View>
+    </KeyboardSafeScroll>
   );
 }

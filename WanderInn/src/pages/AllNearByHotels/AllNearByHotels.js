@@ -11,6 +11,7 @@ import { styles } from './Style';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 // import GetLocation from 'react-native-get-location';
 import Geolocation from '@react-native-community/geolocation';
+import KeyboardSafe from '../../components/KeyboardSafe/KeyboardSafeScroll';
 
 export default function AllNearbyHotels({ navigation }) {
   // console.log('**************Hello From AllNearByHotels**********************');
@@ -79,7 +80,7 @@ export default function AllNearbyHotels({ navigation }) {
   //   return <Text>Loading nearby hotels...</Text>;
   // }
   return (
-    <>
+    <KeyboardSafe>
       <HeaderScreen navigation={navigation} />
       {loading ? (
         <Loader />
@@ -100,7 +101,7 @@ export default function AllNearbyHotels({ navigation }) {
           <Text>No Data Found</Text>
         </View>
       )}
-    </>
+    </KeyboardSafe>
     // <Text> All Hotels </Text>
   );
 }

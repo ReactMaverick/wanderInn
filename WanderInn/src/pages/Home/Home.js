@@ -27,6 +27,7 @@ import BannerSliderScreen from '../../components/BannerSlider/BannerSlider';
 import {requestLocationPermission} from '../../common/common';
 // import GetLocation from 'react-native-get-location';
 import Geolocation from '@react-native-community/geolocation';
+import KeyboardSafe from '../../components/KeyboardSafe/KeyboardSafeScroll';
 
 export default function HomePage({navigation}) {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ export default function HomePage({navigation}) {
   };
 
   return (
-    <>
+    <KeyboardSafe>
       <HeaderScreen navigation={navigation} />
       <ScrollView
         refreshControl={
@@ -173,10 +174,10 @@ export default function HomePage({navigation}) {
             <Loader />
           )}
         </View>
-        <View style={[styles.container, {marginBottom: 20}]}>
+        {/* <View style={[styles.container, {marginBottom: 80}]}>
           <BannerSliderScreen />
-        </View>
+        </View> */}
       </ScrollView>
-    </>
+    </KeyboardSafe>
   );
 }

@@ -1,4 +1,4 @@
-package com.wanderinn
+package com.websadroit.wanderinn
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

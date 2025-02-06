@@ -13,6 +13,7 @@ import PopularHotels from '../../components/PopularHotels/PopularHotels';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoriteHotels } from '../../redux/reducer/hotelReducer';
 import Loader from '../../components/Loader/Loader';
+import KeyboardSafe from '../../components/KeyboardSafe/KeyboardSafeScroll';
 
 export default function FavouritePage({ navigation }) {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export default function FavouritePage({ navigation }) {
   };
 
   return (
-    <>
+    <KeyboardSafe>
       <HeaderScreen navigation={navigation} />
       <ScrollView
         refreshControl={
@@ -110,6 +111,6 @@ export default function FavouritePage({ navigation }) {
           )}
         </View>
       </ScrollView>
-    </>
+    </KeyboardSafe>
   );
 }

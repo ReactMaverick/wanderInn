@@ -21,6 +21,7 @@ import { commonStyles } from '../../constants/styles';
 import { styles } from './Style';
 import { isValidEmail } from '../../constants/validation';
 import { auth } from '../../../firebaseConfig';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
 export default function ForgotPassword({ navigation }) {
   const dispatch = useDispatch();
@@ -117,70 +118,66 @@ export default function ForgotPassword({ navigation }) {
   return (
     <>
       <StatusBar style="auto" />
-      <KeyboardAvoidingView
-        behavior={platform === 'ios' ? 'padding' : 'height'}
-        style={commonStyles.keyboardAvoidingView}>
-        <SafeAreaView>
-          <ScrollView
-            style={commonStyles.bg}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled">
-            <View style={styles.container}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.headerText}>Forgot Password?</Text>
-                <Text style={styles.headerSubText}>
-                  Don't worry! Just enter your email and we will send you a link
-                  to reset your password.
-                </Text>
-              </View>
-              <View style={styles.InputContainer}>
-                <View style={styles.formContainer}>
-                  <CustomInput
-                    label="Email"
-                    placeholder="Enter your email"
-                    keyboardType={'email-address'}
-                    value={formData.email}
-                    rightIcon={isEmailValid ? 'checkmark-circle' : false}
-                    iconColor={colors.checkIconColor}
-                    onChangeText={text => handleTextChange(text, 'email')}
-                    required={true}
-                    error={errors.email ? true : false}
-                    errorText={errors.email}
-                  />
+      <KeyboardSafeScroll>
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.headerText}>Forgot Password?</Text>
+            <Text style={styles.headerSubText}>
+              Don't worry! Just enter your email and we will send you a link
+              to reset your password.
+            </Text>
+          </View>
+          <View style={styles.InputContainer}>
+            <View style={styles.formContainer}>
+              <CustomInput
+                label="Email"
+                placeholder="Enter your email"
+                keyboardType={'email-address'}
+                value={formData.email}
+                rightIcon={isEmailValid ? 'checkmark-circle' : false}
+                iconColor={colors.checkIconColor}
+                onChangeText={text => handleTextChange(text, 'email')}
+                required={true}
+                error={errors.email ? true : false}
+                errorText={errors.email}
+              />
 
-                  <TouchableOpacity
-                    style={[commonStyles.btn, { marginTop: 27 }]}
-                    onPress={handleSendEmail}>
-                    <Text style={commonStyles.btnText}>Send Email</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View style={styles.linksContainer}>
-                <View style={styles.loginLinkContainer}>
-                  <Text style={styles.orLoginWithText}>
-                    Remember your password?{' '}
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Login')}>
-                      <Text style={styles.loginLink}>Login</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
-
-                <View style={styles.loginLinkContainer}>
-                  <Text style={styles.orLoginWithText}>
-                    Dont have an account?{' '}
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Register')}>
-                      <Text style={styles.loginLink}>Sign up</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
-              </View>
+              <TouchableOpacity
+                style={[commonStyles.btn, { marginTop: 27 }]}
+                onPress={handleSendEmail}>
+                <Text style={commonStyles.btnText}>Send Email</Text>
+              </TouchableOpacity>
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+          </View>
+
+          <View style={styles.linksContainer}>
+            <View style={styles.loginLinkContainer}>
+              <Text style={styles.orLoginWithText}>
+                Remember your password?{' '}
+              </Text>
+              <Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Login')}>
+                  <Text style={styles.loginLink}>Login</Text>
+                </TouchableOpacity>
+              </Text>
+            </View>
+
+            <View style={styles.loginLinkContainer}>
+              <Text style={styles.orLoginWithText}>
+                Don't have an account?{' '}
+
+              </Text>
+              <Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Register')}>
+                  <Text style={styles.loginLink}>Sign up</Text>
+                </TouchableOpacity>
+              </Text>
+            </View>
+          </View>
+        </View>
+      </KeyboardSafeScroll>
     </>
   );
 }

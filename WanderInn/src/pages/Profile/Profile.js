@@ -6,6 +6,7 @@ import {
   Image,
   Alert,
   FlatList,
+  Linking,
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import {styles} from './Style';
@@ -49,7 +50,8 @@ import SelectDropdown from '../../components/CustomSelectDrondown/SelectDropdown
 import {getToken} from '../../common/common';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {deleteData} from '../../values/api/apiprovider';
-import {DELETE_USER_URL} from '../../values/api/url';
+import {DELETE_USER_URL, PRIVACY_POLICY_URL, TERMS_AND_CONDITIONS_URL} from '../../values/api/url';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
 export default function ProfilePage({navigation}) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -106,7 +108,7 @@ export default function ProfilePage({navigation}) {
 
         dispatch(logout());
 
-        navigation.navigate('LandingPage');
+        // navigation.navigate('LandingPage');
 
         setIsLoading(false);
 
@@ -181,7 +183,7 @@ export default function ProfilePage({navigation}) {
   }
 
   return (
-    <>
+    <KeyboardSafeScroll>
       <HeaderScreen navigation={navigation} />
       <ScrollView>
         <View style={styles.LocSearchBox}>
@@ -448,26 +450,70 @@ export default function ProfilePage({navigation}) {
             </Text>
           </Pressable>
 
-          <Pressable
+          <Pressable style={styles.IconListItem}
             onPress={() => {
               item1(9);
-              handleLogout();
+              Linking.openURL(PRIVACY_POLICY_URL);
             }}
-            style={styles.IconListItem}>
-            <Image
-              source={active === 9 ? LOGOUT : LOGOUT1}
+          >
+            <AntDesign
+             name="lock"
+              size={28}
+              color={active === 9 ? colors.primary : colors.darkColor}
+              style={styles.IconListIcon}
+            />
+            <Text 
+              style={[
+                styles.IconListText,
+                { color: active === 9 ? colors.primary : colors.darkColor },
+              ]}
+            >
+              Privacy Policy
+            </Text>
+          </Pressable>
+
+          <Pressable style={styles.IconListItem}
+            onPress={() => {
+              item1(10);
+              Linking.openURL(TERMS_AND_CONDITIONS_URL);
+            }}
+          >
+            <AntDesign
+              name="filetext1"
+              size={28}
+              color={active === 10 ? colors.primary : colors.darkColor}
               style={styles.IconListIcon}
             />
             <Text
               style={[
                 styles.IconListText,
-                {color: active === 9 ? colors.primary : colors.darkColor},
+                { color: active === 10 ? colors.primary : colors.darkColor },
+              ]}
+            >
+              Terms & Conditions
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              item1(11);
+              handleLogout();
+            }}
+            style={styles.IconListItem}>
+            <Image
+              source={active === 11 ? LOGOUT : LOGOUT1}
+              style={styles.IconListIcon}
+            />
+            <Text
+              style={[
+                styles.IconListText,
+                {color: active === 11 ? colors.primary : colors.darkColor},
               ]}>
               Log Out
             </Text>
           </Pressable>
         </View>
       </ScrollView>
-    </>
+    </KeyboardSafeScroll>
   );
 }

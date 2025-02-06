@@ -7,8 +7,13 @@ import {styles} from './Style';
 import DateTimePicker from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import {commonStyles} from '../../constants/styles';
+import { useSelector } from 'react-redux';
+import { selectGooglePlacesApiKey } from '../../redux/reducer/authReducer';
 
 export default function LocationSearchInputScreen({navigation}) {
+
+  const googlePlacesAPIKey = useSelector(selectGooglePlacesApiKey);
+
   const [search, setSearch] = useState('');
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [dateRange, setDateRange] = useState({
@@ -52,7 +57,7 @@ export default function LocationSearchInputScreen({navigation}) {
             setSearch(data.description); // Update the search state with the selected place description
           }}
           query={{
-            key: 'AIzaSyCWtZ3KuXxUu7_mCwL1O2PzotYEpsc4vLU',
+            key: googlePlacesAPIKey,
             language: 'en',
           }}
           styles={{

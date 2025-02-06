@@ -3,6 +3,7 @@ const axios = require('axios');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -37,7 +38,23 @@ mongoose.connect(process.env.MONGO_URI)
         console.error('Connection failed!', error);
     });
 
+// Set EJS as the templating engine
+app.set('view engine', 'ejs');
+
+// Serve static files from the public directory under /public
+app.use('/backend/public', express.static(path.join(__dirname, 'public')));
+
 app.use("/wanderInn/api/v1", route);
+
+// Privacy Policy Route
+app.get('/privacy-policy', (req, res) => {
+    res.render('privacyPolicy');
+});
+
+// Terms and Conditions Route
+app.get('/terms-and-conditions', (req, res) => {
+    res.render('termsAndConditions');
+});
 
 const port = process.env.PORT || 4006;
 app.listen(port, () => {

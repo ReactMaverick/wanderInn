@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookingsByUser } from '../../redux/reducer/hotelReducer';
 import Loader from '../../components/Loader/Loader';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
 export default function MyBookingPage({ navigation }) {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function MyBookingPage({ navigation }) {
     }, 2000);
   };
   return (
-    <>
+    <KeyboardSafeScroll>
       <HeaderScreen navigation={navigation} />
       <ScrollView
         refreshControl={
@@ -60,6 +61,6 @@ export default function MyBookingPage({ navigation }) {
           ) : null}
         </View>
       </ScrollView>
-    </>
+    </KeyboardSafeScroll>
   );
 }

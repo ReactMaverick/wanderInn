@@ -47,6 +47,7 @@ import {getData} from '../../values/api/apiprovider';
 import {API_URL} from '../../values/api/url';
 import {colors} from '../../constants/colors';
 import SimilarHotelsScreen from '../../components/SimilarHotelScreen/SimilarHotels';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
 export default function HotelDetails({navigation, route}) {
   const [isFav, setIsFav] = useState(false);
@@ -141,7 +142,7 @@ export default function HotelDetails({navigation, route}) {
         </View>
       ) : isLoading === false && hotel ? (
         <>
-          <ScrollView style={{backgroundColor: colors.screenBg}}>
+          <KeyboardSafeScroll>
             <ImageBackground
               source={image ? {uri: image} : HOTEL1}
               resizeMode="cover"
@@ -413,7 +414,7 @@ export default function HotelDetails({navigation, route}) {
               />
             </View>
             {/* book now button  */}
-          </ScrollView>
+          </KeyboardSafeScroll>
           <Pressable onPress={bookNowClicked} style={styles.BookNowBtn}>
             <Text style={styles.BookNowBtnText}>Book Now</Text>
           </Pressable>

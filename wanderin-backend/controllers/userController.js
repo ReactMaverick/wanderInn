@@ -88,7 +88,10 @@ exports.login = async (req, res) => {
 
         user = await user.save();
 
-        return res.status(200).json(helper.response(200, true, "Logged in Successfully!", user));
+        return res.status(200).json(helper.response(200, true, "Logged in Successfully!", {
+            user,
+            google_places_api_key: process.env.GOOGLE_PLACES_API_KEY
+        }));
     } catch (error) {
         if (error.code === 'auth/user-not-found') {
             // User not found
@@ -373,3 +376,25 @@ exports.getBookingsByUser = async (req, res) => {
         res.status(500).json(helper.response(500, false, "Something went wrong!"));
     }
 };
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const { email } = req.currentUser;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json(helper.response(404, false, "User not found"));
+        }
+
+        await User.findByIdAndDelete(user._id);
+
+        // Delete the user from Firebase
+        await admin.auth().deleteUser(user.firebaseUID);
+
+        return res.status(200).json(helper.response(200, true, "User deleted successfully"));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(helper.response(500, false, "Something went wrong!"));
+    }
+}

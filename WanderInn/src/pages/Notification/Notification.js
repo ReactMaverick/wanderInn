@@ -3,6 +3,7 @@ import {Animated, Pressable, ScrollView, Text, View} from 'react-native';
 import HeaderScreen from '../../components/Header/Header';
 import Notification from '../../components/Notification/Notification';
 import {styles} from './Style';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
 export default function NotificationPage({navigation}) {
   // active color for the tab
@@ -18,7 +19,7 @@ export default function NotificationPage({navigation}) {
   }, [fadeAnim]);
 
   return (
-    <>
+    <KeyboardSafeScroll>
       <HeaderScreen navigation={navigation} />
       <View style={styles.container}>
         <ScrollView>
@@ -133,6 +134,6 @@ export default function NotificationPage({navigation}) {
           </View>
         </ScrollView>
       </View>
-    </>
+    </KeyboardSafeScroll>
   );
 }

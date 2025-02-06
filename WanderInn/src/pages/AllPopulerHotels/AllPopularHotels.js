@@ -6,6 +6,7 @@ import Loader from '../../components/Loader/Loader';
 import HeaderScreen from '../../components/Header/Header';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 import { styles } from './Style';
+import KeyboardSafe from '../../components/KeyboardSafe/KeyboardSafeScroll';
 
 export default function AllPopularHotels({ navigation }) {
   // console.log('**************Hello from AllPopularHotels**************');
@@ -26,7 +27,7 @@ export default function AllPopularHotels({ navigation }) {
       .finally(() => setLoading(false));
   }, [dispatch]);
   return (
-    <>
+    <KeyboardSafe>
       <HeaderScreen navigation={navigation} />
       {loading ? (
         <Loader />
@@ -58,6 +59,6 @@ export default function AllPopularHotels({ navigation }) {
         }}>
         <Text style={{color: 'white'}}>HHHHH</Text>
       </View> */}
-    </>
+    </KeyboardSafe>
   );
 }

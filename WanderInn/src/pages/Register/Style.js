@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
         color: colors.gray,
         textAlign: 'center',
         fontFamily: 'LatoRegular',
-        lineHeight: 20.32,
+        lineHeight: deviceHeight / 30,
     },
     formContainer: {
         width: deviceWidth * 5 / 5.6,
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
         color: colors.gray,
         fontSize: 16,
         textAlign: 'center',
-        marginHorizontal: 20,
+        marginRight: 2
     },
     orLoginWith: {
         flexDirection: 'row',
@@ -67,12 +67,14 @@ export const styles = StyleSheet.create({
     },
     loginLinkContainer: {
         marginTop: 40,
+        flexDirection: 'row',
+
     },
     loginLink: {
         color: colors.primary,
         fontSize: H6,
         fontFamily: 'LatoRegular',
-        lineHeight: 20.32,
+        lineHeight: deviceHeight / 30,
         textDecorationColor: colors.primary,
         textDecorationLine: 'underline',
     },
@@ -97,5 +99,25 @@ export const styles = StyleSheet.create({
         width: deviceHeight * 1 / 18,
         height: deviceHeight * 1 / 18,
         objectFit: 'cover',
+    },
+    privacyPolicyContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    privacyPolicyText: {
+        color: colors.gray,
+        fontSize: 16,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 30,
+    },
+    privacyPolicyLink: {
+        color: colors.primary,
+        fontSize: H6,
+        fontFamily: 'LatoRegular',
+        lineHeight: deviceHeight / 30,
+        textDecorationColor: colors.primary,
+        textDecorationLine: 'underline',
     },
 });

@@ -1,4 +1,4 @@
-package com.wanderinn
+package com.websadroit.wanderinn
 
 import android.app.Application
 import com.facebook.react.PackageList

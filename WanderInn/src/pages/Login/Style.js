@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     color: colors.gray,
     textAlign: 'center',
     fontFamily: 'LatoRegular',
-    lineHeight: 20.32,
+    lineHeight: deviceHeight / 30,
   },
   formContainer: {
     width: (deviceWidth * 5) / 5.6,
@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: p,
     fontFamily: 'LatoRegular',
-    lineHeight: 20.32,
+    lineHeight: deviceHeight / 30,
     textDecorationColor: colors.primary,
     textDecorationLine: 'underline',
   },
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     color: colors.placeholderColor,
     fontSize: p,
     textAlign: 'center',
-    marginHorizontal: 20,
+    marginRight: 2,
   },
   orLoginWith: {
     flexDirection: 'row',
@@ -91,12 +91,14 @@ export const styles = StyleSheet.create({
   },
   loginLinkContainer: {
     marginTop: 40,
+    // backgroundColor: 'red',
+    flexDirection: 'row',
   },
   loginLink: {
     color: colors.primary,
     fontSize: H6,
     fontFamily: 'LatoRegular',
-    lineHeight: 20.32,
+    lineHeight: deviceHeight / 30,
     textDecorationColor: colors.primary,
     textDecorationLine: 'underline',
   },

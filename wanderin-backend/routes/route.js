@@ -17,6 +17,8 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.post('/generateIdToken', userController.generateIdToken);
 router.post('/forgotPassword', userController.forgotPassword);
+// Delete user
+router.delete('/deleteUser', authMiddleware.isAuth, userController.deleteUser);
 
 // User APIs
 router.get('/getUser', authMiddleware.isAuth, userController.getUser);

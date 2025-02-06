@@ -9,22 +9,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './Style';
-import {colors} from '../../constants/colors';
+import { styles } from './Style';
+import { colors } from '../../constants/colors';
 // import {Link, useRoute} from '@react-navigation/native';
-import {auth} from '../../../firebaseConfig';
-import {signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth';
-import {commonStyles} from '../../constants/styles';
-import {useState} from 'react';
-import {isValidEmail} from '../../constants/validation';
-import {useDispatch} from 'react-redux';
+import { auth } from '../../../firebaseConfig';
+import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { commonStyles } from '../../constants/styles';
+import { useState } from 'react';
+import { isValidEmail } from '../../constants/validation';
+import { useDispatch } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
-import {platform, showToast} from '../../constants/constants';
-import {login} from '../../redux/reducer/authReducer';
-import {LOGIN_URL} from '../../values/api/url';
-import {postData} from '../../values/api/apiprovider';
+import { platform, showToast } from '../../constants/constants';
+import { login } from '../../redux/reducer/authReducer';
+import { LOGIN_URL } from '../../values/api/url';
+import { postData } from '../../values/api/apiprovider';
+import KeyboardSafeScroll from '../../components/KeyboardSafeScroll/KeyboardSafeScroll';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -166,79 +167,72 @@ const Login = ({navigation}) => {
   return (
     <>
       <StatusBar style="auto" />
-      <KeyboardAvoidingView
-        behavior={platform === 'ios' ? 'padding' : 'height'}
-        style={commonStyles.keyboardAvoidingView}>
-        <SafeAreaView>
-          <ScrollView
-            style={commonStyles.bg}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled">
-            <View style={styles.container}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.headerText}>Log In</Text>
-                <Text style={styles.headerSubText}>
-                  Hi! Welcome Back you’ve been missed
+      <KeyboardSafeScroll>
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.headerText}>Log In</Text>
+            <Text style={styles.headerSubText}>
+              Hi! Welcome Back you’ve been missed
+            </Text>
+          </View>
+          <View style={styles.InputContainer}>
+            <View style={styles.formContainer}>
+              <CustomInput
+                label="Email"
+                placeholder="Enter your email"
+                keyboardType={'email-address'}
+                value={formData.email}
+                rightIcon={isEmailValid ? 'checkmark-circle' : false}
+                iconColor={colors.checkIconColor}
+                onChangeText={text => handleTextChange(text, 'email')}
+                required={true}
+                error={errors.email ? true : false}
+                errorText={errors.email}
+              />
+              <CustomInput
+                label="Password"
+                placeholder="Enter your password"
+                value={formData.password}
+                secureTextEntry={!isPasswordVisible}
+                rightIcon={
+                  isPasswordVisible ? 'eye-outline' : 'eye-off-outline'
+                }
+                iconColor={colors.gray}
+                onIconPress={() => {
+                  setIsPasswordVisible(!isPasswordVisible);
+                }}
+                onChangeText={text => handleTextChange(text, 'password')}
+                required={true}
+                error={errors.password ? true : false}
+                errorText={errors.password}
+              />
+
+              <TouchableOpacity
+                style={styles.forgotPassword}
+                onPress={() => navigation.navigate('ForgotPassword')}>
+                <Text style={styles.forgotPasswordText}>
+                  Forgot Password?
                 </Text>
-              </View>
-              <View style={styles.InputContainer}>
-                <View style={styles.formContainer}>
-                  <CustomInput
-                    label="Email"
-                    placeholder="Enter your email"
-                    keyboardType={'email-address'}
-                    value={formData.email}
-                    rightIcon={isEmailValid ? 'checkmark-circle' : false}
-                    iconColor={colors.checkIconColor}
-                    onChangeText={text => handleTextChange(text, 'email')}
-                    required={true}
-                    error={errors.email ? true : false}
-                    errorText={errors.email}
-                  />
-                  <CustomInput
-                    label="Password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    secureTextEntry={!isPasswordVisible}
-                    rightIcon={
-                      isPasswordVisible ? 'eye-outline' : 'eye-off-outline'
-                    }
-                    iconColor={colors.gray}
-                    onIconPress={() => {
-                      setIsPasswordVisible(!isPasswordVisible);
-                    }}
-                    onChangeText={text => handleTextChange(text, 'password')}
-                    required={true}
-                    error={errors.password ? true : false}
-                    errorText={errors.password}
-                  />
+              </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.forgotPassword}
-                    onPress={() => navigation.navigate('ForgotPassword')}>
-                    <Text style={styles.forgotPasswordText}>
-                      Forgot Password?
-                    </Text>
-                  </TouchableOpacity>
+              <TouchableOpacity
+                style={[commonStyles.btn, { marginTop: 27 }]}
+                onPress={handleSignIn}>
+                <Text style={commonStyles.btnText}>Log in</Text>
+              </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={[commonStyles.btn, {marginTop: 27}]}
-                    onPress={handleSignIn}>
-                    <Text style={commonStyles.btnText}>Log in</Text>
-                  </TouchableOpacity>
+              {isLoggedIn && !isUserVerified && (
+                <TouchableOpacity
+                  style={[commonStyles.btn, { marginTop: 27 }]}
+                  onPress={handleSendVerificationEmail}>
+                  <Text style={commonStyles.btnText}>
+                    Send Verification Email
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
-                  {isLoggedIn && !isUserVerified && (
-                    <TouchableOpacity
-                      style={[commonStyles.btn, {marginTop: 27}]}
-                      onPress={handleSendVerificationEmail}>
-                      <Text style={commonStyles.btnText}>
-                        Send Verification Email
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-
-                {/* 
+            {/* 
                             <View style={styles.orLoginWith}>
                                 <View style={styles.orLoginWithLine} />
                                 <Text style={styles.orLoginWithText}>Or login with</Text>
@@ -258,21 +252,22 @@ const Login = ({navigation}) => {
                                 </TouchableOpacity>
                             </View> 
                   */}
-              </View>
+          </View>
 
-              <View style={styles.loginLinkContainer}>
-                <Text style={styles.orLoginWithText}>
-                  Dont have an account?{' '}
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.loginLink}>Sign up</Text>
-                  </TouchableOpacity>
-                </Text>
-              </View>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+          <View style={styles.loginLinkContainer}>
+            <Text style={styles.orLoginWithText}>
+              Don't have an account?{' '}
+
+            </Text>
+            <Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.loginLink}>Sign up</Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+        </View>
+      </KeyboardSafeScroll>
     </>
   );
 };

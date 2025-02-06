@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "clean-gradle": "cd android && gradlew clean && cd .."
+    "clean-gradle": "cd android && gradlew clean && cd ..",
+    "build-android": "react-native build-android --mode=release",
+    "android-release": "react-native run-android --mode=release"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.24.0",
