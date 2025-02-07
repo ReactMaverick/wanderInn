@@ -92,6 +92,7 @@ export const styles = StyleSheet.create({
   loginLinkContainer: {
     marginTop: 20,
     flexDirection: 'row',
+    alignItems: 'center',
     // backgroundColor: 'red'
   },
   loginLink: {

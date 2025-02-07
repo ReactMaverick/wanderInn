@@ -93,6 +93,7 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     // backgroundColor: 'red',
     flexDirection: 'row',
+    alignItems: 'center'
   },
   loginLink: {
     color: colors.primary,

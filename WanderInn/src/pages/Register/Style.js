@@ -68,7 +68,7 @@ export const styles = StyleSheet.create({
     loginLinkContainer: {
         marginTop: 40,
         flexDirection: 'row',
-
+alignItems: 'center'
     },
     loginLink: {
         color: colors.primary,
