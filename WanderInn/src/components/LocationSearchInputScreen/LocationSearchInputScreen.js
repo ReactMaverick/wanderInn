@@ -1,16 +1,18 @@
-import {useState} from 'react';
-import {Button, Modal, Text, TouchableOpacity, View} from 'react-native';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { useState } from 'react';
+import { Button, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import {styles} from './Style';
+import { styles } from './Style';
 import DateTimePicker from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
-import {commonStyles} from '../../constants/styles';
+import { commonStyles } from '../../constants/styles';
 import { useSelector } from 'react-redux';
 import { selectGooglePlacesApiKey } from '../../redux/reducer/authReducer';
+import { colors } from '../../constants/colors';
+import CustomPlacesAutocomplete from '../CustomPlacesAutocomplete';
 
-export default function LocationSearchInputScreen({navigation}) {
+export default function LocationSearchInputScreen({ navigation }) {
 
   const googlePlacesAPIKey = useSelector(selectGooglePlacesApiKey);
 
@@ -43,7 +45,21 @@ export default function LocationSearchInputScreen({navigation}) {
     <View style={styles.LocationBox}>
       <View style={styles.CustomInputBox}>
         <Feather name="search" style={styles.inputIcon} />
-        <GooglePlacesAutocomplete
+        <CustomPlacesAutocomplete
+          apiKey={googlePlacesAPIKey}
+          placeholder="Enter your location"
+          sendQuery={text => setSearch(text)}
+          onPlaceSelected={place => {
+            // console.log('Place ==> ', place);
+            setSearch(place.description);
+            setFormData({
+              lat: place.geometry.location.lat,
+              lng: place.geometry.location.lng,
+              location: place.description,
+            });
+          }} />
+        {/* <GooglePlacesAutocomplete
+          onFail={error => console.log(error)}
           placeholder="Enter your location"
           fetchDetails={true}
           textInputProps={{
@@ -72,7 +88,8 @@ export default function LocationSearchInputScreen({navigation}) {
             }
           }}
           enablePoweredByContainer={false}
-        />
+          predefinedPlaces={[]}
+        /> */}
       </View>
       <View style={styles.CustomInputRow}>
         <TouchableOpacity
@@ -101,7 +118,7 @@ export default function LocationSearchInputScreen({navigation}) {
         onPress={() => {
           navigation.navigate('AllPopularHotels');
         }}
-        style={[commonStyles.CustomBtn, {marginTop: 20}]}>
+        style={[commonStyles.CustomBtn, { marginTop: 20 }]}>
         <Text style={commonStyles.CustomBtnText}>Search Hotels</Text>
       </TouchableOpacity>
       <Modal

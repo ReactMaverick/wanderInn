@@ -9,29 +9,30 @@ import {
 } from 'react-native';
 import HeaderScreen from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {
   getFavoriteHotels,
   getFiveNearbyHotels,
   getFivePopularHotels,
   setLocation,
 } from '../../redux/reducer/hotelReducer';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import Geolocation from '@react-native-community/geolocation';
-import {styles} from './Style';
-import {commonStyles} from '../../constants/styles';
+import { styles } from './Style';
+import { commonStyles } from '../../constants/styles';
 import LocationSearchInputScreen from '../../components/LocationSearchInputScreen/LocationSearchInputScreen';
 import NearByHotels from '../../components/NearByHotels/NearByHotels';
 import PopularHotels from '../../components/PopularHotels/PopularHotels';
 import BannerSliderScreen from '../../components/BannerSlider/BannerSlider';
-import {requestLocationPermission} from '../../common/common';
+import { requestLocationPermission } from '../../common/common';
 // import GetLocation from 'react-native-get-location';
 import Geolocation from '@react-native-community/geolocation';
 import KeyboardSafe from '../../components/KeyboardSafe/KeyboardSafeScroll';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-export default function HomePage({navigation}) {
+export default function HomePage({ navigation }) {
   const dispatch = useDispatch();
-  const ItemSeparator = () => <View style={{width: 20}} />;
+  const ItemSeparator = () => <View style={{ width: 20 }} />;
   const hotels = useSelector(state => state.hotel.hotels);
   const [location, setLocation] = useState(null);
   // const location = useSelector(state => state.hotel.location);
@@ -125,15 +126,15 @@ export default function HomePage({navigation}) {
         </View>
         {/* nearby hotels part */}
         {fiveNearbyHotels.length > 0 &&
-        nearbyHotelLoading !== true &&
-        !errorMsg ? (
+          nearbyHotelLoading !== true &&
+          !errorMsg ? (
           <FlatList
             keyExtractor={(item, index) => item._id.toString()}
             ItemSeparatorComponent={ItemSeparator}
             horizontal={true}
             data={fiveNearbyHotels}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <NearByHotels
                 hotel={item}
                 index={index}
