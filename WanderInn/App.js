@@ -1,13 +1,14 @@
 import './gesture-handler';
-import {LogBox} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Provider} from 'react-redux';
+import { LogBox } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import CustomSplashScreen from './src/components/Splash/Splash';
-import {store, persistor} from './src/redux/store';
-import {PersistGate} from 'redux-persist/integration/react';
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import Router from './src/routes/Router';
 import 'react-native-get-random-values';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
@@ -27,8 +28,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Router />
-        <Toast />
+        <KeyboardProvider>
+          <Router />
+          <Toast />
+        </KeyboardProvider>
       </PersistGate>
     </Provider>
   );

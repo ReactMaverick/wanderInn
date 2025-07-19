@@ -1,8 +1,8 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {selectIsLoggedIn} from '../redux/reducer/authReducer';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../redux/reducer/authReducer';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from '../pages/Login/Login';
 import RegisterPage from '../pages/Register/Register';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
@@ -18,10 +18,10 @@ import NotificationPage from '../pages/Notification/Notification';
 import HotelDetails from '../pages/HotelDetails/HotelDetails';
 import ReviewsPage from '../pages/Reviews/Reviews';
 import VerifyOTPPage from '../pages/VerifyOTP/VerifyOTP';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import GetLocation from 'react-native-get-location';
-import {requestLocationPermission} from '../common/common';
-import {setLocation} from '../redux/reducer/hotelReducer';
+import { requestLocationPermission } from '../common/common';
+import { setLocation } from '../redux/reducer/hotelReducer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,13 +29,13 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="Home"
         component={HomePage}
         options={{
           title: 'Home',
-          tabBarIcon: ({color, focused}) => (
+          tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'home' : 'home-outline'}
               size={20}
@@ -49,7 +49,7 @@ const TabNavigator = () => {
         component={FavouritePage}
         options={{
           title: 'Favourites',
-          tabBarIcon: ({color, focused}) => (
+          tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'heart' : 'heart-outline'}
               size={20}
@@ -63,7 +63,7 @@ const TabNavigator = () => {
         component={MyBookingPage}
         options={{
           title: 'My Booking',
-          tabBarIcon: ({color, focused}) => (
+          tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'briefcase-sharp' : 'briefcase-outline'}
               size={20}
@@ -77,7 +77,7 @@ const TabNavigator = () => {
         component={ProfilePage}
         options={{
           title: 'Profile',
-          tabBarIcon: ({color, focused}) => (
+          tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'person-circle' : 'person-circle-outline'}
               size={20}
@@ -96,27 +96,27 @@ const LoginStack = () => {
       <Stack.Screen
         name="LandingPage"
         component={LandingPage}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Register"
         component={RegisterPage}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="VerifyOTP"
         component={VerifyOTPPage}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
@@ -146,32 +146,32 @@ const HomeStack = () => {
       <Stack.Screen
         name="HomeTab"
         component={TabNavigator}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AllNearByHotels"
         component={AllNearbyHotels}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AllPopularHotels"
         component={AllPopularHotels}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NotificationPage"
         component={NotificationPage}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="HotelDetails"
         component={HotelDetails}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ReviewsPage"
         component={ReviewsPage}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
@@ -183,13 +183,13 @@ const Router = () => {
   if (!isLoggedIn) {
     return (
       <NavigationContainer>
-        <LoginStack />
+          <LoginStack />
       </NavigationContainer>
     );
   } else {
     return (
       <NavigationContainer>
-        <HomeStack />
+          <HomeStack />
       </NavigationContainer>
     );
   }

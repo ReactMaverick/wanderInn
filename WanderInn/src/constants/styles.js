@@ -14,6 +14,7 @@ export const commonStyles = StyleSheet.create({
     paddingVertical: (deviceHeight * 1) / 60,
     borderRadius: 10,
     width: (deviceWidth * 90) / 100,
+    marginBottom: (deviceHeight * 2) / 100,
   },
   btnText: {
     textAlign: 'center',

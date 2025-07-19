@@ -1,6 +1,7 @@
-import { KeyboardAvoidingView, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { platform } from "../../constants/constants";
 import { commonStyles } from "../../constants/styles";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 
 export default function KeyboardSafe({ children }) {
   return (

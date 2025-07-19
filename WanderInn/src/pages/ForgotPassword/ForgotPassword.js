@@ -1,6 +1,5 @@
 import {
   Image,
-  KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
   StatusBar,
