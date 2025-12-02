@@ -1,4 +1,4 @@
-const BASE_URL = 'http://194.163.131.163:4006/';
+const BASE_URL = 'https://reactmavrick.online/wanderinn-backend/';
 
 export const API_URL = BASE_URL + 'wanderInn/api/v1/'; //Server IP
 

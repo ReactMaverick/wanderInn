@@ -81,7 +81,7 @@ const Login = ({ navigation }) => {
         .then(async userCredential => {
           // Signed in
           const user = userCredential.user;
-          // console.log('User from login ==> ', user);
+          console.log('User from login ==> ', user);
           // console.log('User ==> ', user);
           setIsLoggedIn(true);
 
@@ -96,7 +96,7 @@ const Login = ({ navigation }) => {
             try {
               const response = await postData(LOGIN_URL, userData);
 
-              // console.log('Login Response ==> ', response);
+              console.log('Login Response ==> ', response);
 
               if (response.isSuccess) {
                 showToast('success', response.message);
@@ -112,6 +112,8 @@ const Login = ({ navigation }) => {
             }
           } else {
             showToast('error', 'Please verify your email');
+            console.error("Having error to varify user:  ", user);
+            
             setIsUserVerified(false);
           }
         })
@@ -119,7 +121,7 @@ const Login = ({ navigation }) => {
           const errorCode = error.code;
           const errorMessage = error.message;
 
-          // console.log('Error ==> ', errorCode, errorMessage);
+          console.error('Error ==> ', error, errorCode, errorMessage);
           showToast('error', errorMessage);
         })
         .finally(() => {
