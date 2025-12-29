@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {colors} from './colors';
 import {deviceHeight, deviceWidth} from './constants';
-import {H2, H3, H5, p} from './fontConstants';
+import {H2, H3, H5, H6, p} from './fontConstants';
 
 export const commonStyles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ export const commonStyles = StyleSheet.create({
   btnText: {
     textAlign: 'center',
     color: colors.white,
-    fontSize: p,
+    fontSize: H5,
     fontFamily: 'LatoBold',
     lineHeight: 32,
   },

@@ -55,29 +55,33 @@ const Login = ({ navigation }) => {
     setErrors(updatedErrors);
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = ({ email, password }) => {
     const updatedErrors = {};
+    let userFormData = formData;
+    if (email && password) { // If user is logging as a guest
+      userFormData = { email, password };
+    }
 
-    if (!formData.email) {
+    if (!userFormData.email) {
       updatedErrors.email = 'Email is required';
       setErrors(updatedErrors);
-    } else if (!isEmailValid) {
+    } else if (!isEmailValid && (!email && !password)) {
       updatedErrors.email = 'Email is invalid';
       setErrors(updatedErrors);
-    } else if (!formData.password) {
+    } else if (!userFormData.password) {
       updatedErrors.password = 'Password is required';
       setErrors(updatedErrors);
-    } else if (formData.password.length < 8) {
+    } else if (userFormData.password.length < 8) {
       updatedErrors.password = 'Password must be at least 8 characters';
       setErrors(updatedErrors);
     } else if (Object.keys(updatedErrors).length === 0) {
-      // console.log('Form Data ==> ', formData);
+      // console.log('Form Data ==> ', userFormData);
 
       // console.log('Auth ==> ', auth);
 
       setIsLoading(true);
 
-      signInWithEmailAndPassword(auth, formData.email, formData.password)
+      signInWithEmailAndPassword(auth, userFormData.email, userFormData.password)
         .then(async userCredential => {
           // Signed in
           const user = userCredential.user;
@@ -113,7 +117,7 @@ const Login = ({ navigation }) => {
           } else {
             showToast('error', 'Please verify your email');
             console.error("Having error to varify user:  ", user);
-            
+
             setIsUserVerified(false);
           }
         })
@@ -222,6 +226,13 @@ const Login = ({ navigation }) => {
                 <Text style={commonStyles.btnText}>Log in</Text>
               </TouchableOpacity>
 
+              {/* Horizontal Line */}
+              <View style={styles.orLoginWith}>
+                <View style={styles.orLoginWithLine} />
+                <Text style={styles.orLoginWithText}>Or</Text>
+                <View style={styles.orLoginWithLine} />
+              </View>
+
               {isLoggedIn && !isUserVerified && (
                 <TouchableOpacity
                   style={[commonStyles.btn, { marginTop: 27 }]}
@@ -231,6 +242,16 @@ const Login = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               )}
+
+              {/* Guest login */}
+              <TouchableOpacity
+                style={[commonStyles.btn, { marginVertical: 27, backgroundColor: colors.gray }]}
+                onPress={() => {
+                  setIsEmailValid(true);
+                  handleSignIn({ email: "barun.webs@gmail.com", password: "12345678" });
+                }}>
+                <Text style={commonStyles.btnText}>Guest Login</Text>
+              </TouchableOpacity>
             </View>
 
             {/* 

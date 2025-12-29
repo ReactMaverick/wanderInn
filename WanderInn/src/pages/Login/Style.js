@@ -1,7 +1,7 @@
-import {colors} from '../../constants/colors';
-import {deviceHeight, deviceWidth} from '../../constants/constants';
-import {H1BIG, H3, H5, H6, p} from '../../constants/fontConstants';
-import {StyleSheet} from 'react-native';
+import { colors } from '../../constants/colors';
+import { deviceHeight, deviceWidth } from '../../constants/constants';
+import { H1BIG, H3, H5, H6, p } from '../../constants/fontConstants';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -74,10 +74,10 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   orLoginWithText: {
-    color: colors.placeholderColor,
+    color: colors.headlineColor,
     fontSize: p,
     textAlign: 'center',
-    marginRight: 2,
+    marginHorizontal: 5,
   },
   orLoginWith: {
     flexDirection: 'row',
@@ -85,12 +85,12 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   orLoginWithLine: {
+    flex: 1,
     height: 1,
-    width: (deviceWidth * 20) / 80,
-    backgroundColor: colors.placeholderColor,
+    backgroundColor: colors.headlineColor,
   },
   loginLinkContainer: {
-    marginTop: 40,
+    // marginTop: 40,
     // backgroundColor: 'red',
     flexDirection: 'row',
     alignItems: 'center'

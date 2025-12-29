@@ -10,7 +10,7 @@
     "test": "jest",
     "clean-gradle": "cd android && gradlew clean && cd ..",
     "build-android": "react-native build-android --mode=release",
-    "android-release": "react-native run-android --mode=release",
+    "test-release-build": "react-native run-android --mode=release",
     "fresh-install": "rm -rf node_modules && npm install && npm run clean-gradle && npm start -- --reset-cache"
   },
   "dependencies": {
